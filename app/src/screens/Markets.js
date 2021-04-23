@@ -27,21 +27,27 @@ const ClickedCategoryText = styled.Text`
   font-size: 22px;
   color: ${({ theme }) => theme.marketClickFont};
 `;
-//item
 
+//item
 const ItemContainer = styled.TouchableOpacity`
   flex: 1;
   border-top-width: 1px;
   flex-direction: row;
-  padding: 10px;
+  padding: 25px 10px 3px 10px;
   border-color: ${({ theme }) => theme.marketBorder};
 `;
-
+// 묶어주는 Container
 const ItemRowContainer = styled.View`
   flex: 1;
   padding-bottom: 10px;
   flex-direction: row;
   width: 100%;
+`;
+
+const ImageContanier = styled.Image`
+  width: 120px;
+  height: 140px;
+  border-radius: 10px;
 `;
 
 const TitleText = styled.Text`
@@ -58,24 +64,16 @@ const ContentText = styled.Text`
   color: ${({ theme }) => theme.marketFont};
 `;
 
-const ImageContanier = styled.Image`
-  width: 100px;
-  height: 140px;
-  border-radius: 10px;
-`;
-
 const StatusText = styled.Text`
   padding-top: 5px;
-  margin-left: 230px;
+  margin-left: auto;
   font-size: 16px;
-  position: absolute;
 `;
 
 const DateText = styled.Text`
   padding-top: 5px;
-  margin-left: 200px;
+  margin-left: auto;
   font-size: 13px;
-  position: absolute;
 `;
 
 const Markets = ({ navigation }) => {
