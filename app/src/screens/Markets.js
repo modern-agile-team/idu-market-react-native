@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { View, ScrollView, FlatList } from "react-native";
 import { images } from "../constants";
 import { MaterialIcons } from "@expo/vector-icons";
+import FAB from "react-native-fab";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -247,6 +248,10 @@ const Markets = ({ navigation }) => {
       </View>
     );
   }
+  const _handleWritePress = (params) => {
+    navigation.navigate("PostWrite", params);
+  };
+
   return (
     <Container>
       <ScrollView style={{ marginTop: 12 }}>
@@ -255,6 +260,13 @@ const Markets = ({ navigation }) => {
           <View>{renderCategoryData()}</View>
         </View>
       </ScrollView>
+      <FAB
+        buttonColor="#e84118"
+        iconTextColor="#ffffff"
+        // onClickAction={_handleWritePress}
+        visible={true}
+        iconTextComponent={<MaterialIcons name="edit" />}
+      />
     </Container>
   );
 };
