@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Profile, Main, NoticeBoard, Boards } from "../screens";
+import { Profile, Main, FreeBoard } from "../screens";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { ThemeContext } from "styled-components";
 import { Alert } from "react-native";
@@ -65,12 +65,12 @@ const MainTab = ({}) => {
       />
       <Tab.Screen
         name="공지"
-        component={NoticeBoard}
+        component={FreeBoard}
         options={{
           tabBarIcon: ({ focused }) =>
-            TabBarIconAntDesign({
+            TabBarIconMaterialIcons({
               focused,
-              name: "notification",
+              name: 'forum',
             }),
         }}
       />

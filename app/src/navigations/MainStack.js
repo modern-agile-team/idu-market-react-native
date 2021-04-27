@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ThemeContext, DrawerButton } from "styled-components/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Main, Boards, Markets, NoticeBoard } from "../screens";
+import { Main, Markets, NoticeBoard , ViewDetail, PostWrite } from "../screens";
 import { MaterialIcons } from "@expo/vector-icons";
 import MainTab from "./MainTab";
 
@@ -47,8 +47,10 @@ function MainStack() {
           headerTitleAlign: "left",
         }}
       />
-      <Stack.Screen name="Boards" component={Boards} />
+      <Stack.Screen name="ViewDetail" component={ViewDetail}/>
+      <Stack.Screen name="PostWrite" component={PostWrite} />
       <Stack.Screen name="Markets" component={Markets} />
+      <Stack.Screen name="NoticeBoard" component={NoticeBoard} />
     </Stack.Navigator>
   );
 }
