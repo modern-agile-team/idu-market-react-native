@@ -36,11 +36,8 @@ const Item = styled.Pressable`
 
 const ImageContainer = styled.View`
   border-radius: 12px;
-  shadowColor: #000000;
-  shadowOpacity: 0.5;
-  shadowOffset: { width: 0, height: -2 };
-  shadowRadius: 3;
-  elevation: 3;
+  border-width: 1px;
+  border-color: gray;
 `;
 
 const StyledImage = styled.Image.attrs((props) => ({
@@ -53,9 +50,9 @@ const StyledImage = styled.Image.attrs((props) => ({
 `;
 
 const ItemTitle = styled.Text.attrs(() => ({
-  numberOfLines: 2,
+  numberOfLines: 1,
 }))`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   margin: 3px 0 0 3px;
 `;
@@ -94,14 +91,14 @@ const Main = ({ navigation }) => {
               <ImageContainer>
                 <StyledImage source={images.avengers} />
               </ImageContainer>
-              <ItemTitle>정통과 2학년 1학기 교재 저렴하게 팝니다.</ItemTitle>
+              <ItemTitle>이것이 코딩테스트다.</ItemTitle>
               <ItemContent>
                 <MaterialIcons name="person-outline" size={16} color="black" />
-                <ItemContentText>202016709</ItemContentText>
+                <ItemContentText>201014709</ItemContentText>
               </ItemContent>
               <ItemContent>
                 <FontAwesome5 name="comment-dots" size={16} color="black" />
-                <ItemContentText>31</ItemContentText>
+                <ItemContentText>21</ItemContentText>
               </ItemContent>
             </Item>
 
@@ -112,11 +109,11 @@ const Main = ({ navigation }) => {
               <ItemTitle>정통과 2학년 1학기 교재 저렴하게 팝니다.</ItemTitle>
               <ItemContent>
                 <MaterialIcons name="person-outline" size={16} color="black" />
-                <ItemContentText>202016709</ItemContentText>
+                <ItemContentText>201516063</ItemContentText>
               </ItemContent>
               <ItemContent>
                 <FontAwesome5 name="comment-dots" size={16} color="black" />
-                <ItemContentText>31</ItemContentText>
+                <ItemContentText>16</ItemContentText>
               </ItemContent>
             </Item>
 
@@ -124,7 +121,7 @@ const Main = ({ navigation }) => {
               <ImageContainer>
                 <StyledImage source={images.her} />
               </ImageContainer>
-              <ItemTitle>정통과 2학년 1학기 교재 저렴하게 팝니다.</ItemTitle>
+              <ItemTitle>아이폰 7팝니다.</ItemTitle>
               <ItemContent>
                 <MaterialIcons name="person-outline" size={16} color="black" />
                 <ItemContentText>202016709</ItemContentText>
@@ -151,7 +148,7 @@ const Main = ({ navigation }) => {
           <ItemList>
             <Item hitSlop={10} onPress={() => navigation.navigate("Markets")}>
               <ImageContainer>
-                <StyledImage source={images.avengers} />
+                <StyledImage source={images.her} />
               </ImageContainer>
               <ItemTitle>정통과 2학년 1학기 교재 저렴하게 팝니다.</ItemTitle>
               <ItemContent>
@@ -210,7 +207,7 @@ const Main = ({ navigation }) => {
           <ItemList>
             <Item hitSlop={10} onPress={() => navigation.navigate("Markets")}>
               <ImageContainer>
-                <StyledImage source={images.avengers} />
+                <StyledImage source={images.hardwork} />
               </ImageContainer>
               <ItemTitle>정통과 2학년 1학기 교재 저렴하게 팝니다.</ItemTitle>
               <ItemContent>
@@ -225,7 +222,7 @@ const Main = ({ navigation }) => {
 
             <Item>
               <ImageContainer>
-                <StyledImage source={images.hardwork} />
+                <StyledImage source={images.avengers} />
               </ImageContainer>
               <ItemTitle>정통과 2학년 1학기 교재 저렴하게 팝니다.</ItemTitle>
               <ItemContent>
