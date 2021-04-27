@@ -1,7 +1,8 @@
-import * as firebase from 'firebase';
-import config from '../../firebase.json';
+import * as firebase from "firebase";
+import config from "../../firebase.json";
 
-const app = firebase.initializeApp(config);
+if (!firebase.apps.length) firebase.initializeApp(config);
+const app = firebase.app();
 
 const Auth = app.auth();
 
@@ -17,7 +18,7 @@ export const signup = async ({ student, password, name, email, nickname }) => {
 
 export const logout = async () => {
   return await Auth.signOut();
-}
+};
 
 export const getCurrentUser = () => {
   const { uid, displayName, email, photoURL } = Auth.currentUser;
