@@ -69,7 +69,8 @@ function Login({ navigation }) {
     setPassword(removeWhitespace(password));
   };
 
-  const _handleSuccessLogin = () => {
+  const _handleSuccessLogin = (json) => {
+    AsyncStorage.setItem("jwt", json.jwt);
     Alert.alert("로그인 성공");
   };
 
@@ -91,7 +92,7 @@ function Login({ navigation }) {
 
       let response = await fetch("http://13.125.55.135:9800/api/jwt", config);
       let json = await response.json();
-      json.success ? _handleSuccessLogin() : Alert.alert(json.msg);
+      json.success ? _handleSuccessLogin(json) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
     } finally {
