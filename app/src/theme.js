@@ -5,6 +5,7 @@ const colors = {
   black: "#000000",
   grey_0: "#d5d5d5",
   grey_1: "#a6a6a6",
+  grey_2: '#ecf0f1',
   red: "#e84118",
   blue: "#3679fe",
   idu: "#c4a48c",
@@ -38,8 +39,13 @@ export const theme = {
   tabInactiveColor: colors.grey_1,
   buttonLogout: colors.idu,
   inputDisabledBackground: colors.grey_0,
-  actionsbgc: colors.idu2,
-  actionscircle: colors.idu3,
+  actionBackgroundColor: colors.idu1,
+  actionscircle: colors.idu9,
+  listBorder: colors.grey_0,
+  listTime: colors.grey_1,
+  listIcon: colors.black,
+  boardsButton: colors.idu4,
+  commentInput: colors.grey_2,
 
   // 헤더
   headerBottomColor: colors.idu8,
