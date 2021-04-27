@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import styled from "styled-components/native";
 import { Button, Input, Btn } from "../components";
-import { checkStudent, removeWhitespace, validateEmail } from "../utils/common";
+import { checkStudent, removeWhitespace } from "../utils/common";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Alert, Text } from "react-native";
-import { login } from "../utils/firebase";
 import { ProgressContext, UserContext } from "../contexts";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -69,6 +69,10 @@ function Login({ navigation }) {
     setPassword(removeWhitespace(password));
   };
 
+  const _handleSuccessLogin = () => {
+    Alert.alert("로그인 성공");
+  };
+
   const _handleLoginButtonPress = async () => {
     try {
       spinner.start();
@@ -87,9 +91,7 @@ function Login({ navigation }) {
 
       let response = await fetch("http://13.125.55.135:9800/api/jwt", config);
       let json = await response.json();
-      json.success
-        ? (dispatch(json), Alert.alert("로그인 성공"))
-        : Alert.alert(json.msg);
+      json.success ? _handleSuccessLogin() : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
     } finally {
