@@ -5,7 +5,7 @@ import { checkStudent, removeWhitespace } from "../utils/common";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Alert, Text } from "react-native";
 import { ProgressContext, UserContext } from "../contexts";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getItemFromAsync, setItemToAsync } from "../utils/AsyncStorage";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -70,7 +70,9 @@ function Login({ navigation }) {
   };
 
   const _handleSuccessLogin = (json) => {
-    AsyncStorage.setItem("jwt", json.jwt);
+    setItemToAsync("user", json.jwt);
+    const user = getItemFromAsync("user");
+    dispatch({ user });
     Alert.alert("로그인 성공");
   };
 
