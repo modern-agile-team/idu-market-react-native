@@ -16,7 +16,7 @@ const Navigation = () => {
   //   ) :
   return (
     <NavigationContainer>
-      <AuthStack />
+      <MainStack />
       {inProgress && <Spinner />}
     </NavigationContainer>
     //inporgress 가 초깃값이 false이므로 spinner컴포넌트가 초기에 나타나지 않는다.
