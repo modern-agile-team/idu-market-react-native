@@ -10,6 +10,13 @@ const colors = {
   idu: "#c4a48c",
   idu2: "#eee5de",
   idu3: "#c97f4e",
+  idu4: "#d3a887",
+  idu5: "#cc9A73",
+  idu6: "#c79463",
+  idu7: "#cc8e5e",
+  idu8: "#bb8053",
+  idu9: "#c97f4e",
+  idu10: "#8a614b",
 };
 
 export const theme = {
@@ -33,6 +40,11 @@ export const theme = {
   inputDisabledBackground: colors.grey_0,
   actionsbgc: colors.idu2,
   actionscircle: colors.idu3,
+
+  // 헤더
+  headerBottomColor: colors.idu8,
+  headerTintColor: colors.black,
+  headerIconColor: colors.idu3,
 
   //마켓
   marketBackground: colors.white,
