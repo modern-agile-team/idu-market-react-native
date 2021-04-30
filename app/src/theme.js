@@ -24,6 +24,7 @@ export const theme = {
   background: colors.white,
   text: colors.black,
   errorText: colors.red,
+  focusText: colors.idu,
   imageBackground: colors.idu,
   label: colors.grey_1,
   inputPlaceholder: colors.grey_1,

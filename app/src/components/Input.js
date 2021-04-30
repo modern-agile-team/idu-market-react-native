@@ -1,5 +1,5 @@
-import React, { useState, forwardRef } from 'react';
-import styled from 'styled-components/native';
+import React, { useState, forwardRef } from "react";
+import styled from "styled-components/native";
 
 const Container = styled.View`
   flex-direction: column;
@@ -7,10 +7,12 @@ const Container = styled.View`
   margin: 10px 0;
 `;
 const Label = styled.Text`
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 6px;
-  color: ${({ theme, isFocused }) => (isFocused ? theme.text : theme.label)};
+  margin-left: 3px;
+  color: ${({ theme, isFocused }) =>
+    isFocused ? theme.focusText : theme.label};
 `;
 const StyledTextInput = styled.TextInput.attrs(({ theme }) => ({
   placeholderTextColor: theme.inputPlaceholder,
@@ -18,7 +20,7 @@ const StyledTextInput = styled.TextInput.attrs(({ theme }) => ({
   background-color: ${({ theme, editable }) =>
     editable ? theme.background : theme.inputDisabledBackground};
   color: ${({ theme }) => theme.text};
-  padding: 20px 10px;
+  padding: 19px 10px;
   font-size: 16px;
   border: 1px solid
     ${({ theme, isFocused }) => (isFocused ? theme.text : theme.inputBorder)};
@@ -38,7 +40,7 @@ const Input = forwardRef(
       isPassword,
       returnKeyType,
       maxLength,
-      disabled
+      disabled,
     },
     ref
   ) => {
@@ -77,6 +79,6 @@ Input.defaultProps = {
   onBlur: () => {},
   onChangeText: () => {},
   onSubmitEditing: () => {},
-}
+};
 
 export default Input;
