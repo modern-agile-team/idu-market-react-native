@@ -128,6 +128,7 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.background};
   padding: 40px 20px;
   height: 800;
+  margin: 20px;
 `;
 
 const Containers = styled.SafeAreaView`
@@ -216,12 +217,11 @@ function Signup() {
           psword: password,
         }),
       };
-      console.log(selectedMajor);
+
       let response = await fetch(
         "http://13.125.55.135:9800/api/student",
         config
       );
-      console.log(response);
       let json = await response.json();
       json.success ? _handleSuccessSignup(json) : Alert.alert(json.msg);
     } catch (e) {
@@ -244,15 +244,6 @@ function Signup() {
     // 셀렉트박스는 스크롤뷰, 리스트에 중첩되어 들어가면 안되기때문에
     //키보드웨어스크롤뷰 밖으로 빼줬다.
     <Containers>
-      <SelectBox
-        label="학과"
-        options={major}
-        inputPlaceholder="학과"
-        value={selectedMajor}
-        onChange={onChange()}
-        hideInputFilter={false}
-      />
-
       <KeyboardAwareScrollView extraScrollHeight={30}>
         <Container>
           <Input
@@ -262,6 +253,14 @@ function Signup() {
             onSubmitEditing={() => nameRef.current.focus()}
             placeholder="학번"
             returnKeyType="next"
+          />
+          <SelectBox
+            label="학과"
+            options={major}
+            inputPlaceholder="학과"
+            value={selectedMajor}
+            onChange={onChange()}
+            hideInputFilter={false}
           />
           <Input
             label="이름"
