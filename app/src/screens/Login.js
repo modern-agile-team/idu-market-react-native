@@ -5,7 +5,7 @@ import { checkStudent, removeWhitespace } from "../utils/common";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Alert, Text } from "react-native";
 import { ProgressContext, UserContext } from "../contexts";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getItemFromAsync, setItemToAsync } from "../utils/AsyncStorage";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -69,7 +69,10 @@ function Login({ navigation }) {
     setPassword(removeWhitespace(password));
   };
 
-  const _handleSuccessLogin = () => {
+  const _handleSuccessLogin = (json) => {
+    setItemToAsync("user", json.jwt);
+    const user = getItemFromAsync("user");
+    dispatch({ user });
     Alert.alert("로그인 성공");
   };
 
@@ -91,7 +94,7 @@ function Login({ navigation }) {
 
       let response = await fetch("http://13.125.55.135:9800/api/jwt", config);
       let json = await response.json();
-      json.success ? _handleSuccessLogin() : Alert.alert(json.msg);
+      json.success ? _handleSuccessLogin(json) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
     } finally {
