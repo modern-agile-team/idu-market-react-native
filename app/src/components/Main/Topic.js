@@ -11,7 +11,7 @@ const Container = styled.Pressable`
 `;
 
 const Title = styled.Text`
-  font-size: ${({ fontSize }) => fontSize};
+  font-size: ${({ fontSize }) => fontSize}px;
   font-weight: bold;
   font-family: BM_HANNA_PRO;
 `;
