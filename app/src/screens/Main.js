@@ -4,6 +4,7 @@ import { View, ScrollView, Text, Pressable, Image } from "react-native";
 import { AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
 import { images } from "../constants";
+import Topic from "../components/Main/Topic";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -76,23 +77,12 @@ const Main = ({ navigation }) => {
     <Container>
       <ScrollView style={{ flex: 1, width: "100%" }}>
         <View style={{ flex: 1 }}>
-          <Title>
-            <Text
-              style={{
-                fontSize: 26,
-                fontWeight: "bold",
-                fontFamily: "BM_HANNA_PRO",
-              }}
-            >
-              📚 교재
-            </Text>
-            <Pressable
-              hitSlop={10}
-              onPress={() => navigation.navigate("Markets")}
-            >
-              <AntDesign name="right" size={26} color="black" />
-            </Pressable>
-          </Title>
+          <Topic
+            title={"📚 교재"}
+            fontSize={26}
+            hitSlop={10}
+            onPress={() => navigation.navigate("Markets")}
+          ></Topic>
 
           <ItemList>
             <Item hitSlop={10} onPress={() => navigation.navigate("Markets")}>
@@ -143,23 +133,12 @@ const Main = ({ navigation }) => {
         </View>
 
         <View style={{ flex: 1 }}>
-          <Title>
-            <Text
-              style={{
-                fontSize: 26,
-                fontWeight: "bold",
-                fontFamily: "BM_HANNA_PRO",
-              }}
-            >
-              💻 IT 기기
-            </Text>
-            <Pressable
-              hitSlop={10}
-              onPress={() => navigation.navigate("Markets")}
-            >
-              <AntDesign name="right" size={26} color="black" />
-            </Pressable>
-          </Title>
+          <Topic
+            title={"💻 IT 기기"}
+            fontSize={26}
+            hitSlop={10}
+            onPress={() => navigation.navigate("Markets")}
+          ></Topic>
 
           <ItemList>
             <Item hitSlop={10} onPress={() => navigation.navigate("Markets")}>
@@ -210,23 +189,12 @@ const Main = ({ navigation }) => {
         </View>
 
         <View style={{ flex: 1 }}>
-          <Title>
-            <Text
-              style={{
-                fontSize: 26,
-                fontWeight: "bold",
-                fontFamily: "BM_HANNA_PRO",
-              }}
-            >
-              🧶 의류
-            </Text>
-            <Pressable
-              hitSlop={10}
-              onPress={() => navigation.navigate("Markets")}
-            >
-              <AntDesign name="right" size={26} color="black" />
-            </Pressable>
-          </Title>
+          <Topic
+            title={"🧶 의류"}
+            fontSize={26}
+            hitSlop={10}
+            onPress={() => navigation.navigate("Markets")}
+          ></Topic>
 
           <ItemList>
             <Item hitSlop={10} onPress={() => navigation.navigate("Markets")}>
