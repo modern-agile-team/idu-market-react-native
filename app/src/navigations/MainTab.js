@@ -4,8 +4,10 @@ import { Profile, Main, FreeBoard } from "../screens";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { ThemeContext } from "styled-components";
 import { Alert } from "react-native";
+import { UserContext } from "../contexts";
 
 const Tab = createBottomTabNavigator();
+
 
 const TabBarIconIonicons = ({ focused, name }) => {
   const theme = useContext(ThemeContext);
@@ -40,8 +42,22 @@ const TabBarIconAntDesign = ({ focused, name }) => {
   );
 };
 
-const MainTab = ({}) => {
+
+
+const MainTab = () => {
   const theme = useContext(ThemeContext);
+
+  const TabBarProfile = ({ focused, name }) => {
+    const theme = useContext(ThemeContext);
+    return (
+      <Ionicons
+        name={name}
+        size={focused ? 32 : 24}
+        color={focused ? theme.tabActiveColor : theme.tabInactiveColor}
+        onPress={_handleProfilePress}
+      />
+    );
+  }; 
 
   return (
     <Tab.Navigator
@@ -64,7 +80,7 @@ const MainTab = ({}) => {
         }}
       />
       <Tab.Screen
-        name="공지"
+        name="게시판"
         component={FreeBoard}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -79,12 +95,11 @@ const MainTab = ({}) => {
         component={Profile}
         options={{
           tabBarIcon: ({ focused }) =>
-            TabBarIconIonicons({
-              focused,
-              name: focused ? "person" : "person-outline",
-            }),
+          TabBarIconMaterialIcons({
+            focused,
+            name: 'person',
+          }),
         }}
-        onPress={() => {}}
       />
     </Tab.Navigator>
   );

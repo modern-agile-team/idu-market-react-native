@@ -128,7 +128,7 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.background};
   padding: 40px 20px;
   height: 800;
-  margin: 20px;
+  margin: 30px;
 `;
 
 const Containers = styled.SafeAreaView`
