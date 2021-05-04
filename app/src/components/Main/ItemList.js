@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
+import AppLoding from "expo-app-loading";
 import { ProgressContext } from "../../contexts";
 
 import Item from "./Item";
@@ -12,6 +13,7 @@ const ScrollView = styled.ScrollView.attrs((props) => ({
 `;
 
 const ItemList = ({ hitSlop, onPress }) => {
+  const [isReady, setIsReady] = useState(false);
   const [boards, setBoards] = useState([]);
 
   const { spinner } = useContext(ProgressContext);
@@ -32,9 +34,7 @@ const ItemList = ({ hitSlop, onPress }) => {
         config
       );
       const json = await response.json();
-      json.success
-        ? console.log("서버 데이터를 성공적으로 불러왔습니다.")
-        : Alert.alert(json.msg);
+      json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
     } finally {
@@ -43,19 +43,18 @@ const ItemList = ({ hitSlop, onPress }) => {
   };
 
   const _makeItems = () => {
-    console.log("_makeItems() 호출");
     const Items = boards.map((board) => {
-      // return (
-      //   <Item
-      //     key={board.num}
-      //     hitSlop={hitSlop}
-      //     onPress={onPress}
-      //     imgUrl={board.imgUrl}
-      //     itemTitle={board.itemTitle}
-      //     studentId={board.studentId}
-      //     commentCount={board.commentCount}
-      //   />
-      // );
+      return (
+        <Item
+          key={board.num}
+          hitSlop={hitSlop}
+          onPress={onPress}
+          imgUrl={board.thumbnail}
+          itemTitle={board.title}
+          studentId={board.studentId}
+          commentCount={board.commentCount}
+        />
+      );
     });
 
     return Items;
@@ -65,7 +64,15 @@ const ItemList = ({ hitSlop, onPress }) => {
     _loadBoards();
   }, []);
 
-  return <ScrollView>{_makeItems()}</ScrollView>;
+  return isReady ? (
+    <ScrollView>{_makeItems()}</ScrollView>
+  ) : (
+    <AppLoding
+      startAsync={_loadBoards}
+      onFinish={() => setIsReady(true)}
+      onError={console.error}
+    />
+  );
 };
 
 export default ItemList;
