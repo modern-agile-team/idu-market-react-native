@@ -5,7 +5,7 @@ const TRANSPARENT = 'transparent';
 
 const Container = styled.TouchableOpacity`
   background-color: ${({ theme, isFilled }) =>
-    isFilled ? theme.buttonBackground : TRANSPARENT};
+    isFilled ? theme.boardsButton : TRANSPARENT};
   align-items: center;
   border-radius: 4px;
   width:  80%;

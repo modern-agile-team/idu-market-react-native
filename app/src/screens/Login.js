@@ -31,30 +31,30 @@ const ErrorText = styled.Text`
   color: ${({ theme }) => theme.errorText};
 `;
 
+const GoLoginScreenButton = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.boardsButton};
+  align-items: center;
+  border-radius: 4px;
+  width:  80%;
+  padding: 10px;
+  margin-top: 10px;
+`;
+
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
   const { dispatch } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [student, setStudent] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
-
-  useEffect(() => {
-    setDisabled(!(student && password && !errorMessage));
-  }, [student, password, errorMessage]);
+  const [login, setLogin] = useState(false);
+ 
 
   // password input focus
   const passwordRef = useRef();
 
-  // const _handleStudentChange = student => {
-  //     //공백제거 형식체크
-  //     const changedStudent = removeWhitespace(student);
-  //     setStudent(changedStudent);
-  //     setErrorMessage(
-  //         checkStudent(changedStudent) ? '' : '학번 형식을 지켜주세요'
-  //     )
-  // }
 
   const _handleStudentChange = (student) => {
     //공백제거 형식체크
@@ -72,8 +72,10 @@ function Login({ navigation }) {
   const _handleSuccessLogin = (json) => {
     setItemToAsync("user", json.jwt);
     const user = getItemFromAsync("user");
+    console.log(user);
     dispatch({ user });
     Alert.alert("로그인 성공");
+    navigation.navigate("Main");
   };
 
   const _handleLoginButtonPress = async () => {
@@ -101,6 +103,10 @@ function Login({ navigation }) {
       spinner.stop();
     }
   };
+
+  useEffect(() => {
+    setDisabled(!(student && password && !errorMessage));
+  }, [ student, password, errorMessage]);
 
   return (
     //키보드 감추기 (인풋 클릭시 키보드가 가리는걸방지)
@@ -130,11 +136,14 @@ function Login({ navigation }) {
           isPassword
         />
         <ErrorText>{errorMessage}</ErrorText>
-        <Button
-          title="Login"
-          onPress={_handleLoginButtonPress}
-          disabled={disabled}
-        />
+        <GoLoginScreenButton >
+          <Text 
+            style={{ color:"#fff", fontSize: 18 }}
+            onPress={_handleLoginButtonPress}
+          >
+            로그인
+          </Text>
+        </GoLoginScreenButton>
         <Button
           title="회원가입"
           //navigate함수로 원하는 화면의 이름을 전달하여 이동한다.
