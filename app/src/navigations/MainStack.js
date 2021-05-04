@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { ThemeContext, DrawerButton } from "styled-components/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Main, Markets, NoticeBoard, ViewDetail, PostWrite } from "../screens";
+import { Main, Markets, NoticeBoard , ViewDetail, PostWrite, Login, Signup, FindPw, FindId } from "../screens";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoading from "expo-app-loading";
 
@@ -67,6 +67,27 @@ const MainStack = () => {
       <Stack.Screen name="PostWrite" component={PostWrite} />
       <Stack.Screen name="Markets" component={Markets} />
       <Stack.Screen name="NoticeBoard" component={NoticeBoard} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        // 회원가입화면 뒤로가기 버튼 제거
+        options={{ headerBackTitleVisible: false, title: "회원가입" }}
+      />
+      <Stack.Screen
+        name="FindId"
+        component={FindId}
+        options={{ title: "아이디 찾기" }}
+      />
+      <Stack.Screen
+        name="FindPw"
+        component={FindPw}
+        options={{ title: "비밀번호 찾기" }}
+      />
     </Stack.Navigator>
   ) : (
     <AppLoading

@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Image } from "../components";
 import { Alert, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { images } from '../utils/images';
 
 const Container = styled.SafeAreaView`
     flex: 1;
@@ -36,10 +38,18 @@ const PostContent = styled.TextInput`
   padding-bottom: 10px;
 `;
 
+const PostImageContainer = styled.View`
+  position: absolute;
+  left: 15px;
+  bottom: 0px;
+  align-items:flex-start;
+`;
 
-function ViewDetail({ navigation }) {
+
+function PostWrite({ navigation }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [photoUrl, setPhotoUrl] = useState(images.photo);
 
   const contentRef = useRef();
     
@@ -88,14 +98,22 @@ function ViewDetail({ navigation }) {
           onSubmitEditing={() =>  contentRef.current.focus()}
         />
         <PostContent
+          multiline 
           ref={contentRef}
           onChangeText={text => setContent(text)}
           placeholder="내용을 입력해주세요"
           returnKeyType="done"
         />
+        <PostImageContainer>
+          <Image
+            url={photoUrl}
+            showButton
+            onChangeImage = {url => setPhotoUrl(url)?.photoUrl ? setPhotoUrl(url) : "" }
+          />
+        </PostImageContainer>
       </Container>
     </KeyboardAwareScrollView>
   )
 }
 
-export default ViewDetail;
+export default PostWrite;
