@@ -1,12 +1,7 @@
 import React, { useState, useContext } from "react";
 import { ThemeContext, DrawerButton } from "styled-components/native";
 import { createStackNavigator } from "@react-navigation/stack";
-<<<<<<< HEAD
-import { Main, Markets, NoticeBoard , ViewDetail, PostWrite } from "../screens";
-import { Login, Signup, FindPw, FindId } from "../screens";
-=======
-import { Main, Markets, NoticeBoard, ViewDetail, PostWrite } from "../screens";
->>>>>>> develop
+import { Main, Markets, NoticeBoard , ViewDetail, PostWrite, Login, Signup, FindPw, FindId } from "../screens";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoading from "expo-app-loading";
 
@@ -68,12 +63,7 @@ const MainStack = () => {
           headerTitleAlign: "left",
         }}
       />
-<<<<<<< HEAD
-
-      <Stack.Screen name="ViewDetail" component={ViewDetail}/>
-=======
       <Stack.Screen name="ViewDetail" component={ViewDetail} />
->>>>>>> develop
       <Stack.Screen name="PostWrite" component={PostWrite} />
       <Stack.Screen name="Markets" component={Markets} />
       <Stack.Screen name="NoticeBoard" component={NoticeBoard} />
