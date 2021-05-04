@@ -3,7 +3,7 @@ import styled, { ThemeContext } from 'styled-components/native';
 import { Button, Input } from '../components';
 import { logout, getCurrentUser, updateUserPhoto } from '../utils/firebase';
 import { UserContext, ProgressContext } from '../contexts';
-import { Alert, Image } from 'react-native';
+import { Alert, Text } from 'react-native';
 
 const Container = styled.View`
   flex: 1;
@@ -13,12 +13,28 @@ const Container = styled.View`
   padding: 0 20px;
 `;
 
-const Profile = () => {
+const LoginQuestion = styled.View`
+`;
+
+const LoginQuestionBtnContainer = styled.View`
+  flex-direction: row;
+`;
+
+const GoLoginScreenButton = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.boardsButton};
+  margin-top: 40px;
+  padding: 10px;
+  border-radius: 10px;
+`;
+
+const Profile = ({ navigation }) => {
   const { dispatch } = useContext(UserContext);
   const { spinner } = useContext(ProgressContext);
-  const theme = useContext(ThemeContext);
 
-  const user = getCurrentUser();
+  const theme = useContext(ThemeContext);
+  const { user } = useContext(UserContext);
+
+  // const user = getCurrentUser();
 
   const _handleLogoutButtonPress = async () => {
     try {
@@ -34,17 +50,30 @@ const Profile = () => {
 
 
   return (
-    <Container>
-      <Input label="학번" value={user.name} disabled />
-      <Input label="이메일" value={user.email} disabled />
-      <Input label="이름" value={user.name} disabled />
-      <Input label="별명" value={user.name} disabled />
-      <Button
-        title="로그아웃"
-        onPress={_handleLogoutButtonPress}
-        containerStyle={{ marginTop: 30, backgroundColor: theme.buttonLogout }}
-      />
-    </Container>
+    <>
+      {user?.user ? (
+        <Container>
+          <Input label="학번" value="학번" disabled />
+          <Input label="학번" value="학번" disabled />
+        </Container>
+      ) : (
+        <Container>
+          <LoginQuestion>
+            <Text>로그인을 하신 후에 볼 수 있습니다</Text>
+            <Text>로그인 하시겠습니까?</Text>
+          </LoginQuestion>
+          <LoginQuestionBtnContainer>
+            <GoLoginScreenButton >
+              <Text 
+                style={{ color:"#fff", fontWeight:'bold' }}
+                onPress={() => navigation.navigate("Login")}
+              >
+                로그인 하러가기
+              </Text>
+            </GoLoginScreenButton>
+          </LoginQuestionBtnContainer>
+        </Container> )}
+    </>
   );
 };
 

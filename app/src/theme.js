@@ -47,6 +47,8 @@ export const theme = {
   listIcon: colors.black,
   boardsButton: colors.idu4,
   commentInput: colors.grey_2,
+  imageButtonBackground: colors.grey_1,
+  imageButtonIcon: colors.white,
 
   // 헤더
   headerBottomColor: colors.idu,
