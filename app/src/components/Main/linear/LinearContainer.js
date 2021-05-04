@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components/native";
 
-import Topic from "./Topic";
+import Topic from "../Topic";
 import ItemList from "./ItemList";
 
 const Container = styled.View`
   flex: 1;
 `;
 
-const MarketContainer = ({
+const LinearContainer = ({
+  category,
   topicTitle,
   topicFontSize,
   hitSlop,
@@ -23,9 +24,9 @@ const MarketContainer = ({
         hitSlop={hitSlop}
         onPress={topicOnPress}
       />
-      <ItemList hitSlop={hitSlop} onPress={itemOnPress} />
+      <ItemList category={category} hitSlop={hitSlop} onPress={itemOnPress} />
     </Container>
   );
 };
 
-export default MarketContainer;
+export default LinearContainer;

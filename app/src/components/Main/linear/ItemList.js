@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
-import AppLoding from "expo-app-loading";
-import { ProgressContext } from "../../contexts";
+import AppLoading from "expo-app-loading";
+import { ProgressContext } from "../../../contexts";
 
 import Item from "./Item";
 
 const ScrollView = styled.ScrollView.attrs((props) => ({
-  horizontal: true,
+  horizontal: false,
 }))`
-  padding-left: 20px;
+  padding: 0 20px 0 20px;
 `;
 
-const ItemList = ({ hitSlop, onPress }) => {
+const ItemList = ({ category, hitSlop, onPress }) => {
   const [isReady, setIsReady] = useState(false);
   const [boards, setBoards] = useState([]);
 
@@ -30,13 +30,13 @@ const ItemList = ({ hitSlop, onPress }) => {
       };
 
       const response = await fetch(
-        "http://13.125.55.135:9800/api/boards/book?lastNum=0",
+        `http://13.125.55.135:9800/api/boards/${category}?lastNum=0`,
         config
       );
       const json = await response.json();
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
-      Alert.alert("로그인 실패", e.message);
+      Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
     } finally {
       spinner.stop();
     }
@@ -49,7 +49,6 @@ const ItemList = ({ hitSlop, onPress }) => {
           key={board.num}
           hitSlop={hitSlop}
           onPress={onPress}
-          imgUrl={board.thumbnail}
           itemTitle={board.title}
           studentId={board.studentId}
           commentCount={board.commentCount}
@@ -67,7 +66,7 @@ const ItemList = ({ hitSlop, onPress }) => {
   return isReady ? (
     <ScrollView>{_makeItems()}</ScrollView>
   ) : (
-    <AppLoding
+    <AppLoading
       startAsync={_loadBoards}
       onFinish={() => setIsReady(true)}
       onError={console.error}
