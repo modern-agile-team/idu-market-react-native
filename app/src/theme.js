@@ -24,6 +24,7 @@ export const theme = {
   background: colors.white,
   text: colors.black,
   errorText: colors.red,
+  focusText: colors.idu,
   imageBackground: colors.idu,
   label: colors.grey_1,
   inputPlaceholder: colors.grey_1,
@@ -50,9 +51,13 @@ export const theme = {
   imageButtonIcon: colors.white,
 
   // 헤더
-  headerBottomColor: colors.idu8,
+  headerBottomColor: colors.idu,
   headerTintColor: colors.black,
-  headerIconColor: colors.idu3,
+  headerIconColor: colors.black,
+
+  /* 헤더 타이틀 */
+  // 메인 타이틀
+  headerTitleBottomColor: colors.idu8,
 
   //마켓
   marketBackground: colors.white,

@@ -13,6 +13,7 @@ const Container = styled.SafeAreaView`
   align-items: center;
   background-color: ${({ theme }) => theme.background};
   padding: 20px;
+  margin: 20px;
 `;
 
 const IdPasswordBtn = styled.SafeAreaView`

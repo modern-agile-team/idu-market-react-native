@@ -75,9 +75,17 @@ const Main = ({ navigation }) => {
   return (
     <Container>
       <ScrollView style={{ flex: 1, width: "100%" }}>
-        <View style={{ flex: 1, marginTop: 12 }}>
+        <View style={{ flex: 1 }}>
           <Title>
-            <Text style={{ fontSize: 26, fontWeight: "bold" }}>📚 교재</Text>
+            <Text
+              style={{
+                fontSize: 26,
+                fontWeight: "bold",
+                fontFamily: "BM_HANNA_PRO",
+              }}
+            >
+              📚 교재
+            </Text>
             <Pressable
               hitSlop={10}
               onPress={() => navigation.navigate("Markets")}
@@ -134,9 +142,17 @@ const Main = ({ navigation }) => {
           </ItemList>
         </View>
 
-        <View style={{ flex: 1, marginTop: 12 }}>
+        <View style={{ flex: 1 }}>
           <Title>
-            <Text style={{ fontSize: 26, fontWeight: "bold" }}>💻 IT 기기</Text>
+            <Text
+              style={{
+                fontSize: 26,
+                fontWeight: "bold",
+                fontFamily: "BM_HANNA_PRO",
+              }}
+            >
+              💻 IT 기기
+            </Text>
             <Pressable
               hitSlop={10}
               onPress={() => navigation.navigate("Markets")}
@@ -193,9 +209,17 @@ const Main = ({ navigation }) => {
           </ItemList>
         </View>
 
-        <View style={{ flex: 1, marginTop: 12 }}>
+        <View style={{ flex: 1 }}>
           <Title>
-            <Text style={{ fontSize: 26, fontWeight: "bold" }}>🧶 의류</Text>
+            <Text
+              style={{
+                fontSize: 26,
+                fontWeight: "bold",
+                fontFamily: "BM_HANNA_PRO",
+              }}
+            >
+              🧶 의류
+            </Text>
             <Pressable
               hitSlop={10}
               onPress={() => navigation.navigate("Markets")}
