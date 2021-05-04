@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components/native";
 import { ScrollView } from "react-native";
 
-import MarketContainer from "../components/main/market/MarketContainer";
-import LinearContainer from "../components/main/linear/LinearContainer";
+import MarketContainer from "../components/Main/market/MarketContainer";
+import LinearContainer from "../components/Main/linear/LinearContainer";
 
 const Container = styled.SafeAreaView`
   flex: 1;
