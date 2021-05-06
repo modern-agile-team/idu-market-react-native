@@ -55,6 +55,11 @@ const Profile = ({ navigation }) => {
         <Container>
           <Input label="학번" value="학번" disabled />
           <Input label="학번" value="학번" disabled />
+          <Button
+            title="logout"
+            onPress={_handleLogoutButtonPress}
+            containerStyle={{ marginTop: 30, backgroundColor: theme.buttonLogout }}
+          />
         </Container>
       ) : (
         <Container>

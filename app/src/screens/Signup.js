@@ -241,8 +241,6 @@ function Signup() {
   }
 
   return (
-    // 셀렉트박스는 스크롤뷰, 리스트에 중첩되어 들어가면 안되기때문에
-    //키보드웨어스크롤뷰 밖으로 빼줬다.
     <Containers>
       <KeyboardAwareScrollView extraScrollHeight={30}>
         <Container>

@@ -47,18 +47,6 @@ const TabBarIconAntDesign = ({ focused, name }) => {
 const MainTab = () => {
   const theme = useContext(ThemeContext);
 
-  const TabBarProfile = ({ focused, name }) => {
-    const theme = useContext(ThemeContext);
-    return (
-      <Ionicons
-        name={name}
-        size={focused ? 32 : 24}
-        color={focused ? theme.tabActiveColor : theme.tabInactiveColor}
-        onPress={_handleProfilePress}
-      />
-    );
-  }; 
-
   return (
     <Tab.Navigator
       tabBarOptions={{

@@ -78,64 +78,25 @@ const DateText = styled.Text`
 `;
 
 const Markets = ({ navigation }) => {
-  const boards = [
-    {
-      num: 1,
-      title: "her",
-      hit: 11,
-      price: "69,000",
-      commentCount: 10,
-      thumnail: images.her,
-      nickname: "작성자1",
-      description: "she love me",
-      status: 0,
-      inDate: "2021.04.23",
-    },
-    {
-      id: 2,
-      title: "극한직업",
-      price: "59,000",
-      commentCount: 15,
-      inDate: "2021.04.23",
-      description: "수원 왕갈비 통닭",
-      status: 1,
-      thumnail: images.hardwork,
-      nickname: "작성자2",
-    },
-    {
-      id: 3,
-      title: "avengers",
-      price: "99,000",
-      commentCount: 30,
-      inDate: "2021.04.23",
-      description: "all die",
-      status: 0,
-      thumnail: images.avengers,
-      nickname: "작성자3",
-    },
-    {
-      id: 4,
-      title: "avengers",
-      price: "99,000",
-      commentCount: 30,
-      inDate: "2021.04.23",
-      description: "all die",
-      status: 1,
-      thumnail: images.avengers,
-      nickname: "작성자3",
-    },
-    {
-      id: 6,
-      title: "avengers",
-      price: "99,000",
-      commentCount: 30,
-      inDate: "2021.04.23",
-      description: "all die",
-      status: 2,
-      thumnail: images.avengers,
-      nickname: "작성자3",
-    },
-  ];
+  const [boards, setBoards] = useState([]);
+
+  useEffect(() => {
+    return async () => {
+      const config = {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      };
+      let response = await fetch(
+        `http://13.125.55.135:9800/api/boards/book`,
+        config
+      );
+      let result = await response.json();
+      setBoards(result.boards);
+    };
+  }, []);
 
   const categoriesData = [
     {
@@ -150,7 +111,7 @@ const Markets = ({ navigation }) => {
     },
     {
       id: 3,
-      categoryName: "무료나눔",
+      categoryName: "의류",
       boards: boards,
     },
   ];
@@ -171,6 +132,7 @@ const Markets = ({ navigation }) => {
         </CategoryContainer>
       );
     };
+
     return (
       <View>
         <FlatList
@@ -185,12 +147,13 @@ const Markets = ({ navigation }) => {
   }
 
   function renderCategoryData() {
-    let boards = [];
-
+    let boards;
+    // category 변경
     let selectedCategoryBoards = categories.filter(
       (category) => category.id == selectedCategory
     );
 
+    // 카테고리의 board 정보 가져오기
     if (selectedCategoryBoards.length) {
       boards = selectedCategoryBoards[0].boards;
     }
@@ -251,24 +214,25 @@ const Markets = ({ navigation }) => {
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
   };
-
-  return (
-    <Container>
-      <ScrollView style={{ marginTop: 12 }}>
-        <View style={{ marginTop: 12 }}>
-          <View>{renderCategoryHeader()}</View>
-          <View>{renderCategoryData()}</View>
-        </View>
-      </ScrollView>
-      <FAB
-        buttonColor="#e84118"
-        iconTextColor="#ffffff"
-        // onClickAction={_handleWritePress}
-        visible={true}
-        iconTextComponent={<MaterialIcons name="edit" />}
-      />
-    </Container>
-  );
+  if (boards !== []) {
+    return (
+      <Container>
+        <ScrollView style={{ marginTop: 12 }}>
+          <View style={{ marginTop: 12 }}>
+            <View>{renderCategoryHeader()}</View>
+            <View>{renderCategoryData()}</View>
+          </View>
+        </ScrollView>
+        <FAB
+          buttonColor="#e84118"
+          iconTextColor="#ffffff"
+          // onClickAction={_handleWritePress}
+          visible={true}
+          iconTextComponent={<MaterialIcons name="edit" />}
+        />
+      </Container>
+    );
+  }
 };
 
 export default Markets;
