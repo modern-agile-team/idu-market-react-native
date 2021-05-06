@@ -1,6 +1,12 @@
 import React, { useState, useContext } from "react";
-import { ThemeContext, DrawerButton } from "styled-components/native";
 import { createStackNavigator } from "@react-navigation/stack";
+
+import { ThemeContext } from "styled-components/native";
+import { MaterialIcons } from "@expo/vector-icons";
+import AppLoading from "expo-app-loading";
+import * as Font from "expo-font";
+
+import MainTab from "./MainTab";
 import {
   Main,
   Markets,
@@ -12,13 +18,6 @@ import {
   FindPw,
   FindId,
 } from "../screens";
-import { MaterialIcons } from "@expo/vector-icons";
-import AppLoading from "expo-app-loading";
-
-import MainTab from "./MainTab";
-// import * as Font from "../utils/font";
-// 폰트
-import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
 

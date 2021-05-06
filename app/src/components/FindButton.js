@@ -22,7 +22,7 @@ const Title = styled.Text`
 `;
 
 
-function Btn({ containerStyle, title, onPress, isFilled, disabled }) {
+function FindButton({ containerStyle, title, onPress, isFilled, disabled }) {
     return (
         <Container 
             style={containerStyle} 
@@ -35,8 +35,8 @@ function Btn({ containerStyle, title, onPress, isFilled, disabled }) {
     )
 }
 
-Btn.defaultProps = {
+FindButton.defaultProps = {
     isFilled: true,
 }
 
-export default Btn
+export default FindButton

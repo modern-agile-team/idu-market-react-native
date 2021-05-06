@@ -8,7 +8,6 @@ import { UserContext } from "../contexts";
 
 const Tab = createBottomTabNavigator();
 
-
 const TabBarIconIonicons = ({ focused, name }) => {
   const theme = useContext(ThemeContext);
   return (
@@ -42,22 +41,8 @@ const TabBarIconAntDesign = ({ focused, name }) => {
   );
 };
 
-
-
 const MainTab = () => {
   const theme = useContext(ThemeContext);
-
-  const TabBarProfile = ({ focused, name }) => {
-    const theme = useContext(ThemeContext);
-    return (
-      <Ionicons
-        name={name}
-        size={focused ? 32 : 24}
-        color={focused ? theme.tabActiveColor : theme.tabInactiveColor}
-        onPress={_handleProfilePress}
-      />
-    );
-  }; 
 
   return (
     <Tab.Navigator
@@ -86,7 +71,7 @@ const MainTab = () => {
           tabBarIcon: ({ focused }) =>
             TabBarIconMaterialIcons({
               focused,
-              name: 'forum',
+              name: "forum",
             }),
         }}
       />
@@ -95,10 +80,10 @@ const MainTab = () => {
         component={Profile}
         options={{
           tabBarIcon: ({ focused }) =>
-          TabBarIconMaterialIcons({
-            focused,
-            name: 'person',
-          }),
+            TabBarIconMaterialIcons({
+              focused,
+              name: "person",
+            }),
         }}
       />
     </Tab.Navigator>
