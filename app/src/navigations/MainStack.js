@@ -19,7 +19,6 @@ function MainStack() {
           height: 80,
           borderBottomWidth: 2,
           borderBottomColor: theme.headerBottomColor,
-          cardStyle: { backgroundColor: theme.backgroundColor },
         },
         cardStyle: { backgroundColor: theme.backgroundColor },
         headerRight: ({ tintColor }) => (

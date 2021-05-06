@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import styled from "styled-components/native";
-import { Button, Input, Btn } from "../components";
+import { Button, Input, FindButton } from "../components";
 import { checkStudent, removeWhitespace } from "../utils/common";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Alert, Text } from "react-native";
@@ -136,12 +136,12 @@ function Login({ navigation }) {
           onPress={() => navigation.navigate("Signup")}
         />
         <IdPasswordBtn>
-          <Btn
+          <FindButton
             title="아이디찾기"
             isFilled={false}
             onPress={() => navigation.navigate("FindId")}
           />
-          <Btn
+          <FindButton
             title="비밀번호찾기"
             isFilled={false}
             onPress={() => navigation.navigate("FindPw")}

@@ -57,29 +57,37 @@ const ItemTime = styled.Text`
   padding-top: 20px;
 `;
 
-const FreeBoardComponent = ({ hitSlop, onPress, imgUrl, title, nickname, content, commentCount, inDate}) => {
+const Item = React.memo( 
+  // 같은내용이 리렌더링되는것을 막아준다.
+  ({ item }) => {
   const theme = useContext(ThemeContext);
-  return (
-    <ItemContainer hitSlop={hitSlop} onPress={onPress}>
-      <ItemTextContainer>
-        <ItemTitle>{title}</ItemTitle>
+  
+    return (
+      <ItemContainer onPress={() => 
+        navigation.navigate("ViewDetail", {
+          board: item,
+        })
+      }>
+        <ItemTextContainer>
+          <ItemTitle>{item.title}</ItemTitle>
+          <ItemRowContainer>
+            <MaterialIcons
+              name="person"
+              size={24}
+              color={theme.listIcon}
+            />
+            <ItemStudent>{item.nickname}</ItemStudent>
+          </ItemRowContainer>
+          <ItemDescription>{item.content}</ItemDescription>
+        </ItemTextContainer>
         <ItemRowContainer>
-          <MaterialIcons
-            name="person"
-            size={24}
-            color={theme.listIcon}
-          />
-          <ItemStudent>{nickname}</ItemStudent>
+          <FontAwesome5 name="comment-dots" size={22} color="black" />
+          <ItemComment>{item.commentCount}</ItemComment>
+          <ItemTime>{item.inDate}</ItemTime>
         </ItemRowContainer>
-        <ItemDescription>{content}</ItemDescription>
-      </ItemTextContainer>
-      <ItemRowContainer>
-        <FontAwesome5 name="comment-dots" size={22} color="black" />
-        <ItemComment>{commentCount}</ItemComment>
-        <ItemTime>{inDate}</ItemTime>
-      </ItemRowContainer>
-    </ItemContainer>
-  );
-}
+      </ItemContainer>
+    );
+  }
+);
 
-export default FreeBoardComponent
+export default Item;

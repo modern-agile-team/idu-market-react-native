@@ -12,7 +12,6 @@ const Container = styled.SafeAreaView`
   align-items: flex-start;
   background-color: ${({ theme }) => theme.background};
   padding: 10px;
-
 `;
 
 const PostHead = styled.Text`
