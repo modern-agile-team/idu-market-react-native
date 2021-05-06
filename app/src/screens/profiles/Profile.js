@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
-import styled, { ThemeContext } from 'styled-components/native';
-import { Button, Input } from '../components';
-import { logout, getCurrentUser, updateUserPhoto } from '../utils/firebase';
-import { UserContext, ProgressContext } from '../contexts';
-import { Alert, Text } from 'react-native';
+import React, { useContext } from "react";
+import { Text } from "react-native";
+import styled, { ThemeContext } from "styled-components/native";
+
+import { UserContext, ProgressContext } from "../../contexts";
+import { Input } from "../../components";
+import { logout } from "../../utils/firebase";
 
 const Container = styled.View`
   flex: 1;
@@ -13,8 +14,7 @@ const Container = styled.View`
   padding: 0 20px;
 `;
 
-const LoginQuestion = styled.View`
-`;
+const LoginQuestion = styled.View``;
 
 const LoginQuestionBtnContainer = styled.View`
   flex-direction: row;
@@ -41,13 +41,12 @@ const Profile = ({ navigation }) => {
       spinner.start();
       await logout();
     } catch (e) {
-      console.log('[Profile] logout: ', e.message);
+      console.log("[Profile] logout: ", e.message);
     } finally {
       dispatch({});
       spinner.stop();
     }
   };
-
 
   return (
     <>
@@ -63,16 +62,17 @@ const Profile = ({ navigation }) => {
             <Text>로그인 하시겠습니까?</Text>
           </LoginQuestion>
           <LoginQuestionBtnContainer>
-            <GoLoginScreenButton >
-              <Text 
-                style={{ color:"#fff", fontWeight:'bold' }}
+            <GoLoginScreenButton>
+              <Text
+                style={{ color: "#fff", fontWeight: "bold" }}
                 onPress={() => navigation.navigate("Login")}
               >
                 로그인 하러가기
               </Text>
             </GoLoginScreenButton>
           </LoginQuestionBtnContainer>
-        </Container> )}
+        </Container>
+      )}
     </>
   );
 };

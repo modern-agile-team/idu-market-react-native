@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
+import FAB from "react-native-fab";
 import { FlatList } from "react-native-gesture-handler";
 import styled from "styled-components/native";
-import { MaterialIcons } from "@expo/vector-icons";
-import FAB from "react-native-fab";
-import AppLoding from "expo-app-loading";
-import { ProgressContext } from "../contexts";
 
-import Item from "../components/Markets/Item";
+import AppLoding from "expo-app-loading";
+import { MaterialIcons } from "@expo/vector-icons";
+
+import { ProgressContext } from "../../../contexts";
+import Item from "../../../components/Markets/Item";
 
 const Container = styled.SafeAreaView`
   flex: 1;

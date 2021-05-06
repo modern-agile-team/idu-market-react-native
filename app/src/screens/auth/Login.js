@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import styled from "styled-components/native";
-import { Button, Input, Btn } from "../components";
-import { checkStudent, removeWhitespace } from "../utils/common";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Alert, Text } from "react-native";
-import { ProgressContext, UserContext } from "../contexts";
-import { getItemFromAsync, setItemToAsync } from "../utils/AsyncStorage";
+import styled from "styled-components/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+import { ProgressContext, UserContext } from "../../contexts";
+import { Button, Input, Btn } from "../../components";
+import { checkStudent, removeWhitespace } from "../../utils/common";
+import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -36,7 +37,7 @@ const GoLoginScreenButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.boardsButton};
   align-items: center;
   border-radius: 4px;
-  width:  80%;
+  width: 80%;
   padding: 10px;
   margin-top: 10px;
 `;
@@ -51,11 +52,9 @@ function Login({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [login, setLogin] = useState(false);
- 
 
   // password input focus
   const passwordRef = useRef();
-
 
   const _handleStudentChange = (student) => {
     //공백제거 형식체크
@@ -107,7 +106,7 @@ function Login({ navigation }) {
 
   useEffect(() => {
     setDisabled(!(student && password && !errorMessage));
-  }, [ student, password, errorMessage]);
+  }, [student, password, errorMessage]);
 
   return (
     //키보드 감추기 (인풋 클릭시 키보드가 가리는걸방지)
@@ -137,9 +136,9 @@ function Login({ navigation }) {
           isPassword
         />
         <ErrorText>{errorMessage}</ErrorText>
-        <GoLoginScreenButton >
-          <Text 
-            style={{ color:"#fff", fontSize: 18 }}
+        <GoLoginScreenButton>
+          <Text
+            style={{ color: "#fff", fontSize: 18 }}
             onPress={_handleLoginButtonPress}
           >
             로그인
