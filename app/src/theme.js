@@ -59,9 +59,18 @@ export const theme = {
   // 메인 타이틀
   headerTitleBottomColor: colors.idu8,
 
-  //마켓
+  // 마켓
   marketBackground: colors.white,
   marketFont: colors.black,
   marketClickFont: colors.idu,
   marketBorder: colors.grey_0,
+
+  // 상세 화면
+  profileImageColor: colors.idu8,
+
+  // 댓글
+  commentIdColor: colors.grey_1,
+
+  // Line Color
+  greyBottomLine: "#eceff1",
 };
