@@ -24,7 +24,7 @@ const Main = ({ navigation }) => {
           topicFontSize={26}
           hitSlop={10}
           topicOnPress={() => navigation.navigate("Markets")}
-          itemOnPress={() => navigation.navigate("ViewDetail")}
+          itemOnPress={() => navigation.navigate("DetailView")}
         />
         <MarketContainer
           category={"book"}
@@ -36,7 +36,7 @@ const Main = ({ navigation }) => {
               category: "book",
             })
           }
-          itemOnPress={() => navigation.navigate("ViewDetail")}
+          itemOnPress={() => navigation.navigate("DetailView")}
         />
         <MarketContainer
           category={"device"}
@@ -48,7 +48,7 @@ const Main = ({ navigation }) => {
               category: "device",
             })
           }
-          itemOnPress={() => navigation.navigate("ViewDetail")}
+          itemOnPress={() => navigation.navigate("DetailView")}
         />
         <MarketContainer
           category={"clothes"}
@@ -60,7 +60,7 @@ const Main = ({ navigation }) => {
               category: "clothes",
             })
           }
-          itemOnPress={() => navigation.navigate("ViewDetail")}
+          itemOnPress={() => navigation.navigate("DetailView")}
         />
       </ScrollView>
     </Container>
