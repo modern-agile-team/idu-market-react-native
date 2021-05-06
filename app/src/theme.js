@@ -40,7 +40,7 @@ export const theme = {
   tabInactiveColor: colors.grey_1,
   buttonLogout: colors.idu,
   inputDisabledBackground: colors.grey_0,
-  actionBackgroundColor: colors.idu1,
+  actionBackgroundColor: colors.idu2,
   actionscircle: colors.idu9,
   listBorder: colors.grey_0,
   listTime: colors.grey_1,

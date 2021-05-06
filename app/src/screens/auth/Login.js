@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { ProgressContext, UserContext } from "../../contexts";
-import { Button, Input, Btn } from "../../components";
+import { Button, Input, FindButton } from "../../components";
 import { checkStudent, removeWhitespace } from "../../utils/common";
 import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
 
@@ -14,10 +14,9 @@ const Container = styled.SafeAreaView`
   align-items: center;
   background-color: ${({ theme }) => theme.background};
   padding: 20px;
-  margin: 20px;
 `;
 
-const IdPasswordBtn = styled.SafeAreaView`
+const IdPasswordBtn = styled.View`
   background-color: ${({ theme }) => theme.background};
   flex-direction: row;
   justify-content: center;
@@ -33,25 +32,16 @@ const ErrorText = styled.Text`
   color: ${({ theme }) => theme.errorText};
 `;
 
-const GoLoginScreenButton = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.boardsButton};
-  align-items: center;
-  border-radius: 4px;
-  width: 80%;
-  padding: 10px;
-  margin-top: 10px;
-`;
 
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
   const { dispatch } = useContext(UserContext);
-  const { user } = useContext(UserContext);
 
   const [student, setStudent] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const [login, setLogin] = useState(false);
+
 
   // password input focus
   const passwordRef = useRef();
@@ -74,8 +64,8 @@ function Login({ navigation }) {
     const user = getItemFromAsync("user");
     console.log(user);
     dispatch({ user });
-    Alert.alert("로그인 성공");
     navigation.navigate("Main");
+    Alert.alert("로그인 성공");
   };
 
   const _handleLoginButtonPress = async () => {
@@ -136,26 +126,23 @@ function Login({ navigation }) {
           isPassword
         />
         <ErrorText>{errorMessage}</ErrorText>
-        <GoLoginScreenButton>
-          <Text
-            style={{ color: "#fff", fontSize: 18 }}
-            onPress={_handleLoginButtonPress}
-          >
-            로그인
-          </Text>
-        </GoLoginScreenButton>
+        <Button
+          title="Login"
+          onPress={_handleLoginButtonPress}
+          disabled={disabled}
+        />
         <Button
           title="회원가입"
           //navigate함수로 원하는 화면의 이름을 전달하여 이동한다.
           onPress={() => navigation.navigate("Signup")}
         />
         <IdPasswordBtn>
-          <Btn
+          <FindButton
             title="아이디찾기"
             isFilled={false}
             onPress={() => navigation.navigate("FindId")}
           />
-          <Btn
+          <FindButton
             title="비밀번호찾기"
             isFilled={false}
             onPress={() => navigation.navigate("FindPw")}
