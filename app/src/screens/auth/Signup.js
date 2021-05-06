@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import styled from "styled-components/native";
-import { ProgressContext, UserContext } from "../contexts";
-import { Button, Input } from "../components";
+import { Alert } from "react-native";
+import SelectBox from "react-native-multi-selectbox";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import styled from "styled-components/native";
+
+import { ProgressContext, UserContext } from "../../contexts";
+import { Button, Input } from "../../components";
 import {
   validateEmail,
   removeWhitespace,
@@ -10,9 +13,7 @@ import {
   checkStudent,
   checkPassword,
   checkName,
-} from "../utils/common";
-import { Alert } from "react-native";
-import SelectBox from "react-native-multi-selectbox";
+} from "../../utils/common";
 
 const major = [
   {
