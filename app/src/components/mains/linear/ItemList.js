@@ -59,10 +59,6 @@ const ItemList = ({ category, hitSlop, onPress }) => {
     return Items;
   };
 
-  useEffect(() => {
-    _loadBoards();
-  }, []);
-
   return isReady ? (
     <ScrollView>{_makeItems()}</ScrollView>
   ) : (

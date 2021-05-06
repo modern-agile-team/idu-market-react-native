@@ -10,7 +10,7 @@ import Profile from "./profiles/Profile";
 import Markets from "./boards/read-all/Markets";
 import NoticeBoard from "./boards/read-all/NoticeBoard";
 import FreeBoard from "./boards/read-all/FreeBoard";
-import ViewDetail from "./boards/read-detail/ViewDetail";
+import DetailView from "./boards/read-detail/DetailView";
 import PostWrite from "./boards/write/PostWrite";
 
 export {
@@ -23,6 +23,6 @@ export {
   FindId,
   FindPw,
   Markets,
-  ViewDetail,
+  DetailView,
   PostWrite,
 };

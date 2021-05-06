@@ -1,17 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { FlatList } from 'react-native-gesture-handler';
-import styled, { ThemeContext } from 'styled-components/native';
-import { AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
-import FAB from 'react-native-fab';
+import React, { useContext, useState, useEffect } from "react";
+import FAB from "react-native-fab";
+import { FlatList } from "react-native-gesture-handler";
+import styled from "styled-components/native";
+import { MaterialIcons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
 
 import { ProgressContext } from "../../../contexts";
-import Item from '../../../components/Boards/FreeBoardComponent';
+import * as Item from "../../../components/boards/FreeBoardComponent";
 
 const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${({ theme }) => theme.background};
-  
 `;
 
 function FreeBoard({ navigation }) {
@@ -32,7 +31,8 @@ function FreeBoard({ navigation }) {
       };
 
       const response = await fetch(
-        "http://13.125.55.135:9800/api/boards/free", config
+        "http://13.125.55.135:9800/api/boards/free",
+        config
       );
       const json = await response.json();
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
@@ -42,35 +42,31 @@ function FreeBoard({ navigation }) {
       spinner.stop();
     }
   };
-  useEffect(() => {
-    _loadBoards();
-  }, []);
 
-  const _handleItemPress = params => {
-      navigation.navigate('ViewDetail', params);
-  }
-  const _handleWritePress = params => {
-      navigation.navigate('PostWrite', params);
-  }
+  const _handleItemPress = (params) => {
+    navigation.navigate("ViewDetail", params);
+  };
+  const _handleWritePress = (params) => {
+    navigation.navigate("PostWrite", params);
+  };
 
   return isReady ? (
     <Container>
       <FlatList
-          keyExtractor={(item) => `${item.id}`}
-          data={boards}
-          renderItem={({ item }) => (
-          <Item item={item} onPress={_handleItemPress} />
-          )}
-          windowSize={3} // 렌더링 되는양을 조절
+        keyExtractor={(item) => `${item.id}`}
+        data={boards}
+        // renderItem={({ item }) => (
+        //   <Item item={item} onPress={_handleItemPress} />
+        // )}
+        windowSize={3} // 렌더링 되는양을 조절
       />
-      <FAB 
-          buttonColor="#e84118"
-          iconTextColor="#ffffff" 
-          onClickAction={_handleWritePress} 
-          visible={true} 
-          iconTextComponent={<MaterialIcons name="edit"/>} 
+      <FAB
+        buttonColor="#e84118"
+        iconTextColor="#ffffff"
+        onClickAction={_handleWritePress}
+        visible={true}
+        iconTextComponent={<MaterialIcons name="edit" />}
       />
-
     </Container>
   ) : (
     <AppLoding
