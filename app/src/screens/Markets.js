@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import styled, { ThemeContext } from "styled-components/native";
-import { AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import FAB from "react-native-fab";
 import AppLoding from "expo-app-loading";
 import { ProgressContext } from "../contexts";
@@ -115,15 +115,16 @@ const Item = React.memo(
   }
 );
 
-function FreeBoard({ navigation }) {
+function Board({ route, navigation }) {
   const [isReady, setIsReady] = useState(false);
   const [boards, setBoards] = useState([]);
 
   const { spinner } = useContext(ProgressContext);
-
   const _loadBoards = async () => {
     try {
       spinner.start();
+
+      const { category } = route.params;
 
       const config = {
         method: "GET",
@@ -131,9 +132,8 @@ function FreeBoard({ navigation }) {
           Accept: "application/json",
         },
       };
-
       const response = await fetch(
-        "http://13.125.55.135:9800/api/boards/book",
+        `http://13.125.55.135:9800/api/boards/${category}`,
         config
       );
       const json = await response.json();
@@ -144,6 +144,7 @@ function FreeBoard({ navigation }) {
       spinner.stop();
     }
   };
+
   useEffect(() => {
     _loadBoards();
   }, []);
@@ -182,4 +183,4 @@ function FreeBoard({ navigation }) {
   );
 }
 
-export default FreeBoard;
+export default Board;

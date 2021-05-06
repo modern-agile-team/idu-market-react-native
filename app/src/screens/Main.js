@@ -31,7 +31,11 @@ const Main = ({ navigation }) => {
           topicTitle={"📚 교재"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() => navigation.navigate("Markets")}
+          topicOnPress={() =>
+            navigation.navigate("Markets", {
+              category: "book",
+            })
+          }
           itemOnPress={() => navigation.navigate("ViewDetail")}
         />
         <MarketContainer
@@ -39,7 +43,11 @@ const Main = ({ navigation }) => {
           topicTitle={"💻 IT기기"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() => navigation.navigate("Markets")}
+          topicOnPress={() =>
+            navigation.navigate("Markets", {
+              category: "device",
+            })
+          }
           itemOnPress={() => navigation.navigate("ViewDetail")}
         />
         <MarketContainer
@@ -47,7 +55,11 @@ const Main = ({ navigation }) => {
           topicTitle={"🧶 의류"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() => navigation.navigate("Markets")}
+          topicOnPress={() =>
+            navigation.navigate("Markets", {
+              category: "clothes",
+            })
+          }
           itemOnPress={() => navigation.navigate("ViewDetail")}
         />
       </ScrollView>
