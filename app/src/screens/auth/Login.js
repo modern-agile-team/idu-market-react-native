@@ -1,15 +1,10 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Alert, Text } from "react-native";
 import styled from "styled-components/native";
-<<<<<<< HEAD:app/src/screens/Login.js
-import { Button, Input, FindButton } from "../components";
-import { checkStudent, removeWhitespace } from "../utils/common";
-=======
->>>>>>> develop:app/src/screens/auth/Login.js
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { ProgressContext, UserContext } from "../../contexts";
-import { Button, Input, Btn } from "../../components";
+import { Button, Input, FindButton } from "../../components";
 import { checkStudent, removeWhitespace } from "../../utils/common";
 import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
 
@@ -37,17 +32,6 @@ const ErrorText = styled.Text`
   color: ${({ theme }) => theme.errorText};
 `;
 
-<<<<<<< HEAD:app/src/screens/Login.js
-=======
-const GoLoginScreenButton = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.boardsButton};
-  align-items: center;
-  border-radius: 4px;
-  width: 80%;
-  padding: 10px;
-  margin-top: 10px;
-`;
->>>>>>> develop:app/src/screens/auth/Login.js
 
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
@@ -57,10 +41,7 @@ function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
-<<<<<<< HEAD:app/src/screens/Login.js
-=======
-  const [login, setLogin] = useState(false);
->>>>>>> develop:app/src/screens/auth/Login.js
+
 
   // password input focus
   const passwordRef = useRef();
@@ -145,22 +126,11 @@ function Login({ navigation }) {
           isPassword
         />
         <ErrorText>{errorMessage}</ErrorText>
-<<<<<<< HEAD:app/src/screens/Login.js
         <Button
           title="Login"
           onPress={_handleLoginButtonPress}
           disabled={disabled}
         />
-=======
-        <GoLoginScreenButton>
-          <Text
-            style={{ color: "#fff", fontSize: 18 }}
-            onPress={_handleLoginButtonPress}
-          >
-            로그인
-          </Text>
-        </GoLoginScreenButton>
->>>>>>> develop:app/src/screens/auth/Login.js
         <Button
           title="회원가입"
           //navigate함수로 원하는 화면의 이름을 전달하여 이동한다.

@@ -1,20 +1,10 @@
-<<<<<<< HEAD:app/src/screens/Profile.js
 import React, { useContext, useState, useEffect } from 'react';
 import styled, { ThemeContext } from 'styled-components/native';
-import { logout } from '../utils/firebase';
+import { logout } from '../../utils/firebase';
 import { AntDesign, MaterialIcons, Ionicons, EvilIcons, FontAwesome } from "@expo/vector-icons";
-import { UserContext, ProgressContext } from '../contexts';
+import { UserContext, ProgressContext } from '../../contexts';
 import { Alert, Text } from 'react-native';
 // import ProfileComponent from '../components/Profile/ProfileComponent'
-=======
-import React, { useContext } from "react";
-import { Text } from "react-native";
-import styled, { ThemeContext } from "styled-components/native";
-
-import { UserContext, ProgressContext } from "../../contexts";
-import { Input } from "../../components";
-import { logout } from "../../utils/firebase";
->>>>>>> develop:app/src/screens/profiles/Profile.js
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -24,7 +14,6 @@ const Container = styled.SafeAreaView`
   padding:0px;
 `;
 
-<<<<<<< HEAD:app/src/screens/Profile.js
 const UserInformationContainer = styled.View`
   align-items: center;
   margin-top: 20px;
@@ -53,9 +42,6 @@ const UserSetting = styled.View`
   right: 20px;
   top: 5px;
 `;
-=======
-const LoginQuestion = styled.View``;
->>>>>>> develop:app/src/screens/profiles/Profile.js
 
 const LogoutButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.background};
@@ -165,7 +151,6 @@ const Profile = ({ navigation }) => {
     }
   };
 
-<<<<<<< HEAD:app/src/screens/Profile.js
   const _handleGoLoginScreenBtnPress = async () => {
     try{
       spinner.start();
@@ -192,8 +177,6 @@ const Profile = ({ navigation }) => {
   //   return Users;
   // };
 
-=======
->>>>>>> develop:app/src/screens/profiles/Profile.js
   return (
     <>
       {user?.user ? (
@@ -249,31 +232,16 @@ const Profile = ({ navigation }) => {
           <LoginQuestion>
             <Text>로그인을 하신 후에 볼 수 있습니다</Text>
             <Text>로그인 하시겠습니까?</Text>
-<<<<<<< HEAD:app/src/screens/Profile.js
             <GoLoginScreenButton >
               <Text 
                 style={{ color:"#fff", fontWeight:'bold' }}
                 onPress={_handleGoLoginScreenBtnPress}
-=======
-          </LoginQuestion>
-          <LoginQuestionBtnContainer>
-            <GoLoginScreenButton>
-              <Text
-                style={{ color: "#fff", fontWeight: "bold" }}
-                onPress={() => navigation.navigate("Login")}
->>>>>>> develop:app/src/screens/profiles/Profile.js
               >
                 로그인 하러가기
               </Text>
             </GoLoginScreenButton>
-<<<<<<< HEAD:app/src/screens/Profile.js
           </LoginQuestion>
         </Container> )}
-=======
-          </LoginQuestionBtnContainer>
-        </Container>
-      )}
->>>>>>> develop:app/src/screens/profiles/Profile.js
     </>
   );
 };
