@@ -1,19 +1,13 @@
 import React, { useState, useContext } from "react";
-import { View, Alert, Text } from "react-native";
-// import { ScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Alert } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled, { ThemeContext } from "styled-components/native";
 import AppLoading from "expo-app-loading";
 
 import moment from "moment";
-
 import { ProgressContext } from "../../../contexts";
-
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
 import PostContainer from "../../../components/boards/read-detail/PostContainer";
-import PostContainers from "../../../components/boards/read-detail/PostContainers";
-import CommentContainers from "../../../components/boards/read-detail/CommentContainers";
-
-const ScrollView = styled.ScrollView``;
 
 const Container = styled.View`
   flex: 1;
@@ -63,14 +57,14 @@ function DetailView() {
   };
 
   return isReady ? (
-    <ScrollView>
+    <KeyboardAwareScrollView>
       <Container>
         <ImageSliderContainer images={images} />
         <PostContainer getDateOrTime={getDateOrTime} />
       </Container>
       {/* <PostContainers getDateOrTime={getDateOrTime} />
           <CommentContainers getDateOrTime={getDateOrTime} /> */}
-    </ScrollView>
+    </KeyboardAwareScrollView>
   ) : (
     <AppLoading
       startAsync={_loadBoard}

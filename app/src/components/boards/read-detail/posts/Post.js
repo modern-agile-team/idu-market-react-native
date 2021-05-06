@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";

@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { Alert, Text } from "react-native";
+import React, { useContext } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import styled, { ThemeContext } from "styled-components/native";
 

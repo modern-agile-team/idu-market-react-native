@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
-
-import { MaterialIcons } from "@expo/vector-icons";
 
 import Post from "../../../components/boards/read-detail/posts/Post";
 import CommentContainer from "../../../components/boards/read-detail/comments/CommentContainer";
