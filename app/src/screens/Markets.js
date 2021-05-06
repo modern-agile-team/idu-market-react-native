@@ -159,7 +159,7 @@ function Board({ route, navigation }) {
   return isReady ? (
     <Container>
       <FlatList
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item) => `${item.num}`}
         data={boards}
         renderItem={({ item }) => (
           <Item item={item} onPress={_handleItemPress} />
