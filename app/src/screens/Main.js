@@ -23,7 +23,7 @@ const Main = ({ navigation }) => {
           topicTitle={"📌 공지"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() => navigation.navigate("Markets")}
+          topicOnPress={() => navigation.navigate("Market")}
           itemOnPress={() => navigation.navigate("DetailView")}
         />
         <MarketContainer
@@ -32,7 +32,7 @@ const Main = ({ navigation }) => {
           topicFontSize={26}
           hitSlop={10}
           topicOnPress={() =>
-            navigation.navigate("Markets", {
+            navigation.navigate("Market", {
               category: "book",
             })
           }
@@ -56,7 +56,7 @@ const Main = ({ navigation }) => {
           topicFontSize={26}
           hitSlop={10}
           topicOnPress={() =>
-            navigation.navigate("Markets", {
+            navigation.navigate("Market", {
               category: "clothes",
             })
           }
