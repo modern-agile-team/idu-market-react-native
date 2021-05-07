@@ -7,7 +7,7 @@ import FindPw from "./auth/FindPw";
 
 import Profile from "./profiles/Profile";
 
-import Markets from "./boards/read-all/Markets";
+import Market from "./boards/read-all/Market";
 import NoticeBoard from "./boards/read-all/NoticeBoard";
 import FreeBoard from "./boards/read-all/FreeBoard";
 import DetailView from "./boards/read-detail/DetailView";
@@ -22,7 +22,7 @@ export {
   Profile,
   FindId,
   FindPw,
-  Markets,
+  Market,
   DetailView,
   PostWrite,
 };
