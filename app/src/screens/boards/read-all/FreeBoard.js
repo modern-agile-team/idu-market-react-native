@@ -61,11 +61,11 @@ function FreeBoard({ navigation }) {
         windowSize={3} // 렌더링 되는양을 조절
       />
       <FAB
-        buttonColor="#e84118"
-        iconTextColor="#ffffff"
+        buttonColor='#e84118'
+        iconTextColor='#ffffff'
         onClickAction={_handleWritePress}
         visible={true}
-        iconTextComponent={<MaterialIcons name="edit" />}
+        iconTextComponent={<MaterialIcons name='edit' />}
       />
     </Container>
   ) : (

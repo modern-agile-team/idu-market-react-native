@@ -17,7 +17,9 @@ const Container = styled.View`
 const getDateOrTime = (ts) => {
   const now = moment().startOf("day");
   const target = moment(ts).startOf("day");
-  return moment(ts).format(now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm");
+  return moment(ts).format(
+    now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm"
+  );
 };
 
 function DetailView() {
