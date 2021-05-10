@@ -17,9 +17,7 @@ const Container = styled.View`
 const getDateOrTime = (ts) => {
   const now = moment().startOf("day");
   const target = moment(ts).startOf("day");
-  return moment(ts).format(
-    now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm"
-  );
+  return moment(ts).format(now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm");
 };
 
 function DetailView() {
@@ -28,6 +26,7 @@ function DetailView() {
 
   const [isReady, setIsReady] = useState(false);
   const [board, setBoard] = useState({});
+  const [comments, setComments] = useState([]);
   const [images, setImages] = useState([]);
 
   const _loadBoard = async () => {
@@ -42,12 +41,14 @@ function DetailView() {
       };
 
       const response = await fetch(
-        `http://13.125.55.135:9800/api/boards/book/934/202016709`,
+        `http://13.125.55.135:9800/api/boards/book/933/202016704`,
         config
       );
       const json = await response.json();
       if (json.success) {
         setImages([...images, ...json.images]);
+        setBoard({ ...board, ...json.board });
+        setComments([...comments, ...json.comments]);
       } else {
         Alert.alert(json.msg);
       }
@@ -57,12 +58,11 @@ function DetailView() {
       spinner.stop();
     }
   };
-
   return isReady ? (
     <KeyboardAwareScrollView>
       <Container>
         <ImageSliderContainer images={images} />
-        <PostContainer getDateOrTime={getDateOrTime} />
+        <PostContainer board={board} comments={comments} />
       </Container>
       {/* <PostContainers getDateOrTime={getDateOrTime} />
           <CommentContainers getDateOrTime={getDateOrTime} /> */}

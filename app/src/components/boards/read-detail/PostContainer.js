@@ -6,13 +6,13 @@ import CommentContainer from "./comments/CommentContainer";
 
 const Container = styled.View``;
 
-const PostContainer = ({ getDateOrTime }) => {
+const PostContainer = ({ board, comments }) => {
   const theme = useContext(ThemeContext);
 
   return (
     <Container>
-      <Post getDateOrTime={getDateOrTime} />
-      <CommentContainer getDateOrTime={getDateOrTime} />
+      <Post board={board} />
+      <CommentContainer comments={comments} />
     </Container>
   );
 };
