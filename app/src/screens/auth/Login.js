@@ -32,7 +32,6 @@ const ErrorText = styled.Text`
   color: ${({ theme }) => theme.errorText};
 `;
 
-
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
   const { dispatch } = useContext(UserContext);
@@ -41,7 +40,6 @@ function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
-
 
   // password input focus
   const passwordRef = useRef();
@@ -60,7 +58,7 @@ function Login({ navigation }) {
   };
 
   const _handleSuccessLogin = (json) => {
-    setItemToAsync("user", json.jwt);
+    setItemToAsync("user", json.id);
     const user = getItemFromAsync("user");
     console.log(user);
     dispatch({ user });
@@ -86,6 +84,7 @@ function Login({ navigation }) {
 
       let response = await fetch("http://13.125.55.135:9800/api/jwt", config);
       let json = await response.json();
+      console.log(json);
       json.success ? _handleSuccessLogin(json) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
@@ -95,8 +94,8 @@ function Login({ navigation }) {
   };
 
   useEffect(() => {
-    setDisabled(!(student && password && !errorMessage));
-  }, [student, password, errorMessage]);
+    setDisabled(!(password && !errorMessage));
+  }, [password, errorMessage]);
 
   return (
     //키보드 감추기 (인풋 클릭시 키보드가 가리는걸방지)

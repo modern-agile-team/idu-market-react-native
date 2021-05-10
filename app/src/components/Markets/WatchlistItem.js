@@ -56,7 +56,7 @@ const ImageContanier = styled.Image`
   border-radius: 10px;
 `;
 
-const Item = React.memo(
+const WatchlistItem = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
   ({ item }) => {
     const theme = useContext(ThemeContext);
@@ -84,7 +84,7 @@ const Item = React.memo(
             </ItemRowContainer>
             <ItemRowContainer>
               <MaterialIcons name="person" size={24} color={theme.listIcon} />
-              <ItemStudent>{item.nickname}</ItemStudent>
+              <ItemStudent>{item.sellerName}</ItemStudent>
             </ItemRowContainer>
             <ItemRowContainer>
               <MaterialIcons name="payment" size={25} />
@@ -102,4 +102,4 @@ const Item = React.memo(
   }
 );
 
-export default Item;
+export default WatchlistItem;

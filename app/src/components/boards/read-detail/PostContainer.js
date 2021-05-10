@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 
-import Post from "../../../components/boards/read-detail/posts/Post";
-import CommentContainer from "../../../components/boards/read-detail/comments/CommentContainer";
+import Post from "./posts/Post";
+import CommentContainer from "./comments/CommentContainer";
 
 const Container = styled.View``;
 

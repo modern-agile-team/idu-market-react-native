@@ -4,6 +4,7 @@ import AuthStack from "./AuthStack";
 import { Spinner } from "../components";
 import { ProgressContext, UserContext } from "../contexts";
 import MainStack from "./MainStack";
+import Profile from "../screens/profiles/Profile";
 
 const Navigation = () => {
   const { inProgress } = useContext(ProgressContext);
