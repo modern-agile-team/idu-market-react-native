@@ -32,7 +32,6 @@ const ErrorText = styled.Text`
   color: ${({ theme }) => theme.errorText};
 `;
 
-
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
   const { dispatch } = useContext(UserContext);
@@ -41,7 +40,6 @@ function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
-
 
   // password input focus
   const passwordRef = useRef();
@@ -108,42 +106,42 @@ function Login({ navigation }) {
         {/* 320p */}
         <Text style={{ fontSize: 40 }}>Idu Market</Text>
         <Input
-          label="학번"
+          label='학번'
           value={student}
           onChangeText={_handleStudentChange}
           onSubmitEditing={_handleLoginButtonPress}
-          placeholder="학번"
-          returnKeyType="next"
+          placeholder='학번'
+          returnKeyType='next'
         />
         <Input
           ref={passwordRef}
-          label="비밀번호"
+          label='비밀번호'
           value={password}
           onChangeText={_handlePasswordChange}
           onSubmitEditing={() => {}}
-          placeholder="비밀번호"
-          returnKeyType="done"
+          placeholder='비밀번호'
+          returnKeyType='done'
           isPassword
         />
         <ErrorText>{errorMessage}</ErrorText>
         <Button
-          title="Login"
+          title='Login'
           onPress={_handleLoginButtonPress}
           disabled={disabled}
         />
         <Button
-          title="회원가입"
+          title='회원가입'
           //navigate함수로 원하는 화면의 이름을 전달하여 이동한다.
           onPress={() => navigation.navigate("Signup")}
         />
         <IdPasswordBtn>
           <FindButton
-            title="아이디찾기"
+            title='아이디찾기'
             isFilled={false}
             onPress={() => navigation.navigate("FindId")}
           />
           <FindButton
-            title="비밀번호찾기"
+            title='비밀번호찾기'
             isFilled={false}
             onPress={() => navigation.navigate("FindPw")}
           />

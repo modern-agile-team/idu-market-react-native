@@ -6,7 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
 
 import { ProgressContext } from "../../../contexts";
-import * as Item from "../../../components/boards/FreeBoardComponent";
+import Item from "../../../components/boards/FreeBoardComponent";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -53,11 +53,11 @@ function FreeBoard({ navigation }) {
   return isReady ? (
     <Container>
       <FlatList
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item) => `${item.num}`}
         data={boards}
-        // renderItem={({ item }) => (
-        //   <Item item={item} onPress={_handleItemPress} />
-        // )}
+        renderItem={({ item }) => (
+          <Item item={item} onPress={_handleItemPress} />
+        )}
         windowSize={3} // 렌더링 되는양을 조절
       />
       <FAB
