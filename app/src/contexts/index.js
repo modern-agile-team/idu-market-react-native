@@ -1,4 +1,4 @@
-import { ProgressContext, ProgressProvider } from './Progress';
-import { UserContext, UserProvider } from './User';
+import { ProgressContext, ProgressProvider } from "./Progress";
+import { StudentContext, StudentProvider } from "./Student";
 
-export { ProgressContext, ProgressProvider, UserContext, UserProvider };
+export { ProgressContext, ProgressProvider, StudentContext, StudentProvider };

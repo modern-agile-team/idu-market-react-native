@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
-import { UserContext, ProgressContext } from "../../contexts";
+import { StudentContext, ProgressContext } from "../../contexts";
 import { Alert, Text } from "react-native";
 import AppLoading from "expo-app-loading";
 
-import UserInfo from "../../components/Profile/UserInfo";
+import ProfileInfo from "../../components/Profile/ProfileInfo";
 import Watchlist from "../../components/Profile/Watchlist";
-import UserInformationContainer from "../../components/Profile/UserInfomationContainer";
+import ProfileInformationContainer from "../../components/Profile/ProfileInfomationContainer";
 import ActionButtonContainer from "../../components/Profile/ActionButtonContainer";
 import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
 
@@ -40,15 +40,15 @@ const GoLoginScreenButton = styled.TouchableOpacity`
 
 const Profile = ({ navigation }) => {
   const [isReady, setIsReady] = useState(false);
+  const [isLogined, setIsLogined] = useState(false);
   const [profile, setProfile] = useState({});
 
-  const { dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(StudentContext);
   const { spinner } = useContext(ProgressContext);
 
   const theme = useContext(ThemeContext);
-  const { user } = useContext(UserContext);
 
-  const _userInfo = async () => {
+  const _profileInfo = async () => {
     try {
       spinner.start();
       const config = {
@@ -57,12 +57,29 @@ const Profile = ({ navigation }) => {
           Accept: "application/json",
         },
       };
-      const response = await fetch(
-        `http://13.125.55.135:9800/api/students/${user.id}`,
-        config
-      );
-      const json = await response.json();
-      json.success ? setProfile(json.profile) : Alert.alert(json.msg);
+      const id = JSON.parse(await getItemFromAsync("id"));
+      console.log("student id in AppLoding", id);
+      if (id.length) {
+        const response = await fetch(
+          `http://13.125.55.135:9800/api/students/${id}`,
+          config
+        );
+
+        const json = await response.json();
+        console.log("json : ", json);
+        console.log("profile : ", json.profile);
+        if (json.success) {
+          console.log("success : ", json.success);
+          console.log("setedProfile : ", { ...profile, ...json.profile });
+          setIsLogined(true);
+          setProfile({ ...profile, ...json.profile });
+        } else {
+          setIsLogined(false);
+          Alert("서버에서 프로필 정보를 불러올 수 없습니다.");
+        }
+      } else {
+        setIsLogined(false);
+      }
     } catch (e) {
       // Alert.alert("정보를 불러오지 못했습니다.", e.message);
     } finally {
@@ -74,16 +91,17 @@ const Profile = ({ navigation }) => {
     navigation.navigate("Login");
   };
 
-  const userInfo = () => {
-    return <UserInfo studentId={profile.id} email={profile.email} />;
+  const profileInfo = () => {
+    console.log("profile in profileInfo() : ", profile);
+    return <ProfileInfo id={profile.id} email={profile.email} />;
   };
 
   if (isReady) {
     return (
       <>
-        {user?.user ? (
+        {isLogined ? (
           <Container>
-            <UserInformationContainer userInfo={userInfo} />
+            <ProfileInformationContainer profileInfo={profileInfo} />
             <ActionButtonContainer iconSize={30} />
             <WatchlistContainer>
               <Text style={{ fontWeight: "bold" }}> 내가 찜한 목록 </Text>
@@ -111,7 +129,7 @@ const Profile = ({ navigation }) => {
   }
   return (
     <AppLoading
-      startAsync={_userInfo}
+      startAsync={_profileInfo}
       onFinish={() => setIsReady(true)}
       onError={console.error}
     />

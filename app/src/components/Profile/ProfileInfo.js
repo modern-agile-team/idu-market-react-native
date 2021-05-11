@@ -1,30 +1,30 @@
 import React, { useContext } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 
-const UserInfoText = styled.View`
+const ProfileInfoText = styled.View`
   align-items: flex-start;
   width: 100%;
 `;
 
-const UserStudentId = styled.Text`
+const StudentId = styled.Text`
   font-weight: bold;
   font-size: 18;
 `;
 
-const UserEmail = styled.Text`
+const StudentEmail = styled.Text`
   font-size: 12;
   color: ${({ theme }) => theme.inputPlaceholder};
 `;
 
-const UserInfo = ({ studentId, email }) => {
+const ProfileInfo = ({ id, email }) => {
   const theme = useContext(ThemeContext);
 
   return (
-    <UserInfoText>
-      <UserStudentId>{studentId}</UserStudentId>
-      <UserEmail>{email}</UserEmail>
-    </UserInfoText>
+    <ProfileInfoText>
+      <StudentId>{id}</StudentId>
+      <StudentEmail>{email}</StudentEmail>
+    </ProfileInfoText>
   );
 };
 
-export default UserInfo;
+export default ProfileInfo;

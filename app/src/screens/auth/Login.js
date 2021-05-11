@@ -3,7 +3,7 @@ import { Alert, Text } from "react-native";
 import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { ProgressContext, UserContext } from "../../contexts";
+import { ProgressContext, StudentContext } from "../../contexts";
 import { Button, Input, FindButton } from "../../components";
 import { checkStudent, removeWhitespace } from "../../utils/common";
 import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
@@ -34,7 +34,7 @@ const ErrorText = styled.Text`
 
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
-  const { dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(StudentContext);
 
   const [student, setStudent] = useState("");
   const [password, setPassword] = useState("");
@@ -57,13 +57,13 @@ function Login({ navigation }) {
     setPassword(removeWhitespace(password));
   };
 
-  const _handleSuccessLogin = (json) => {
-    setItemToAsync("user", json.id);
-    const user = getItemFromAsync("user");
-    console.log(user);
-    dispatch({ user });
+  const _handleSuccessLogin = async (json) => {
+    setItemToAsync("id", json.id);
+    const id = await getItemFromAsync("id");
+
+    dispatch({ id });
     navigation.navigate("Main");
-    Alert.alert("로그인 성공");
+    Alert.alert("로그인에 성공하셨습니다.");
   };
 
   const _handleLoginButtonPress = async () => {
@@ -84,7 +84,7 @@ function Login({ navigation }) {
 
       let response = await fetch("http://13.125.55.135:9800/api/jwt", config);
       let json = await response.json();
-      console.log(json);
+
       json.success ? _handleSuccessLogin(json) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);

@@ -3,8 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Profile, Main, FreeBoard } from "../screens";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { ThemeContext } from "styled-components";
-import { Alert } from "react-native";
-import { UserContext } from "../contexts";
 
 const Tab = createBottomTabNavigator();
 

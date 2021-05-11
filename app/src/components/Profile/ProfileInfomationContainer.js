@@ -15,7 +15,7 @@ const Container = styled.View`
   border-color: ${({ theme }) => theme.listBorder};
 `;
 
-const UserSetting = styled.View`
+const StudentSetting = styled.View`
   position: absolute;
   right: 20px;
   top: 5px;
@@ -32,7 +32,7 @@ const LogoutButton = styled.TouchableOpacity`
   border-radius: 10px;
 `;
 
-const UserInformationContainer = ({ userInfo }) => {
+const ProfileInformationContainer = ({ profileInfo }) => {
   const theme = useContext(ThemeContext);
 
   const _handleLogoutButtonPress = async () => {
@@ -50,10 +50,10 @@ const UserInformationContainer = ({ userInfo }) => {
   return (
     <Container>
       <MaterialIcons name="person" size={80} color={theme.listIcon} />
-      <>{userInfo()}</>
-      <UserSetting>
+      <>{profileInfo()}</>
+      <StudentSetting>
         <Ionicons name="settings-outline" size={24} color={theme.listIcon} />
-      </UserSetting>
+      </StudentSetting>
       <LogoutButton onPress={_handleLogoutButtonPress}>
         <Text style={{ color: "#222" }}> 로그아웃 </Text>
       </LogoutButton>
@@ -61,4 +61,4 @@ const UserInformationContainer = ({ userInfo }) => {
   );
 };
 
-export default UserInformationContainer;
+export default ProfileInformationContainer;
