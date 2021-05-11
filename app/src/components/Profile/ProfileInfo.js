@@ -8,11 +8,11 @@ const ProfileInfoText = styled.View`
 
 const StudentId = styled.Text`
   font-weight: bold;
-  font-size: 18;
+  font-size: 18px;
 `;
 
 const StudentEmail = styled.Text`
-  font-size: 12;
+  font-size: 12px;
   color: ${({ theme }) => theme.inputPlaceholder};
 `;
 

@@ -3,7 +3,7 @@ import { Alert, Text } from "react-native";
 import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { ProgressContext, StudentContext } from "../../contexts";
+import { ProgressContext, StudentContext, ReadyContext } from "../../contexts";
 import { Button, Input, FindButton } from "../../components";
 import { checkStudent, removeWhitespace } from "../../utils/common";
 import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
@@ -35,6 +35,7 @@ const ErrorText = styled.Text`
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
   const { dispatch } = useContext(StudentContext);
+  const { isReady, readyDispatch } = useContext(ReadyContext);
 
   const [student, setStudent] = useState("");
   const [password, setPassword] = useState("");
@@ -62,6 +63,7 @@ function Login({ navigation }) {
     const id = await getItemFromAsync("id");
 
     dispatch({ id });
+    readyDispatch.notReady();
     navigation.navigate("Main");
     Alert.alert("로그인에 성공하셨습니다.");
   };

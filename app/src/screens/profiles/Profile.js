@@ -1,14 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
-import { StudentContext, ProgressContext } from "../../contexts";
+import { ProgressContext, ReadyContext } from "../../contexts";
 import { Alert, Text } from "react-native";
 import AppLoading from "expo-app-loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ProfileInfo from "../../components/Profile/ProfileInfo";
 import Watchlist from "../../components/Profile/Watchlist";
 import ProfileInformationContainer from "../../components/Profile/ProfileInfomationContainer";
 import ActionButtonContainer from "../../components/Profile/ActionButtonContainer";
-import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
+import { getItemFromAsync } from "../../utils/AsyncStorage";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -31,19 +32,29 @@ const LoginQuestion = styled.View`
   align-items: center;
 `;
 
-const GoLoginScreenButton = styled.TouchableOpacity`
+const GoLoginScreenButton = styled.Button`
   background-color: ${({ theme }) => theme.boardsButton};
   margin-top: 40px;
   padding: 10px;
   border-radius: 10px;
 `;
 
+const LogoutButton = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.background};
+  border: 1px;
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 10px;
+`;
+
 const Profile = ({ navigation }) => {
-  const [isReady, setIsReady] = useState(false);
   const [isLogined, setIsLogined] = useState(false);
   const [profile, setProfile] = useState({});
 
-  const { dispatch } = useContext(StudentContext);
+  const { isReady, readyDispatch } = useContext(ReadyContext);
   const { spinner } = useContext(ProgressContext);
 
   const theme = useContext(ThemeContext);
@@ -57,8 +68,7 @@ const Profile = ({ navigation }) => {
           Accept: "application/json",
         },
       };
-      const id = JSON.parse(await getItemFromAsync("id"));
-      console.log("student id in AppLoding", id);
+      const id = await getItemFromAsync("id");
       if (id.length) {
         const response = await fetch(
           `http://13.125.55.135:9800/api/students/${id}`,
@@ -66,11 +76,7 @@ const Profile = ({ navigation }) => {
         );
 
         const json = await response.json();
-        console.log("json : ", json);
-        console.log("profile : ", json.profile);
         if (json.success) {
-          console.log("success : ", json.success);
-          console.log("setedProfile : ", { ...profile, ...json.profile });
           setIsLogined(true);
           setProfile({ ...profile, ...json.profile });
         } else {
@@ -85,6 +91,22 @@ const Profile = ({ navigation }) => {
     } finally {
       spinner.stop();
     }
+  };
+
+  const _handleLogoutButtonPress = async () => {
+    try {
+      spinner.start();
+      await logout();
+    } catch (e) {
+      console.log("[Profile] logout: ", e.message);
+    } finally {
+      spinner.stop();
+    }
+  };
+
+  const logout = async () => {
+    await AsyncStorage.removeItem("id");
+    setIsLogined(false);
   };
 
   const _handleGoLoginScreenBtnPress = async () => {
@@ -102,6 +124,9 @@ const Profile = ({ navigation }) => {
         {isLogined ? (
           <Container>
             <ProfileInformationContainer profileInfo={profileInfo} />
+            <LogoutButton onPress={_handleLogoutButtonPress}>
+              <Text style={{ color: "#222" }}> 로그아웃 </Text>
+            </LogoutButton>
             <ActionButtonContainer iconSize={30} />
             <WatchlistContainer>
               <Text style={{ fontWeight: "bold" }}> 내가 찜한 목록 </Text>
@@ -113,14 +138,17 @@ const Profile = ({ navigation }) => {
             <LoginQuestion>
               <Text>로그인을 하신 후에 볼 수 있습니다</Text>
               <Text>로그인 하시겠습니까?</Text>
-              <GoLoginScreenButton>
-                <Text
+              <GoLoginScreenButton
+                title="로그인하러가기"
+                onPress={_handleGoLoginScreenBtnPress}
+              />
+              {/* <Text
                   style={{ color: "#fff", fontWeight: "bold" }}
                   onPress={_handleGoLoginScreenBtnPress}
                 >
                   로그인 하러가기
-                </Text>
-              </GoLoginScreenButton>
+                </Text> */}
+              {/* </GoLoginScreenButton> */}
             </LoginQuestion>
           </Container>
         )}
@@ -130,7 +158,7 @@ const Profile = ({ navigation }) => {
   return (
     <AppLoading
       startAsync={_profileInfo}
-      onFinish={() => setIsReady(true)}
+      onFinish={() => readyDispatch.ready()}
       onError={console.error}
     />
   );

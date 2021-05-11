@@ -6,7 +6,7 @@ import * as Font from "expo-font";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./theme";
 import Navigation from "./navigations";
-import { ProgressProvider, StudentProvider } from "./contexts";
+import { ProgressProvider, ReadyProvider, StudentProvider } from "./contexts";
 //authstack 받아온다
 
 //앱 아이콘 로딩화면
@@ -40,8 +40,10 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <StudentProvider>
         <ProgressProvider>
-          <StatusBar barStyle="dark-content" />
-          <Navigation />
+          <ReadyProvider>
+            <StatusBar barStyle="dark-content" />
+            <Navigation />
+          </ReadyProvider>
         </ProgressProvider>
       </StudentProvider>
     </ThemeProvider>

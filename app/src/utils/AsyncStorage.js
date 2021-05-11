@@ -44,7 +44,7 @@ export const getItemFromAsync = (student) => {
         resolve(null);
       }
 
-      resolve(JSON.stringify(result));
+      resolve(result);
     });
   });
 };

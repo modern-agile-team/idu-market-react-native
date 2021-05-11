@@ -8,6 +8,7 @@ const StudentContext = createContext({
 // 이메일과 uid를 가진 객체(user)를 수정 가능한 dispatch함수를 value로 전달하는 컴포넌트
 const StudentProvider = ({ children }) => {
   const [student, setStudent] = useState({});
+
   const dispatch = ({ id }) => {
     setStudent({ id });
   };
