@@ -12,12 +12,12 @@ const ItemContainer = styled.TouchableOpacity`
 const ItemTextContainer = styled.View`
   flex: 1;
   flex-direction: column;
-  width:100%;
+  width: 100%;
 `;
 
 const ItemStudent = styled.Text`
-    font-size: 10px;
-    padding-left: 3px;
+  font-size: 10px;
+  padding-left: 3px;
 `;
 
 const ItemTitle = styled.Text.attrs(() => ({
@@ -26,7 +26,6 @@ const ItemTitle = styled.Text.attrs(() => ({
   width: 200px;
   font-size: 16px;
   font-weight: 600;
-
 `;
 
 const ItemDescription = styled.Text.attrs(() => ({
@@ -38,16 +37,15 @@ const ItemDescription = styled.Text.attrs(() => ({
 `;
 
 const ItemRowContainer = styled.View`
-    flex:1;
-    padding-top: 10px;
-    flex-direction: row;
-    align-items:center;
-    width: 100%;
+  flex: 1;
+  padding-top: 10px;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 `;
 const ItemComment = styled.Text`
-    padding-left: 5px;
-    color: ${({ theme }) => theme.listTime};
-    
+  padding-left: 5px;
+  color: ${({ theme }) => theme.listTime};
 `;
 const ItemTime = styled.Text`
   font-size: 12px;
@@ -57,25 +55,23 @@ const ItemTime = styled.Text`
   padding-top: 20px;
 `;
 
-const Item = React.memo( 
+const Item = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
   ({ item }) => {
-  const theme = useContext(ThemeContext);
-  
+    const theme = useContext(ThemeContext);
+
     return (
-      <ItemContainer onPress={() => 
-        navigation.navigate("ViewDetail", {
-          board: item,
-        })
-      }>
+      <ItemContainer
+        onPress={() =>
+          navigation.navigate("ViewDetail", {
+            board: item,
+          })
+        }
+      >
         <ItemTextContainer>
           <ItemTitle>{item.title}</ItemTitle>
           <ItemRowContainer>
-            <MaterialIcons
-              name="person"
-              size={24}
-              color={theme.listIcon}
-            />
+            <MaterialIcons name="person" size={24} color={theme.listIcon} />
             <ItemStudent>{item.nickname}</ItemStudent>
           </ItemRowContainer>
           <ItemDescription>{item.content}</ItemDescription>
