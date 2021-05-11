@@ -5,10 +5,10 @@ import { Alert, Text } from "react-native";
 import AppLoading from "expo-app-loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import ProfileInfo from "../../components/Profile/ProfileInfo";
-import Watchlist from "../../components/Profile/Watchlist";
-import ProfileInformationContainer from "../../components/Profile/ProfileInfomationContainer";
-import ActionButtonContainer from "../../components/Profile/ActionButtonContainer";
+import ProfileInfo from "../../components/profiles/ProfileInfo";
+import Watchlist from "../../components/profiles/Watchlist";
+import ProfileInformationContainer from "../../components/profiles/ProfileInfomationContainer";
+import ActionButtonContainer from "../../components/profiles/ActionButtonContainer";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 
 const Container = styled.SafeAreaView`
@@ -44,7 +44,7 @@ const LogoutButton = styled.TouchableOpacity`
   border: 1px;
   position: absolute;
   right: 10px;
-  top: 30px;
+  top: 50px;
   margin-top: 10px;
   padding: 5px;
   border-radius: 10px;
