@@ -7,7 +7,7 @@ import AppLoding from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { ProgressContext } from "../../../contexts";
-import Item from "../../../components/markets/Item";
+import Item from "../../../components/Markets/Item";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -66,11 +66,11 @@ function Board({ route, navigation }) {
         windowSize={3} // 렌더링 되는양을 조절
       />
       <FAB
-        buttonColor='#e84118'
-        iconTextColor='#ffffff'
+        buttonColor="#e84118"
+        iconTextColor="#ffffff"
         onClickAction={_handleWritePress}
         visible={true}
-        iconTextComponent={<MaterialIcons name='edit' />}
+        iconTextComponent={<MaterialIcons name="edit" />}
       />
     </Container>
   ) : (

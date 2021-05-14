@@ -4,7 +4,7 @@ import SelectBox from "react-native-multi-selectbox";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components/native";
 
-import { ProgressContext, UserContext } from "../../contexts";
+import { ProgressContext, StudentContext } from "../../contexts";
 import { Button, Input } from "../../components";
 import {
   validateEmail,
@@ -148,7 +148,7 @@ const ErrorText = styled.Text`
 
 function Signup() {
   const { spinner } = useContext(ProgressContext);
-  const { dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(StudentContext);
 
   const [selectedMajor, setSelectedMajor] = useState({});
   const [student, setStudent] = useState("");
