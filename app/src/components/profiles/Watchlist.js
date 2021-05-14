@@ -1,13 +1,20 @@
 import React, { useContext, useState } from "react";
 import styled, { ThemeContext } from "styled-components/native";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
 import { FlatList } from "react-native-gesture-handler";
 
 import WatchlistItem from "../Markets/WatchlistItem";
 import { ProgressContext } from "../../contexts";
+import { getItemFromAsync } from "../../utils/AsyncStorage";
 
-const WachlistItemContainer = styled.View`
+const WatchlistContainer = styled.View`
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.actionBackgroundColor};
+  padding: 10px 20px 10px 20px;
+`;
+
+const WachlistItem = styled.View`
   width: 100%;
   margin-top: 10px;
   background-color: ${({ theme }) => theme.background};
@@ -52,9 +59,10 @@ const Watchlist = () => {
           Accept: "application/json",
         },
       };
-      //watchlist/202116714
+
+      const id = await getItemFromAsync("id");
       const response = await fetch(
-        "http://13.125.55.135:9800/api/watchlist/202116714",
+        `http://13.125.55.135:9800/api/watchlist/${id}`,
         config
       );
       const json = await response.json();
@@ -68,18 +76,27 @@ const Watchlist = () => {
 
   if (isReady) {
     return (
-      // <WachlistItemContainer>
-      //   <WatchlistTitle>  아이두 </WatchlistTitle>
-      //   <WatchlistIcon><Text style={{fontSize:50}}>📚</Text></WatchlistIcon>
-      //   <WatchlistContent> 아직 찜한 목록이 없어유 ~      마음에 드는 상품을 찜해 보아요.</WatchlistContent>
-      // </WachlistItemContainer>
-
-      <FlatList
-        keyExtractor={(item) => `${item.num}`}
-        data={watchlist}
-        renderItem={({ item }) => <WatchlistItem item={item} />}
-        windowSize={3} // 렌더링 되는양을 조절
-      />
+      //!watchlist.length ? (
+      //   <WachlistItem>
+      //     <WatchlistTitle> 아이두 </WatchlistTitle>
+      //     <WatchlistIcon>
+      //       <Text style={{ fontSize: 50 }}>📚</Text>
+      //     </WatchlistIcon>
+      //     <WatchlistContent>
+      //       {" "}
+      //       아직 찜한 목록이 없어유 ~ 마음에 드는 상품을 찜해 보아요.
+      //     </WatchlistContent>
+      //   </WachlistItem>
+      // ) : (
+      <WatchlistContainer>
+        <Text style={{ fontWeight: "bold" }}> 내가 찜한 목록 </Text>
+        <FlatList
+          keyExtractor={(item) => `${item.num}`}
+          data={watchlist}
+          renderItem={({ item }) => <WatchlistItem item={item} />}
+          windowSize={3} // 렌더링 되는양을 조절
+        />
+      </WatchlistContainer>
     );
   }
   return (

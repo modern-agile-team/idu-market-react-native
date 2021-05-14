@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
-import { ProgressContext, ReadyContext } from "../../contexts";
 import { Alert, Text } from "react-native";
 import AppLoading from "expo-app-loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { ProgressContext, ReadyContext } from "../../contexts";
 import ProfileInfo from "../../components/profiles/ProfileInfo";
 import Watchlist from "../../components/profiles/Watchlist";
 import ProfileInformationContainer from "../../components/profiles/ProfileInfomationContainer";
@@ -19,20 +19,13 @@ const Container = styled.SafeAreaView`
   padding: 0px;
 `;
 
-const WatchlistContainer = styled.View`
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.actionBackgroundColor};
-  padding: 10px 20px 10px 20px;
-`;
-
 const LoginQuestion = styled.View`
   position: absolute;
   top: 60px;
   align-items: center;
 `;
 
-const GoLoginScreenButton = styled.Button`
+const GoLoginScreenButton = styled.Pressable`
   background-color: ${({ theme }) => theme.boardsButton};
   margin-top: 40px;
   padding: 10px;
@@ -87,7 +80,7 @@ const Profile = ({ navigation }) => {
         setIsLogined(false);
       }
     } catch (e) {
-      // Alert.alert("정보를 불러오지 못했습니다.", e.message);
+      Alert.alert("정보를 불러오지 못했습니다.", e.message);
     } finally {
       spinner.stop();
     }
@@ -128,27 +121,21 @@ const Profile = ({ navigation }) => {
               <Text style={{ color: "#222" }}> 로그아웃 </Text>
             </LogoutButton>
             <ActionButtonContainer iconSize={30} />
-            <WatchlistContainer>
-              <Text style={{ fontWeight: "bold" }}> 내가 찜한 목록 </Text>
-              <Watchlist />
-            </WatchlistContainer>
+            <Watchlist />
           </Container>
         ) : (
           <Container>
             <LoginQuestion>
               <Text>로그인을 하신 후에 볼 수 있습니다</Text>
               <Text>로그인 하시겠습니까?</Text>
-              <GoLoginScreenButton
-                title="로그인하러가기"
-                onPress={_handleGoLoginScreenBtnPress}
-              />
-              {/* <Text
+              <GoLoginScreenButton>
+                <Text
                   style={{ color: "#fff", fontWeight: "bold" }}
                   onPress={_handleGoLoginScreenBtnPress}
                 >
                   로그인 하러가기
-                </Text> */}
-              {/* </GoLoginScreenButton> */}
+                </Text>
+              </GoLoginScreenButton>
             </LoginQuestion>
           </Container>
         )}
