@@ -17,6 +17,8 @@ import {
   Signup,
   FindPw,
   FindId,
+  PurchaseList,
+  SaleList,
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -33,7 +35,7 @@ const MainStack = () => {
 
   return isFontReady ? (
     <Stack.Navigator
-      initialRouteName='Main'
+      initialRouteName="Main"
       screenOptions={{
         headerTitle: "IDU",
         headerTitleStyle: {
@@ -48,7 +50,7 @@ const MainStack = () => {
         },
         headerRight: ({ tintColor }) => (
           <MaterialIcons
-            name='notifications-none'
+            name="notifications-none"
             size={30}
             style={{ marginRight: 11 }}
             color={theme.headerIconColor}
@@ -59,7 +61,7 @@ const MainStack = () => {
       }}
     >
       <Stack.Screen
-        name='Main'
+        name="Main"
         component={MainTab}
         options={{
           headerTitle: "아이두",
@@ -73,7 +75,7 @@ const MainStack = () => {
         }}
       />
       <Stack.Screen
-        name='DetailView'
+        name="DetailView"
         component={DetailView}
         options={{
           headerTransparent: true,
@@ -81,27 +83,29 @@ const MainStack = () => {
           headerTitle: "",
         }}
       />
-      <Stack.Screen name='PostWrite' component={PostWrite} />
-      <Stack.Screen name='Market' component={Market} />
-      <Stack.Screen name='NoticeBoard' component={NoticeBoard} />
+      <Stack.Screen name="PostWrite" component={PostWrite} />
+      <Stack.Screen name="Market" component={Market} />
+      <Stack.Screen name="NoticeBoard" component={NoticeBoard} />
+      <Stack.Screen name="PurchaseList" component={PurchaseList} />
+      <Stack.Screen name="SaleList" component={SaleList} />
       <Stack.Screen
-        name='Login'
+        name="Login"
         component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name='Signup'
+        name="Signup"
         component={Signup}
         // 회원가입화면 뒤로가기 버튼 제거
         options={{ headerBackTitleVisible: false, title: "회원가입" }}
       />
       <Stack.Screen
-        name='FindId'
+        name="FindId"
         component={FindId}
         options={{ title: "아이디 찾기" }}
       />
       <Stack.Screen
-        name='FindPw'
+        name="FindPw"
         component={FindPw}
         options={{ title: "비밀번호 찾기" }}
       />

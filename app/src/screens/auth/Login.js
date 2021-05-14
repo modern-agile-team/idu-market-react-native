@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { Alert, Text } from "react-native";
+import { Alert, Text, Image } from "react-native";
 import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -44,6 +44,8 @@ function Login({ navigation }) {
 
   // password input focus
   const passwordRef = useRef();
+
+  let LoginImage = require("../../../assets/login.png");
 
   const _handleStudentChange = (student) => {
     //공백제거 형식체크
@@ -107,7 +109,7 @@ function Login({ navigation }) {
     >
       <Container>
         {/* 320p */}
-        <Text style={{ fontSize: 40 }}>Idu Market</Text>
+        <Image style={{ height: 150, width: 150 }} source={LoginImage} />
         <Input
           label="학번"
           value={student}

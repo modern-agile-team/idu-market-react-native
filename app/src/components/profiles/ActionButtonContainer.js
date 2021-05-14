@@ -3,7 +3,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import { AntDesign, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import { Text } from "react-native";
 
-const Container = styled.View`
+const ActionContainer = styled.View`
   width: 100%;
   flex-direction: row;
   height: 80px;
@@ -33,38 +33,38 @@ const WritenMe = styled.TouchableOpacity`
   margin-left: 3px;
 `;
 
-const ActionButtonContainer = ({ iconSize }) => {
+const ActionButtonContainer = ({ iconSize, navigation }) => {
   const theme = useContext(ThemeContext);
 
+  const _handlePurchaseList = async () => {
+    navigation.navigate("PurchaseList");
+  };
+
+  const _handleSaleList = async () => {
+    navigation.navigate("SaleList");
+  };
+
   return (
-    <Container>
-      <SaleList>
-        <AntDesign
-          name="barcode"
-          size={iconSize}
-          color={theme.tabInactiveColor}
-        />
+    <ActionContainer>
+      <SaleList onPress={_handleSaleList}>
+        <AntDesign name="barcode" size={30} color={theme.tabInactiveColor} />
         <Text style={{ position: "absolute", bottom: 5 }}>판매목록</Text>
       </SaleList>
-      <PurchaseList>
-        <EvilIcons
-          name="cart"
-          size={iconSize + 10}
-          color={theme.tabInactiveColor}
-        />
+      <PurchaseList onPress={_handlePurchaseList}>
+        <EvilIcons name="cart" size={30 + 10} color={theme.tabInactiveColor} />
         <Text style={{ position: "absolute", bottom: 5 }}>구매목록</Text>
       </PurchaseList>
       <WritenMe>
         <FontAwesome
           name="pencil-square-o"
-          size={iconSize}
+          size={30}
           color={theme.tabInactiveColor}
         />
         <Text style={{ position: "absolute", bottom: 5, marginRight: 14 }}>
           내가 쓴글
         </Text>
       </WritenMe>
-    </Container>
+    </ActionContainer>
   );
 };
 

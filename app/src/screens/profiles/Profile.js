@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { Alert, Text } from "react-native";
 import AppLoading from "expo-app-loading";
+import { AntDesign, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { ProgressContext, ReadyContext } from "../../contexts";
@@ -80,7 +81,7 @@ const Profile = ({ navigation }) => {
         setIsLogined(false);
       }
     } catch (e) {
-      Alert.alert("정보를 불러오지 못했습니다.", e.message);
+      // Alert.alert("정보를 불러오지 못했습니다.", e.message);
     } finally {
       spinner.stop();
     }
@@ -111,6 +112,10 @@ const Profile = ({ navigation }) => {
     return <ProfileInfo id={profile.id} email={profile.email} />;
   };
 
+  // const _handlePurchaseList = async () => {
+  //   navigation.navigate("PurchaseList");
+  // };
+
   if (isReady) {
     return (
       <>
@@ -120,7 +125,7 @@ const Profile = ({ navigation }) => {
             <LogoutButton onPress={_handleLogoutButtonPress}>
               <Text style={{ color: "#222" }}> 로그아웃 </Text>
             </LogoutButton>
-            <ActionButtonContainer iconSize={30} />
+            <ActionButtonContainer iconSize={30} navigation={navigation} />
             <Watchlist />
           </Container>
         ) : (

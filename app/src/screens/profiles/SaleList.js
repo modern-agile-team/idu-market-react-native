@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
 import styled, { ThemeContext } from "styled-components/native";
-import AppLoding from "expo-app-loading";
-import { FlatList } from "react-native-gesture-handler";
+import React, { useContext, useState, useEffect } from "react";
 import { Text } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import AppLoading from "expo-app-loading";
 
-import Item from "../Markets/Item";
+import Item from "../../components/Markets/Item";
 import { ProgressContext } from "../../contexts";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 
@@ -15,7 +15,7 @@ const Container = styled.View`
   padding: 10px 20px 10px 20px;
 `;
 
-const WachlistItem = styled.View`
+const SaleListItem = styled.View`
   width: 100%;
   margin-top: 10px;
   background-color: ${({ theme }) => theme.background};
@@ -23,35 +23,35 @@ const WachlistItem = styled.View`
   justify-content: center;
 `;
 
-const WatchlistTitle = styled.Text`
+const Title = styled.Text`
   font-size: 20px;
   padding-left: 10px;
   margin-bottom: 40px;
   font-weight: bold;
 `;
 
-const WatchlistIcon = styled.View`
+const Icon = styled.View`
   position: absolute;
   right: 40px;
   top: 20px;
 `;
 
-const WatchlistContent = styled.Text`
+const Content = styled.Text`
   width: 50%;
   margin-left: 15px;
   border-bottom-width: 1px;
   border-color: ${({ theme }) => theme.listBorder};
 `;
 
-const Watchlist = () => {
-  const [watchlist, setWatchlist] = useState([]);
+const SaleList = () => {
+  const [saleList, setSaleList] = useState([]);
   const [isReady, setIsReady] = useState(false);
 
   const { spinner } = useContext(ProgressContext);
 
   const theme = useContext(ThemeContext);
 
-  const _watchlist = async () => {
+  const _saleList = async () => {
     try {
       spinner.start();
 
@@ -64,11 +64,11 @@ const Watchlist = () => {
 
       const id = await getItemFromAsync("id");
       const response = await fetch(
-        `http://13.125.55.135:9800/api/watchlist/${id}`,
+        `http://13.125.55.135:9800/api/sale-list/${id}`,
         config
       );
       const json = await response.json();
-      json.success ? setWatchlist(json.boards) : Alert.alert(json.msg);
+      json.success ? setSaleList(json.saleLists) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {
@@ -77,23 +77,23 @@ const Watchlist = () => {
   };
 
   if (isReady) {
-    return !watchlist.length ? (
+    return !saleList.length ? (
       <Container>
-        <WachlistItem>
-          <WatchlistTitle> 아이두 </WatchlistTitle>
-          <WatchlistIcon>
+        <SaleListItem>
+          <Title> 아이두 </Title>
+          <Icon>
             <Text style={{ fontSize: 50 }}>📚</Text>
-          </WatchlistIcon>
-          <WatchlistContent>아직 찜한 목록이 없어유 ~</WatchlistContent>
-          <WatchlistContent>마음에 드는 상품을 찜해 봐요.</WatchlistContent>
-        </WachlistItem>
+          </Icon>
+          <Content>판매한 목록이 없어유 ~</Content>
+          <Content>장터를 이용해 보아요.</Content>
+        </SaleListItem>
       </Container>
     ) : (
       <Container>
-        <Text style={{ fontWeight: "bold" }}> 내가 찜한 목록 </Text>
+        <Text style={{ fontWeight: "bold" }}> 내가 구매한 목록 </Text>
         <FlatList
           keyExtractor={(item) => `${item.num}`}
-          data={watchlist}
+          data={saleList}
           renderItem={({ item }) => <Item item={item} />}
           windowSize={3} // 렌더링 되는양을 조절
         />
@@ -101,12 +101,12 @@ const Watchlist = () => {
     );
   }
   return (
-    <AppLoding
-      startAsync={_watchlist}
+    <AppLoading
+      startAsync={_saleList}
       onFinish={() => setIsReady(true)}
       onError={console.error}
     />
   );
 };
 
-export default Watchlist;
+export default SaleList;
