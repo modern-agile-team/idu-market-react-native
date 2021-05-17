@@ -38,7 +38,7 @@ const LogoutButton = styled.TouchableOpacity`
   border: 1px;
   position: absolute;
   right: 10px;
-  top: 50px;
+  top: 60px;
   margin-top: 10px;
   padding: 5px;
   border-radius: 10px;
@@ -81,7 +81,6 @@ const Profile = ({ navigation }) => {
         setIsLogined(false);
       }
     } catch (e) {
-      // Alert.alert("정보를 불러오지 못했습니다.", e.message);
     } finally {
       spinner.stop();
     }
@@ -108,20 +107,18 @@ const Profile = ({ navigation }) => {
   };
 
   const profileInfo = () => {
-    console.log("profile in profileInfo() : ", profile);
     return <ProfileInfo id={profile.id} email={profile.email} />;
   };
-
-  // const _handlePurchaseList = async () => {
-  //   navigation.navigate("PurchaseList");
-  // };
 
   if (isReady) {
     return (
       <>
         {isLogined ? (
           <Container>
-            <ProfileInformationContainer profileInfo={profileInfo} />
+            <ProfileInformationContainer
+              profileInfo={profileInfo}
+              navigation={navigation}
+            />
             <LogoutButton onPress={_handleLogoutButtonPress}>
               <Text style={{ color: "#222" }}> 로그아웃 </Text>
             </LogoutButton>

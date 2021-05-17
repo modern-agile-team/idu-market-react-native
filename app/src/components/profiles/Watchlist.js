@@ -68,7 +68,7 @@ const Watchlist = () => {
         config
       );
       const json = await response.json();
-      json.success ? setWatchlist(json.boards) : Alert.alert(json.msg);
+      json.success ? setWatchlist(json.watchLists) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {

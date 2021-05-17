@@ -8,6 +8,7 @@ import FindPw from "./auth/FindPw";
 import Profile from "./profiles/Profile";
 import PurchaseList from "./profiles/PurchaseList";
 import SaleList from "./profiles/SaleList";
+import ProfileUpdate from "./profiles/ProfileUpdate";
 
 import Market from "./boards/read-all/Market";
 import NoticeBoard from "./boards/read-all/NoticeBoard";
@@ -29,4 +30,5 @@ export {
   PostWrite,
   PurchaseList,
   SaleList,
+  ProfileUpdate,
 };
