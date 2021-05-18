@@ -4,6 +4,7 @@ import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
 const Container = styled.View`
   margin-vertical: 8;
+  background-color: ${({ theme }) => theme.background};
 `;
 const ItemContainer = styled.TouchableOpacity`
   border-bottom-width: 1px;

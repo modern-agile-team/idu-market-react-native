@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { Alert, Text } from "react-native";
+import { Alert, Text, Image } from "react-native";
 import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { ProgressContext, UserContext } from "../../contexts";
+import { ProgressContext, StudentContext, ReadyContext } from "../../contexts";
 import { Button, Input, FindButton } from "../../components";
 import { checkStudent, removeWhitespace } from "../../utils/common";
 import { getItemFromAsync, setItemToAsync } from "../../utils/AsyncStorage";
@@ -34,7 +34,8 @@ const ErrorText = styled.Text`
 
 function Login({ navigation }) {
   const { spinner } = useContext(ProgressContext);
-  const { dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(StudentContext);
+  const { isReady, readyDispatch } = useContext(ReadyContext);
 
   const [student, setStudent] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +44,8 @@ function Login({ navigation }) {
 
   // password input focus
   const passwordRef = useRef();
+
+  let LoginImage = require("../../../assets/login.png");
 
   const _handleStudentChange = (student) => {
     //공백제거 형식체크
@@ -57,13 +60,14 @@ function Login({ navigation }) {
     setPassword(removeWhitespace(password));
   };
 
-  const _handleSuccessLogin = (json) => {
-    setItemToAsync("user", json.jwt);
-    const user = getItemFromAsync("user");
-    console.log(user);
-    dispatch({ user });
+  const _handleSuccessLogin = async (json) => {
+    setItemToAsync("id", json.id);
+    const id = await getItemFromAsync("id");
+
+    dispatch({ id });
+    readyDispatch.notReady();
     navigation.navigate("Main");
-    Alert.alert("로그인 성공");
+    Alert.alert("로그인에 성공하셨습니다.");
   };
 
   const _handleLoginButtonPress = async () => {
@@ -84,6 +88,7 @@ function Login({ navigation }) {
 
       let response = await fetch("http://13.125.55.135:9800/api/jwt", config);
       let json = await response.json();
+
       json.success ? _handleSuccessLogin(json) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
@@ -93,8 +98,8 @@ function Login({ navigation }) {
   };
 
   useEffect(() => {
-    setDisabled(!(student && password && !errorMessage));
-  }, [student, password, errorMessage]);
+    setDisabled(!(password && !errorMessage));
+  }, [password, errorMessage]);
 
   return (
     //키보드 감추기 (인풋 클릭시 키보드가 가리는걸방지)
@@ -104,7 +109,7 @@ function Login({ navigation }) {
     >
       <Container>
         {/* 320p */}
-        <Text style={{ fontSize: 40 }}>Idu Market</Text>
+        <Image style={{ height: 150, width: 150 }} source={LoginImage} />
         <Input
           label='학번'
           value={student}
