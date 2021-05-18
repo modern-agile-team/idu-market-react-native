@@ -209,10 +209,12 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
         body: JSON.stringify({
           email: email,
           nickname: nickname,
-          major: selectedMajor,
+          major: selectedMajor.value,
         }),
       };
-
+      console.log(email);
+      console.log(nickname);
+      console.log(selectedMajor);
       const id = await getItemFromAsync("id");
       const response = await fetch(
         `http://13.125.55.135:9800/api/students/${id}`,
@@ -220,19 +222,17 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
       );
 
       const json = await response.json();
-      // console.log(json);
+      console.log(json);
       readyDispatch.notReady();
       json.success ? setProfile(json.profile) : Alert.alert(json.msg);
     } catch (e) {
     } finally {
-      // Alert.alert(json.msg);
       spinner.stop();
       navigation.navigate("Main");
     }
   };
 
   useEffect(() => {
-    // 오류메시지가 바로뜨는걸 막는다.
     if (didmountRef.current) {
       let _errorMessage = "";
       if (!checkNickname(nickname)) {

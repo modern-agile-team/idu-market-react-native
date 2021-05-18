@@ -16,13 +16,19 @@ const StudentEmail = styled.Text`
   color: ${({ theme }) => theme.inputPlaceholder};
 `;
 
-const ProfileInfo = ({ id, email }) => {
+const StudentMajor = styled.Text`
+  font-size: 12px;
+  color: ${({ theme }) => theme.inputPlaceholder};
+`;
+
+const ProfileInfo = ({ id, email, major }) => {
   const theme = useContext(ThemeContext);
 
   return (
     <ProfileInfoText>
       <StudentId>{id}</StudentId>
       <StudentEmail>{email}</StudentEmail>
+      <StudentMajor>{major}</StudentMajor>
     </ProfileInfoText>
   );
 };

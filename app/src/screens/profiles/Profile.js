@@ -33,7 +33,7 @@ const GoLoginScreenButton = styled.Pressable`
   border-radius: 10px;
 `;
 
-const LogoutButton = styled.TouchableOpacity`
+const LogoutButton = styled.Pressable`
   background-color: ${({ theme }) => theme.background};
   border: 1px;
   position: absolute;
@@ -107,7 +107,13 @@ const Profile = ({ navigation }) => {
   };
 
   const profileInfo = () => {
-    return <ProfileInfo id={profile.id} email={profile.email} />;
+    return (
+      <ProfileInfo
+        id={profile.id}
+        email={profile.email}
+        major={profile.major}
+      />
+    );
   };
 
   if (isReady) {

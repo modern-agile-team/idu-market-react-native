@@ -2,17 +2,11 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { FontAwesome5, AntDesign } from "@expo/vector-icons";
 import AppLoading from "expo-app-loading";
 
 import { ProgressContext, ReadyContext } from "../../contexts";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 import ProfileUpdateInfo from "../../components/profiles/ProfileUpdateInfo";
-import {
-  validateEmail,
-  removeWhitespace,
-  checkNickname,
-} from "../../utils/common";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -29,8 +23,6 @@ function ProfileUpdate({ navigation }) {
   const [isReady, setIsReady] = useState(false);
 
   const { spinner } = useContext(ProgressContext);
-
-  const didmountRef = useRef();
 
   const _profileInfo = async () => {
     try {
