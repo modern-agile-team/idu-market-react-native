@@ -2,12 +2,12 @@ import Main from "./Main";
 
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
-import FindId from "./auth/FindId";
-import FindPw from "./auth/FindPw";
+import Find from "./auth/Find";
 
 import Profile from "./profiles/Profile";
 import PurchaseList from "./profiles/PurchaseList";
 import SaleList from "./profiles/SaleList";
+import ProfileUpdate from "./profiles/ProfileUpdate";
 
 import Market from "./boards/read-all/Market";
 import NoticeBoard from "./boards/read-all/NoticeBoard";
@@ -22,11 +22,11 @@ export {
   NoticeBoard,
   FreeBoard,
   Profile,
-  FindId,
-  FindPw,
+  Find,
   Market,
   DetailView,
   PostWrite,
   PurchaseList,
   SaleList,
+  ProfileUpdate,
 };

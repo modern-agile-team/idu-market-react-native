@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import AuthStack from "./AuthStack";
 import { Spinner } from "../components";
 import { ProgressContext, StudentContext } from "../contexts";
 import MainStack from "./MainStack";
-import Profile from "../screens/profiles/Profile";
 
 const Navigation = () => {
   const { inProgress } = useContext(ProgressContext);
