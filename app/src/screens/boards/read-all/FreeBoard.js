@@ -6,7 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
 
 import { ProgressContext } from "../../../contexts";
-import Item from "../../../components/boards/Item";
+import Item from "../../../components/boards/FreeBoardComponent";
 
 const Container = styled.SafeAreaView`
   flex: 1;
