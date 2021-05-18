@@ -4,7 +4,7 @@ import AppLoding from "expo-app-loading";
 import { FlatList } from "react-native-gesture-handler";
 import { Text } from "react-native";
 
-import Item from "../Markets/Item";
+import Item from "../markets/Item";
 import { ProgressContext } from "../../contexts";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 
