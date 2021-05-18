@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { Alert, Text } from "react-native";
 import AppLoading from "expo-app-loading";
-import { AntDesign, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { ProgressContext, ReadyContext } from "../../contexts";
@@ -33,7 +32,7 @@ const GoLoginScreenButton = styled.Pressable`
   border-radius: 10px;
 `;
 
-const LogoutButton = styled.Pressable`
+const LogoutButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.background};
   border: 1px;
   position: absolute;
