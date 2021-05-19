@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AppLoading from "expo-app-loading";
 
-import { ProgressContext, ReadyContext } from "../../contexts";
+import { ProgressContext } from "../../contexts";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 import ProfileUpdateInfo from "../../components/profiles/ProfileUpdateInfo";
 

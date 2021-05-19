@@ -76,33 +76,22 @@ const Item = React.memo(
             })
           }
         >
-          <ImageContanier
-            source={{ uri: item.thumbnail }}
-            resizeMode='cover'
-          />
+          <ImageContanier source={{ uri: item.thumbnail }} resizeMode="cover" />
           <ItemTextContainer>
             <ItemRowContainer>
               <ItemTitle>{item.title}</ItemTitle>
               <StatusText>{changeStatus({ item })}</StatusText>
             </ItemRowContainer>
             <ItemRowContainer>
-              <MaterialIcons
-                name='person'
-                size={24}
-                color={theme.listIcon}
-              />
+              <MaterialIcons name="person" size={24} color={theme.listIcon} />
               <ItemStudent>{item.nickname}</ItemStudent>
             </ItemRowContainer>
             <ItemRowContainer>
-              <MaterialIcons name='payment' size={25} />
+              <MaterialIcons name="payment" size={25} />
               <ItemStudent>{item.price}원</ItemStudent>
             </ItemRowContainer>
             <ItemRowContainer>
-              <FontAwesome5
-                name='comment-dots'
-                size={22}
-                color='black'
-              />
+              <FontAwesome5 name="comment-dots" size={22} color="black" />
               <ItemComment>{item.commentCount}</ItemComment>
               <ItemTime>{item.inDate}</ItemTime>
             </ItemRowContainer>

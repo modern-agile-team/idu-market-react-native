@@ -2,11 +2,12 @@ import styled, { ThemeContext } from "styled-components/native";
 import React, { useContext, useState, useEffect } from "react";
 import { Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+
 import AppLoading from "expo-app-loading";
 
-import Item from "../../components/Markets/Item";
 import { ProgressContext } from "../../contexts";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
+import Item from "../../components/markets/Item";
 
 const Container = styled.View`
   width: 100%;

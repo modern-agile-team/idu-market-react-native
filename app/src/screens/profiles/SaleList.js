@@ -4,8 +4,8 @@ import { Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import AppLoading from "expo-app-loading";
 
-import Item from "../../components/Markets/Item";
 import { ProgressContext } from "../../contexts";
+import Item from "../../components/markets/Item";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 
 const Container = styled.View`

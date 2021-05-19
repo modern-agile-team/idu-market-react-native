@@ -7,7 +7,7 @@ import AppLoding from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { ProgressContext } from "../../../contexts";
-import Item from "../../../components/Markets/Item";
+import Item from "../../../components/markets/Item";
 
 const Container = styled.SafeAreaView`
   flex: 1;
