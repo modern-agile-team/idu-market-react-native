@@ -1,6 +1,6 @@
 import styled, { ThemeContext } from "styled-components/native";
 import React, { useContext, useState, useEffect } from "react";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import AppLoading from "expo-app-loading";

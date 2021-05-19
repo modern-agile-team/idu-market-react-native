@@ -45,7 +45,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0"
   },
-  "proxy": "http://13.125.55.135:9800",
+  "proxy": "https://idu-market.shop:9800",
   "private": true,
   "rnpm": {
     "assets": [
