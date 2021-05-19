@@ -64,7 +64,7 @@ const SaleList = () => {
 
       const id = await getItemFromAsync("id");
       const response = await fetch(
-        `http://13.125.55.135:9800/api/sale-list/${id}`,
+        `https://idu-market.shop:9800/api/sale-list/${id}`,
         config
       );
       const json = await response.json();

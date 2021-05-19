@@ -31,7 +31,7 @@ function FreeBoard({ navigation }) {
       };
 
       const response = await fetch(
-        "http://13.125.55.135:9800/api/boards/free",
+        "https://idu-market.shop:9800/api/boards/free",
         config
       );
       const json = await response.json();
@@ -61,11 +61,11 @@ function FreeBoard({ navigation }) {
         windowSize={3} // 렌더링 되는양을 조절
       />
       <FAB
-        buttonColor='#e84118'
-        iconTextColor='#ffffff'
+        buttonColor="#e84118"
+        iconTextColor="#ffffff"
         onClickAction={_handleWritePress}
         visible={true}
-        iconTextComponent={<MaterialIcons name='edit' />}
+        iconTextComponent={<MaterialIcons name="edit" />}
       />
     </Container>
   ) : (

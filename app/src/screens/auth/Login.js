@@ -16,7 +16,7 @@ const Container = styled.SafeAreaView`
   padding: 20px;
 `;
 
-const IdPasswordBtn = styled.View`
+const IdPasswordBtn = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.background};
   flex-direction: row;
   justify-content: center;
@@ -86,7 +86,10 @@ function Login({ navigation }) {
         }),
       };
 
-      let response = await fetch("http://13.125.55.135:9800/api/jwt", config);
+      let response = await fetch(
+        "https://idu-market.shop:9800/api/jwt",
+        config
+      );
       let json = await response.json();
 
       json.success ? _handleSuccessLogin(json) : Alert.alert(json.msg);
@@ -139,12 +142,10 @@ function Login({ navigation }) {
           //navigate함수로 원하는 화면의 이름을 전달하여 이동한다.
           onPress={() => navigation.navigate("Signup")}
         />
-        <IdPasswordBtn>
-          <FindButton
-            title="아이디 / 비밀번호 찾기"
-            isFilled={false}
-            onPress={() => navigation.navigate("Find")}
-          />
+        <IdPasswordBtn onPress={() => navigation.navigate("Find")}>
+          <Text style={{ color: "#3679fe", fontSize: 16, paddingTop: 10 }}>
+            아이디 / 비밀번호 찾기
+          </Text>
         </IdPasswordBtn>
       </Container>
     </KeyboardAwareScrollView>

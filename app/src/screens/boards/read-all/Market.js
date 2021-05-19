@@ -32,7 +32,7 @@ function Board({ route, navigation }) {
         },
       };
       const response = await fetch(
-        `http://13.125.55.135:9800/api/boards/${category}`,
+        `https://idu-market.shop:9800/api/boards/${category}`,
         config
       );
       const json = await response.json();

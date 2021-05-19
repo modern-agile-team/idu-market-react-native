@@ -40,7 +40,9 @@ function Find() {
     <Container>
       <FindItemContainer>
         <FindTitle onPress={_handleFindIdChange}>
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>아이디 찾기</Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#222" }}>
+            아이디 찾기
+          </Text>
         </FindTitle>
         <FindTitle onPress={_handleFindPwChange}>
           <Text style={{ fontSize: 20, fontWeight: "bold", color: "#ecf0f1" }}>
@@ -59,7 +61,7 @@ function Find() {
           </Text>
         </FindTitle>
         <FindTitle onPress={_handleFindPwChange}>
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#222" }}>
             비밀번호 찾기
           </Text>
         </FindTitle>

@@ -64,7 +64,7 @@ const Profile = ({ navigation }) => {
       const id = await getItemFromAsync("id");
       if (id.length) {
         const response = await fetch(
-          `http://13.125.55.135:9800/api/students/${id}`,
+          `https://idu-market.shop:9800/api/students/${id}`,
           config
         );
 
