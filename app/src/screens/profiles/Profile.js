@@ -108,7 +108,7 @@ const Profile = ({ navigation }) => {
   const profileInfo = () => {
     return (
       <ProfileInfo
-        id={profile.id}
+        nickname={profile.nickname}
         email={profile.email}
         major={profile.major}
       />

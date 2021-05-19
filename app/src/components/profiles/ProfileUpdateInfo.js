@@ -9,7 +9,7 @@ import {
   removeWhitespace,
   checkNickname,
 } from "../../utils/common";
-import { Input } from "../../components";
+import { Input, Button } from "../../components";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../contexts";
 import majors from "../../utils/majors";
@@ -24,17 +24,24 @@ const Title = styled.View`
   width: 100%;
 `;
 
-const MajorChoiceCheck = styled.Text`
-  color: ${({ theme }) => theme.errorText};
-  position: absolute;
-  right: 10px;
-  top: 40px;
+const UpdateButonContainer = styled.View`
+  align-items: flex-end;
+  width: 100%;
+  padding-right: 10px;
 `;
 
-const UpdatePost = styled.TouchableOpacity`
-  position: absolute;
-  top: 10px;
-  right: 40px;
+const ProfileUpdateButton = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.boardsButton};
+  align-items: center;
+  border-radius: 4px;
+  padding: 5px;
+  margin-right: 10px;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+`;
+
+const MajorChoice = styled.Text`
+  padding-top: 10px;
+  color: ${({ theme }) => theme.errorText};
 `;
 
 const Item = styled.View`
@@ -48,8 +55,6 @@ const UpdateButton = styled.TouchableOpacity`
   padding: 30px 10px 5px 5px;
 `;
 
-const SelectBoxContainer = styled.TouchableOpacity``;
-
 const ErrorText = styled.Text`
   align-items: flex-start;
   width: 100%;
@@ -60,24 +65,18 @@ const ErrorText = styled.Text`
 `;
 
 const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
-  const [profile, setProfile] = useState({});
   const [nickname, setIsNickname] = useState(isNickname);
   const [email, setIsEmail] = useState(isEmail);
-  const [majorUpdate, setMajorUpdate] = useState(false);
   const [emailUpdate, setEmailUpdate] = useState(true);
   const [nicknameUpdate, setNicknameUpdate] = useState(true);
   const [selectedMajor, setSelectedMajor] = useState(major);
+  const [disabled, setDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const theme = useContext(ThemeContext);
-
   const { spinner } = useContext(ProgressContext);
+  const { isReady, readyDispatch } = useContext(ReadyContext);
 
   const didmountRef = useRef();
-
-  const _handleMajorUpdadte = () => {
-    setMajorUpdate(true);
-  };
 
   const _handleEmailUpdadteButton = () => {
     setEmailUpdate(false);
@@ -95,9 +94,9 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
     setIsEmail(removeWhitespace(email));
   };
 
-  function onChange() {
-    return (el) => setSelectedMajor(el);
-  }
+  const _handleUpdateSucess = (json) => {
+    Alert.alert(json.msg);
+  };
 
   const _ProfileUpdadte = async () => {
     try {
@@ -122,10 +121,12 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
         `https://idu-market.shop:9800/api/students/202116714`,
         config
       );
-      console.log(response);
       const json = await response.json();
       console.log(json);
-      json.success ? setProfile(json.profile) : Alert.alert(json.msg);
+      json.success ? _handleUpdateSucess(json) : Alert.alert(json.msg);
+      // console.log(isReady);
+      readyDispatch.notReady();
+      console.log(isReady);
     } catch (e) {
     } finally {
       spinner.stop();
@@ -148,18 +149,32 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
     }
   }, [nickname, email]);
 
+  useEffect(() => {
+    setDisabled(!(nickname && email && !errorMessage));
+  }, [nickname, email, errorMessage]);
+
+  function onChange() {
+    return (el) => setSelectedMajor(el);
+  }
+
   return (
     <Container>
       <Title>
         <Text style={{ fontSize: 25, fontWeight: "bold" }}>프로필 수정</Text>
       </Title>
 
-      {majorUpdate ? (
-        <UpdatePost onPress={_ProfileUpdadte}>
-          <AntDesign name="checkcircleo" size={30} color="black" />
-        </UpdatePost>
+      {selectedMajor.value ? (
+        <UpdateButonContainer>
+          <ProfileUpdateButton onPress={_ProfileUpdadte} disabled={disabled}>
+            <Text style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}>
+              수정
+            </Text>
+          </ProfileUpdateButton>
+        </UpdateButonContainer>
       ) : (
-        <MajorChoiceCheck>학과를 선택하세요</MajorChoiceCheck>
+        <UpdateButonContainer>
+          <MajorChoice>학과를 선택하세요</MajorChoice>
+        </UpdateButonContainer>
       )}
 
       {nicknameUpdate ? (
@@ -199,16 +214,14 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
         />
       )}
 
-      <SelectBoxContainer onPress={_handleNicknameUpdadteButton}>
-        <SelectBox
-          label="학과"
-          options={majors}
-          inputPlaceholder="학과"
-          value={selectedMajor}
-          onChange={onChange()}
-          hideInputFilter={false}
-        />
-      </SelectBoxContainer>
+      <SelectBox
+        label="학과"
+        options={majors}
+        inputPlaceholder="학과"
+        value={selectedMajor}
+        onChange={onChange()}
+        hideInputFilter={false}
+      />
       <ErrorText>{errorMessage}</ErrorText>
     </Container>
   );
