@@ -17,9 +17,7 @@ const Container = styled.View`
 const getDateOrTime = (ts) => {
   const now = moment().startOf("day");
   const target = moment(ts).startOf("day");
-  return moment(ts).format(
-    now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm"
-  );
+  return moment(ts).format(now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm");
 };
 
 function DetailView() {
@@ -42,16 +40,20 @@ function DetailView() {
       };
 
       const response = await fetch(
-        `http://13.125.55.135:9800/api/boards/book/934/202016709`,
+        `https://idu-market.shop:9800/api/boards/book/934/202016709`,
         config
       );
       const json = await response.json();
+      console.log("fir", json);
       if (json.success) {
         setImages([...images, ...json.images]);
+        console.log("sucess", json);
       } else {
         Alert.alert(json.msg);
+        console.log("else", json);
       }
     } catch (e) {
+      console.log("err", json);
       Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
     } finally {
       spinner.stop();

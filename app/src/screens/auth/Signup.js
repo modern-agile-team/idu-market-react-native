@@ -114,7 +114,7 @@ function Signup() {
       };
 
       let response = await fetch(
-        "http://13.125.55.135:9800/api/student",
+        "https://idu-market.shop:9800/api/student",
         config
       );
       let json = await response.json();
@@ -140,72 +140,72 @@ function Signup() {
       <KeyboardAwareScrollView extraScrollHeight={30}>
         <Container>
           <Input
-            label='학번'
+            label="학번"
             value={student}
             onChangeText={(text) => setStudent(removeWhitespace(text))}
             onSubmitEditing={() => nameRef.current.focus()}
-            placeholder='학번'
-            returnKeyType='next'
+            placeholder="학번"
+            returnKeyType="next"
           />
           <SelectBox
-            label='학과'
+            label="학과"
             options={major}
-            inputPlaceholder='학과'
+            inputPlaceholder="학과"
             value={selectedMajor}
             onChange={onChange()}
             hideInputFilter={false}
           />
           <Input
-            label='이름'
+            label="이름"
             ref={nameRef}
             value={name}
             onChangeText={(text) => setName(removeWhitespace(text))}
             onSubmitEditing={() => nicknameRef.current.focus()}
-            placeholder='이름'
-            returnKeyType='next'
+            placeholder="이름"
+            returnKeyType="next"
           />
           <Input
-            label='별명'
+            label="별명"
             ref={nicknameRef}
             value={nickname}
             onChangeText={(text) => setNickname(removeWhitespace(text))}
             onSubmitEditing={() => emailRef.current.focus()}
-            placeholder='별명'
-            returnKeyType='next'
+            placeholder="별명"
+            returnKeyType="next"
           />
           <Input
-            label='이메일'
+            label="이메일"
             ref={emailRef}
             value={email}
             onChangeText={(text) => setEmail(removeWhitespace(text))}
             onSubmitEditing={() => passwordRef.current.focus()}
-            placeholder='이메일'
-            returnKeyType='next'
+            placeholder="이메일"
+            returnKeyType="next"
           />
           <Input
             ref={passwordRef}
-            label='비밀번호'
+            label="비밀번호"
             value={password}
             onChangeText={(text) => setPassword(removeWhitespace(text))}
             onSubmitEditing={() => passwordConfirmRef.current.focus()}
-            placeholder='비밀번호'
-            returnKeyType='next'
+            placeholder="비밀번호"
+            returnKeyType="next"
             isPassword
           />
           <Input
             ref={passwordConfirmRef}
-            label='비밀번호확인'
+            label="비밀번호확인"
             value={passwordConfirm}
             onChangeText={(text) => setPasswordConfirm(removeWhitespace(text))}
             onSubmitEditing={() => {}}
-            placeholder='비밀번호확인'
-            returnKeyType='done'
+            placeholder="비밀번호확인"
+            returnKeyType="done"
             isPassword
           />
           <ErrorText>{errorMessage}</ErrorText>
 
           <Button
-            title='회원가입'
+            title="회원가입"
             onPress={_handleSignupButtonPress}
             disabled={disabled}
           />

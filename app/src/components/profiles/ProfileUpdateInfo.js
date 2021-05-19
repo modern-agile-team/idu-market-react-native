@@ -9,7 +9,7 @@ import {
   removeWhitespace,
   checkNickname,
 } from "../../utils/common";
-import { Input } from "../../components";
+import { Input, Button } from "../../components";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../contexts";
 import majors from "../../utils/majors";
@@ -24,21 +24,35 @@ const Title = styled.View`
   width: 100%;
 `;
 
+const UpdateButonContainer = styled.View`
+  align-items: flex-end;
+  width: 100%;
+  padding-right: 10px;
+`;
+
+const ProfileUpdateButton = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.boardsButton};
+  align-items: center;
+  border-radius: 4px;
+  padding: 5px;
+  margin-right: 10px;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+`;
+
+const MajorChoice = styled.Text`
+  padding-top: 10px;
+  color: ${({ theme }) => theme.errorText};
+`;
+
 const Item = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
-const UpdateButton = styled.TouchableOpacity`
-  padding-left: 10px;
-  padding-top: 20px;
-`;
 
-const UpdatePost = styled.TouchableOpacity`
-  position: absolute;
-  top: 10px;
-  right: 40px;
+const UpdateButton = styled.TouchableOpacity`
+  padding: 30px 10px 5px 5px;
 `;
 
 const ErrorText = styled.Text`
@@ -51,25 +65,18 @@ const ErrorText = styled.Text`
 `;
 
 const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
-  const [profile, setProfile] = useState({});
   const [nickname, setIsNickname] = useState(isNickname);
   const [email, setIsEmail] = useState(isEmail);
-  const [majorUpdate, setMajorUpdate] = useState(true);
   const [emailUpdate, setEmailUpdate] = useState(true);
   const [nicknameUpdate, setNicknameUpdate] = useState(true);
   const [selectedMajor, setSelectedMajor] = useState(major);
+  const [disabled, setDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const theme = useContext(ThemeContext);
-
-  const { readyDispatch } = useContext(ReadyContext);
   const { spinner } = useContext(ProgressContext);
+  const { isReady, readyDispatch } = useContext(ReadyContext);
 
   const didmountRef = useRef();
-
-  const _handleMajorUpdadte = () => {
-    setMajorUpdate(false);
-  };
 
   const _handleEmailUpdadteButton = () => {
     setEmailUpdate(false);
@@ -87,41 +94,42 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
     setIsEmail(removeWhitespace(email));
   };
 
-  function onChange() {
-    return (el) => setSelectedMajor(el);
-  }
+  const _handleUpdateSucess = (json) => {
+    Alert.alert(json.msg);
+  };
 
   const _ProfileUpdadte = async () => {
     try {
       spinner.start();
+      const id = await getItemFromAsync("id");
+
+      const profileUpdateInfo = {
+        email: email,
+        nickname: nickname,
+        majorNum: parseInt(selectedMajor.value),
+      };
+
       const config = {
         method: "PUT",
         headers: {
-          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: email,
-          nickname: nickname,
-          major: selectedMajor.value,
-        }),
+        body: JSON.stringify(profileUpdateInfo),
       };
-      console.log(email);
-      console.log(nickname);
-      console.log(selectedMajor);
-      const id = await getItemFromAsync("id");
+      console.log(profileUpdateInfo);
       const response = await fetch(
-        `http://13.125.55.135:9800/api/students/${id}`,
+        `https://idu-market.shop:9800/api/students/202116714`,
         config
       );
-
       const json = await response.json();
       console.log(json);
+      json.success ? _handleUpdateSucess(json) : Alert.alert(json.msg);
+      // console.log(isReady);
       readyDispatch.notReady();
-      json.success ? setProfile(json.profile) : Alert.alert(json.msg);
+      console.log(isReady);
     } catch (e) {
     } finally {
       spinner.stop();
-      navigation.navigate("Main");
     }
   };
 
@@ -141,14 +149,34 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
     }
   }, [nickname, email]);
 
+  useEffect(() => {
+    setDisabled(!(nickname && email && !errorMessage));
+  }, [nickname, email, errorMessage]);
+
+  function onChange() {
+    return (el) => setSelectedMajor(el);
+  }
+
   return (
     <Container>
       <Title>
         <Text style={{ fontSize: 25, fontWeight: "bold" }}>프로필 수정</Text>
       </Title>
-      <UpdatePost onPress={_ProfileUpdadte}>
-        <AntDesign name="checkcircleo" size={30} color="black" />
-      </UpdatePost>
+
+      {selectedMajor.value ? (
+        <UpdateButonContainer>
+          <ProfileUpdateButton onPress={_ProfileUpdadte} disabled={disabled}>
+            <Text style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}>
+              수정
+            </Text>
+          </ProfileUpdateButton>
+        </UpdateButonContainer>
+      ) : (
+        <UpdateButonContainer>
+          <MajorChoice>학과를 선택하세요</MajorChoice>
+        </UpdateButonContainer>
+      )}
+
       {nicknameUpdate ? (
         <Item>
           <Input
@@ -186,23 +214,14 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
         />
       )}
 
-      {majorUpdate ? (
-        <Item>
-          <Input label="학과" value={major} placeholder={major} disabled />
-          <UpdateButton onPress={_handleMajorUpdadte}>
-            <FontAwesome5 name="pencil-alt" size={35} color="black" />
-          </UpdateButton>
-        </Item>
-      ) : (
-        <SelectBox
-          label="학과"
-          options={majors}
-          inputPlaceholder="학과"
-          value={selectedMajor}
-          onChange={onChange()}
-          hideInputFilter={false}
-        />
-      )}
+      <SelectBox
+        label="학과"
+        options={majors}
+        inputPlaceholder="학과"
+        value={selectedMajor}
+        onChange={onChange()}
+        hideInputFilter={false}
+      />
       <ErrorText>{errorMessage}</ErrorText>
     </Container>
   );

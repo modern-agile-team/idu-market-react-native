@@ -21,12 +21,12 @@ const StudentMajor = styled.Text`
   color: ${({ theme }) => theme.inputPlaceholder};
 `;
 
-const ProfileInfo = ({ id, email, major }) => {
+const ProfileInfo = ({ nickname, email, major }) => {
   const theme = useContext(ThemeContext);
 
   return (
     <ProfileInfoText>
-      <StudentId>{id}</StudentId>
+      <StudentId>{nickname}</StudentId>
       <StudentEmail>{email}</StudentEmail>
       <StudentMajor>{major}</StudentMajor>
     </ProfileInfoText>

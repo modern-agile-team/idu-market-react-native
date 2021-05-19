@@ -1,6 +1,6 @@
 import styled, { ThemeContext } from "styled-components/native";
 import React, { useContext, useState, useEffect } from "react";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import AppLoading from "expo-app-loading";
@@ -65,7 +65,7 @@ const PurchaseList = () => {
 
       const id = await getItemFromAsync("id");
       const response = await fetch(
-        `http://13.125.55.135:9800/api/purchase-list/${id}`,
+        `https://idu-market.shop:9800/api/purchase-list/${id}`,
         config
       );
       const json = await response.json();

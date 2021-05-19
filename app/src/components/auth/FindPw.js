@@ -70,7 +70,7 @@ function FindPw() {
       };
 
       let response = await fetch(
-        "http://13.125.55.135:9800/api/forgot-password",
+        "https://idu-market.shop:9800/api/forgot-password",
         config
       );
       let json = await response.json();

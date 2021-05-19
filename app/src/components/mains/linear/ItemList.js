@@ -30,7 +30,7 @@ const ItemList = ({ category, hitSlop, onPress }) => {
       };
 
       const response = await fetch(
-        `http://13.125.55.135:9800/api/boards/${category}?lastNum=0`,
+        `https://idu-market.shop:9800/api/boards/${category}?lastNum=0`,
         config
       );
       const json = await response.json();

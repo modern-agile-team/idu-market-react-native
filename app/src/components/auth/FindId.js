@@ -66,7 +66,7 @@ function FindId() {
       };
 
       let response = await fetch(
-        "http://13.125.55.135:9800/api/forgot-id",
+        "https://idu-market.shop:9800/api/forgot-id",
         config
       );
       let json = await response.json();

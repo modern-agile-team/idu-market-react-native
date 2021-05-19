@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import AppLoding from "expo-app-loading";
 import { FlatList } from "react-native-gesture-handler";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 
 import Item from "../markets/Item";
 import { ProgressContext } from "../../contexts";
@@ -64,7 +64,7 @@ const Watchlist = () => {
 
       const id = await getItemFromAsync("id");
       const response = await fetch(
-        `http://13.125.55.135:9800/api/watchlist/${id}`,
+        `https://idu-market.shop:9800/api/watchlist/${id}`,
         config
       );
       const json = await response.json();
