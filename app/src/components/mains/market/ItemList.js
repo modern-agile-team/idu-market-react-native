@@ -26,6 +26,7 @@ const ItemList = ({ category, hitSlop, onPress }) => {
         method: "GET",
         headers: {
           Accept: "application/json",
+          "Content-Type": "application/json",
         },
       };
 
