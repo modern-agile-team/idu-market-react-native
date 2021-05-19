@@ -59,6 +59,7 @@ const Profile = ({ navigation }) => {
         method: "GET",
         headers: {
           Accept: "application/json",
+          "Content-Type": "application/json",
         },
       };
       const id = await getItemFromAsync("id");
