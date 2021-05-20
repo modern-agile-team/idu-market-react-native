@@ -36,7 +36,6 @@ function FreeBoard({ navigation }) {
         config
       );
       const json = await response.json();
-      console.log(json);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);

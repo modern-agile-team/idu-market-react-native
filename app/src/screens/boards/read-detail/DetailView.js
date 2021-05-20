@@ -5,10 +5,11 @@ import styled, { ThemeContext } from "styled-components/native";
 import AppLoading from "expo-app-loading";
 
 import moment from "moment";
-import { ProgressContext } from "../../../contexts";
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
+import Post from "../../../components/boards/read-detail/posts/Post";
 import PostContainer from "../../../components/boards/read-detail/PostContainer";
 import { getItemFromAsync } from "../../../utils/AsyncStorage";
+import { ProgressContext } from "../../../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -26,7 +27,7 @@ function DetailView({ route, navigation }) {
   const { spinner } = useContext(ProgressContext);
 
   const [isReady, setIsReady] = useState(false);
-  const [board, setBoard] = useState({});
+  const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
 
   const _loadBoard = async () => {
@@ -57,7 +58,8 @@ function DetailView({ route, navigation }) {
 
       if (json.success) {
         setImages([...images, ...json.images]);
-        console.log(images);
+        setBoard(json.board);
+        console.log(json.board);
       } else {
         Alert.alert(json.msg);
       }
@@ -68,11 +70,29 @@ function DetailView({ route, navigation }) {
     }
   };
 
+  const detailViewInfo = () => {
+    const content = board.content.replace(/<p>/g, "").replace(/<\/p>/g, "\n");
+
+    return (
+      <Post
+        title={board.title}
+        nickname={board.nickname}
+        content={content}
+        inDate={board.inDate}
+        profilePath={board.profilePath}
+        studentId={board.studentId}
+      />
+    );
+  };
+
   return isReady ? (
     <KeyboardAwareScrollView>
       <Container>
         <ImageSliderContainer images={images} />
-        <PostContainer getDateOrTime={getDateOrTime} />
+        <PostContainer
+          getDateOrTime={getDateOrTime}
+          detailViewInfo={detailViewInfo}
+        />
       </Container>
       {/* <PostContainers getDateOrTime={getDateOrTime} />
           <CommentContainers getDateOrTime={getDateOrTime} /> */}

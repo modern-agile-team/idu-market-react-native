@@ -41,7 +41,15 @@ const Description = styled.Text`
   padding: 12px;
 `;
 
-const Post = ({ getDateOrTime }) => {
+const Post = ({
+  getDateOrTime,
+  title,
+  nickname,
+  content,
+  inDate,
+  profilePath,
+  studentId,
+}) => {
   const theme = useContext(ThemeContext);
 
   return (
@@ -55,9 +63,9 @@ const Post = ({ getDateOrTime }) => {
           />
           <NameBox>
             <Text style={{ fontSize: 18, fontWeight: "bold", margin: 2 }}>
-              202016709
+              {nickname}
             </Text>
-            <Text>정보통신공학과</Text>
+            <Text>{studentId}</Text>
           </NameBox>
           <Subscribe>
             <Feather name="heart" size={32} color="gray" />
@@ -69,17 +77,12 @@ const Post = ({ getDateOrTime }) => {
         <Title
           style={{ fontSize: 25, fontFamily: "sans-serif", fontWeight: "bold" }}
         >
-          아이폰 8 비싸게 팝니다요
+          {title}
         </Title>
-        <Text style={{ fontSize: 12, color: "gray" }}>
-          Created 2020.05.03 18:05:23
-        </Text>
+        <Text style={{ fontSize: 12, color: "gray" }}>{inDate}</Text>
       </ContentTitle>
 
-      <Description>
-        {`THE NEW PARIS 폴로 PH55122H-20B
-iPhone 8 신상 급매!`}
-      </Description>
+      <Description>{content}</Description>
     </Container>
   );
 };
