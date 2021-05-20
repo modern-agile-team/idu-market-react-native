@@ -59,6 +59,7 @@ function ProfileUpdate({ navigation }) {
         isNickname={profile.nickname}
         isEmail={profile.email}
         major={profile.major}
+        navigation={navigation}
       />
     );
   };
@@ -68,7 +69,7 @@ function ProfileUpdate({ navigation }) {
       <Container>
         <KeyboardAwareScrollView extraScrollHeight={30}>
           <TextContainer>
-            <>{profileUpdateInfo({ navigation })}</>
+            <>{profileUpdateInfo()}</>
           </TextContainer>
         </KeyboardAwareScrollView>
       </Container>
