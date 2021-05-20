@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import FAB from "react-native-fab";
 import { FlatList } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { Alert } from "react-native";
 
 import AppLoding from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -19,15 +20,15 @@ function Board({ route, navigation }) {
   const [boards, setBoards] = useState([]);
 
   const { spinner } = useContext(ProgressContext);
+
+  const { category } = route.params;
+
   const _loadBoards = async () => {
     try {
       spinner.start();
 
       const { category } = route.params;
-      const { num } = route.params;
 
-      console.log(category);
-      console.log(num);
       const config = {
         method: "GET",
         headers: {
@@ -40,7 +41,7 @@ function Board({ route, navigation }) {
         config
       );
       const json = await response.json();
-      console.log(json);
+      console.log(json.boards);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);
@@ -54,7 +55,7 @@ function Board({ route, navigation }) {
   }, []);
 
   const _handleItemPress = (params) => {
-    navigation.navigate("ViewDetail", params);
+    navigation.navigate("PostWrite", params);
   };
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
@@ -66,7 +67,12 @@ function Board({ route, navigation }) {
         keyExtractor={(item) => `${item.num}`}
         data={boards}
         renderItem={({ item }) => (
-          <Item item={item} onPress={_handleItemPress} />
+          <Item
+            item={item}
+            onPress={_handleItemPress}
+            navigation={navigation}
+            category={category}
+          />
         )}
         windowSize={3} // 렌더링 되는양을 조절
       />

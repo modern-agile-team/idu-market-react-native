@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import FAB from "react-native-fab";
 import { FlatList } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
 
@@ -37,6 +38,7 @@ function FreeBoard({ navigation }) {
       );
       const json = await response.json();
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
+      console.log(json.boards);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {

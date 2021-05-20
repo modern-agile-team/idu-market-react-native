@@ -58,7 +58,7 @@ const ImageContanier = styled.Image`
 
 const Item = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
-  ({ item, navigation }) => {
+  ({ item, navigation, category }) => {
     const theme = useContext(ThemeContext);
 
     const changeStatus = ({ item }) => {
@@ -71,8 +71,9 @@ const Item = React.memo(
       <Container>
         <ItemContainer
           onPress={() =>
-            navigation.navigate(`DetailView`, {
-              board: item.num,
+            navigation.navigate("DetailView", {
+              boardNum: `${item.num}`,
+              category: `${category}`,
             })
           }
         >
