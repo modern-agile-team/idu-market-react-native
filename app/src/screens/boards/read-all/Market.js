@@ -24,7 +24,10 @@ function Board({ route, navigation }) {
       spinner.start();
 
       const { category } = route.params;
+      const { num } = route.params;
 
+      console.log(category);
+      console.log(num);
       const config = {
         method: "GET",
         headers: {
@@ -37,6 +40,7 @@ function Board({ route, navigation }) {
         config
       );
       const json = await response.json();
+      console.log(json);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);

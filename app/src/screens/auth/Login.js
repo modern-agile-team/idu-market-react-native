@@ -33,10 +33,6 @@ const ErrorText = styled.Text`
 `;
 
 function Login({ navigation }) {
-  const { spinner } = useContext(ProgressContext);
-  const { dispatch } = useContext(StudentContext);
-  const { isReady, readyDispatch } = useContext(ReadyContext);
-
   const [student, setStudent] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,6 +40,10 @@ function Login({ navigation }) {
 
   // password input focus
   const passwordRef = useRef();
+
+  const { spinner } = useContext(ProgressContext);
+  const { dispatch } = useContext(StudentContext);
+  const { readyDispatch } = useContext(ReadyContext);
 
   let LoginImage = require("../../../assets/login.png");
 

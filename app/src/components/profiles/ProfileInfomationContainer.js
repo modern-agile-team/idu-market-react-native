@@ -24,8 +24,6 @@ const StudentSetting = styled.TouchableOpacity`
 const ProfileInformationContainer = ({ profileInfo, navigation }) => {
   const theme = useContext(ThemeContext);
 
-  const { spinner } = useContext(ProgressContext);
-
   const _handleProfileUpdate = async () => {
     navigation.navigate("ProfileUpdate");
   };

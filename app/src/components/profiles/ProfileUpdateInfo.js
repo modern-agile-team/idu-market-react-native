@@ -9,7 +9,7 @@ import {
   removeWhitespace,
   checkNickname,
 } from "../../utils/common";
-import { Input, Button } from "../../components";
+import { Input } from "../../components";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../contexts";
 import majors from "../../utils/majors";
@@ -118,19 +118,18 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
       };
       console.log(profileUpdateInfo);
       const response = await fetch(
-        `https://idu-market.shop:9800/api/students/202116714`,
+        `https://idu-market.shop:9800/api/students/${id}`,
         config
       );
       const json = await response.json();
       console.log(json);
       json.success ? _handleUpdateSucess(json) : Alert.alert(json.msg);
-      // console.log(isReady);
       readyDispatch.notReady();
-      console.log(isReady);
     } catch (e) {
     } finally {
       spinner.stop();
     }
+    navigation.navigate("Main");
   };
 
   useEffect(() => {

@@ -19,6 +19,7 @@ import {
   PurchaseList,
   SaleList,
   ProfileUpdate,
+  Inquiry,
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -89,6 +90,7 @@ const MainStack = () => {
       <Stack.Screen name="PurchaseList" component={PurchaseList} />
       <Stack.Screen name="SaleList" component={SaleList} />
       <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />
+      <Stack.Screen name="Inquiry" component={Inquiry} />
       <Stack.Screen
         name="Login"
         component={Login}

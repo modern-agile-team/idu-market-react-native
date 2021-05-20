@@ -8,6 +8,7 @@ import moment from "moment";
 import { ProgressContext } from "../../../contexts";
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
 import PostContainer from "../../../components/boards/read-detail/PostContainer";
+import { getItemFromAsync } from "../../../utils/AsyncStorage";
 
 const Container = styled.View`
   flex: 1;
@@ -20,7 +21,7 @@ const getDateOrTime = (ts) => {
   return moment(ts).format(now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm");
 };
 
-function DetailView() {
+function DetailView({ route, navigation }) {
   const theme = useContext(ThemeContext);
   const { spinner } = useContext(ProgressContext);
 
@@ -32,6 +33,14 @@ function DetailView() {
     try {
       spinner.start();
 
+      const id = await getItemFromAsync("id");
+      const { category } = route.params;
+      const { boardNum } = route.params;
+
+      console.log(id);
+      console.log(category);
+      console.log(boardNum);
+
       const config = {
         method: "GET",
         headers: {
@@ -41,20 +50,18 @@ function DetailView() {
       };
 
       const response = await fetch(
-        `https://idu-market.shop:9800/api/boards/book/934/202016709`,
+        `https://idu-market.shop:9800/api/boards/${category}/${boardNum}/${id}`,
         config
       );
       const json = await response.json();
-      console.log("fir", json);
+
       if (json.success) {
         setImages([...images, ...json.images]);
-        console.log("sucess", json);
+        console.log(images);
       } else {
         Alert.alert(json.msg);
-        console.log("else", json);
       }
     } catch (e) {
-      console.log("err", json);
       Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
     } finally {
       spinner.stop();

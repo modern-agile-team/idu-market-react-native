@@ -36,6 +36,7 @@ function FreeBoard({ navigation }) {
         config
       );
       const json = await response.json();
+      console.log(json);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);
@@ -44,9 +45,13 @@ function FreeBoard({ navigation }) {
     }
   };
 
-  const _handleItemPress = (params) => {
-    navigation.navigate("ViewDetail", params);
+  const _handleItemPress = () => {
+    navigation.navigate("DetailView", {
+      boardNum: `${boards.num}`,
+      category: "free",
+    });
   };
+
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
   };
@@ -57,7 +62,11 @@ function FreeBoard({ navigation }) {
         keyExtractor={(item) => `${item.num}`}
         data={boards}
         renderItem={({ item }) => (
-          <Item item={item} onPress={_handleItemPress} />
+          <Item
+            item={item}
+            onPress={_handleItemPress}
+            navigation={navigation}
+          />
         )}
         windowSize={3} // 렌더링 되는양을 조절
       />
