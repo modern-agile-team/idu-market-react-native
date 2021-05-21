@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
-import { Text } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { Alert, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
-
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
+
+import { getItemFromAsync } from "../../../../utils/AsyncStorage";
+import { ProgressContext } from "../../../../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -27,7 +29,7 @@ const NameBox = styled.View`
   margin-left: 5px;
 `;
 
-const Subscribe = styled.View`
+const Subscribe = styled.TouchableOpacity`
   padding: 10px;
 `;
 
@@ -51,8 +53,81 @@ const Post = ({
   studentId,
   category,
   boardNum,
+  isWatchlist,
 }) => {
+  const [watchlist, setWatchlist] = useState(isWatchlist);
+
+  const { spinner } = useContext(ProgressContext);
+
   const theme = useContext(ThemeContext);
+
+  console.log(isWatchlist);
+  const _handleUpdateWatchlist = () => {
+    setWatchlist(true);
+    Alert.alert("관심목록에 등록되었습니다.");
+  };
+
+  const _handleUpdateWatchlistDelete = () => {
+    setWatchlist(false);
+    Alert.alert("관심목록 취소되었습니다.");
+  };
+
+  const _handleWatchlist = async () => {
+    try {
+      spinner.start();
+      const id = await getItemFromAsync("id");
+      const config = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          boardNum: boardNum,
+          categoryName: category,
+        }),
+      };
+
+      const response = await fetch(
+        `https://idu-market.shop:9800/api/watchlist/${id}`,
+        config
+      );
+      const json = await response.json();
+      json.success ? _handleUpdateWatchlist(json) : Alert.alert(json.msg);
+    } catch (e) {
+      Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
+    } finally {
+      spinner.stop();
+    }
+  };
+
+  const _handleWatchlistDelete = async () => {
+    try {
+      spinner.start();
+      const ids = await getItemFromAsync("id");
+      const config = {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          boardNum: boardNum,
+        }),
+      };
+
+      const response = await fetch(
+        `https://idu-market.shop:9800/api/watchlist/${ids}`,
+        config
+      );
+      const json = await response.json();
+      json.success ? _handleUpdateWatchlistDelete(json) : Alert.alert(json.msg);
+    } catch (e) {
+      Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
+    } finally {
+      spinner.stop();
+    }
+  };
 
   return (
     <Container>
@@ -69,9 +144,15 @@ const Post = ({
             </Text>
             <Text>{studentId}</Text>
           </NameBox>
-          <Subscribe>
-            <Feather name="heart" size={32} color="gray" />
-          </Subscribe>
+          {watchlist ? (
+            <Subscribe onPress={_handleWatchlistDelete}>
+              <Feather name="heart" size={32} color="red" />
+            </Subscribe>
+          ) : (
+            <Subscribe onPress={_handleWatchlist}>
+              <Feather name="heart" size={32} color="gray" />
+            </Subscribe>
+          )}
         </Label>
       </LabelBox>
 

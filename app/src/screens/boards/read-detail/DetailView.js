@@ -32,6 +32,7 @@ function DetailView({ route, navigation }) {
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
   const [comments, setCommnets] = useState();
+  const [isWatchlist, setIsWatchlist] = useState("");
 
   const { category } = route.params;
   const { boardNum } = route.params;
@@ -62,7 +63,8 @@ function DetailView({ route, navigation }) {
         setImages([...images, ...json.images]);
         setBoard(json.board);
         setCommnets(json.comments);
-        console.log(json.board);
+        console.log(json.isWatchList);
+        setIsWatchlist(json.isWatchList);
       } else {
         Alert.alert(json.msg);
       }
@@ -86,6 +88,7 @@ function DetailView({ route, navigation }) {
         studentId={board.studentId}
         category={category}
         boardNum={boardNum}
+        isWatchlist={isWatchlist}
       />
     );
   };
