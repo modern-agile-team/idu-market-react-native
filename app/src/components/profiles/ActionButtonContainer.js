@@ -1,6 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
-import { AntDesign, EvilIcons, FontAwesome } from "@expo/vector-icons";
+import {
+  AntDesign,
+  EvilIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { Text } from "react-native";
 
 const ActionContainer = styled.View`
@@ -44,24 +48,36 @@ const ActionButtonContainer = ({ iconSize, navigation }) => {
     navigation.navigate("SaleList");
   };
 
+  const _handleInquiry = async () => {
+    navigation.navigate("Inquiry");
+  };
+
   return (
     <ActionContainer>
       <SaleList onPress={_handleSaleList}>
-        <AntDesign name="barcode" size={30} color={theme.tabInactiveColor} />
+        <AntDesign
+          name="barcode"
+          size={iconSize}
+          color={theme.tabInactiveColor}
+        />
         <Text style={{ position: "absolute", bottom: 5 }}>판매목록</Text>
       </SaleList>
       <PurchaseList onPress={_handlePurchaseList}>
-        <EvilIcons name="cart" size={30 + 10} color={theme.tabInactiveColor} />
+        <EvilIcons
+          name="cart"
+          size={iconSize + 10}
+          color={theme.tabInactiveColor}
+        />
         <Text style={{ position: "absolute", bottom: 5 }}>구매목록</Text>
       </PurchaseList>
-      <WritenMe>
-        <FontAwesome
-          name="pencil-square-o"
-          size={30}
+      <WritenMe onPress={_handleInquiry}>
+        <MaterialCommunityIcons
+          name="account-question"
+          size={iconSize}
           color={theme.tabInactiveColor}
         />
         <Text style={{ position: "absolute", bottom: 5, marginRight: 14 }}>
-          내가 쓴글
+          문의사항
         </Text>
       </WritenMe>
     </ActionContainer>

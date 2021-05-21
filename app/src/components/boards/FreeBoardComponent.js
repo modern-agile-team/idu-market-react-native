@@ -57,14 +57,15 @@ const ItemTime = styled.Text`
 
 const Item = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
-  ({ item }) => {
+  ({ item, navigation }) => {
     const theme = useContext(ThemeContext);
 
     return (
       <ItemContainer
         onPress={() =>
-          navigation.navigate("ViewDetail", {
-            board: item,
+          navigation.navigate("DetailView", {
+            boardNum: `${item.num}`,
+            category: "free",
           })
         }
       >

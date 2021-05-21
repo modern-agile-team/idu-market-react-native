@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import FAB from "react-native-fab";
 import { FlatList } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
 
@@ -44,9 +45,13 @@ function FreeBoard({ navigation }) {
     }
   };
 
-  const _handleItemPress = (params) => {
-    navigation.navigate("ViewDetail", params);
+  const _handleItemPress = () => {
+    navigation.navigate("DetailView", {
+      boardNum: `${boards.num}`,
+      category: "free",
+    });
   };
+
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
   };
@@ -57,7 +62,11 @@ function FreeBoard({ navigation }) {
         keyExtractor={(item) => `${item.num}`}
         data={boards}
         renderItem={({ item }) => (
-          <Item item={item} onPress={_handleItemPress} />
+          <Item
+            item={item}
+            onPress={_handleItemPress}
+            navigation={navigation}
+          />
         )}
         windowSize={3} // 렌더링 되는양을 조절
       />

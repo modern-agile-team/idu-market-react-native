@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import FAB from "react-native-fab";
 import { FlatList } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { Alert } from "react-native";
 
 import AppLoding from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -19,6 +20,9 @@ function Board({ route, navigation }) {
   const [boards, setBoards] = useState([]);
 
   const { spinner } = useContext(ProgressContext);
+
+  const { category } = route.params;
+
   const _loadBoards = async () => {
     try {
       spinner.start();
@@ -50,7 +54,7 @@ function Board({ route, navigation }) {
   }, []);
 
   const _handleItemPress = (params) => {
-    navigation.navigate("ViewDetail", params);
+    navigation.navigate("PostWrite", params);
   };
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
@@ -62,7 +66,12 @@ function Board({ route, navigation }) {
         keyExtractor={(item) => `${item.num}`}
         data={boards}
         renderItem={({ item }) => (
-          <Item item={item} onPress={_handleItemPress} />
+          <Item
+            item={item}
+            onPress={_handleItemPress}
+            navigation={navigation}
+            category={category}
+          />
         )}
         windowSize={3} // 렌더링 되는양을 조절
       />

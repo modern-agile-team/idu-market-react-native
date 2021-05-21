@@ -44,7 +44,7 @@ const Main = ({ navigation }) => {
           topicFontSize={26}
           hitSlop={10}
           topicOnPress={() =>
-            navigation.navigate("Markets", {
+            navigation.navigate("Market", {
               category: "device",
             })
           }
