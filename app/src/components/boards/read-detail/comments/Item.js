@@ -70,7 +70,10 @@ const ReplyText = styled.Text`
 const Item = React.memo(({ item }) => {
   const theme = useContext(ThemeContext);
 
-  const content = item.content.replace(/(?:\r\n|\r|\n)/g, " <br /> ");
+  const content = item.content
+    .replace(/<p>/g, "")
+    .replace(/<br \/>/g, "\n")
+    .replace(/<\/p>/g, "\n");
 
   return (
     <CommentItems>

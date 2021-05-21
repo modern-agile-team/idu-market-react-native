@@ -49,6 +49,8 @@ const Post = ({
   inDate,
   profilePath,
   studentId,
+  category,
+  boardNum,
 }) => {
   const theme = useContext(ThemeContext);
 
