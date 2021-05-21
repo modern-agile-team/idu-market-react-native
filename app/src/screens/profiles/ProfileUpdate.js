@@ -35,7 +35,6 @@ function ProfileUpdate({ navigation }) {
         },
       };
       const id = await getItemFromAsync("id");
-      // console.log(id);
       const response = await fetch(
         `https://idu-market.shop:9800/api/students/${id}`,
         config

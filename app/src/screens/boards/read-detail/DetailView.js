@@ -2,12 +2,15 @@ import React, { useState, useContext } from "react";
 import { Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled, { ThemeContext } from "styled-components/native";
+import { FlatList } from "react-native-gesture-handler";
 import AppLoading from "expo-app-loading";
 
 import moment from "moment";
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
 import Post from "../../../components/boards/read-detail/posts/Post";
 import PostContainer from "../../../components/boards/read-detail/PostContainer";
+import Item from "../../../components/boards/read-detail/comments/Item";
+import CommentContainer from "../../../components/boards/read-detail/comments/CommentContainer";
 import { getItemFromAsync } from "../../../utils/AsyncStorage";
 import { ProgressContext } from "../../../contexts";
 
@@ -29,6 +32,7 @@ function DetailView({ route, navigation }) {
   const [isReady, setIsReady] = useState(false);
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
+  const [comments, setCommnets] = useState();
 
   const _loadBoard = async () => {
     try {
@@ -37,10 +41,6 @@ function DetailView({ route, navigation }) {
       const id = await getItemFromAsync("id");
       const { category } = route.params;
       const { boardNum } = route.params;
-
-      console.log(id);
-      console.log(category);
-      console.log(boardNum);
 
       const config = {
         method: "GET",
@@ -59,7 +59,8 @@ function DetailView({ route, navigation }) {
       if (json.success) {
         setImages([...images, ...json.images]);
         setBoard(json.board);
-        console.log(json.board);
+        setCommnets(json.comments);
+        // console.log(json.comments);
       } else {
         Alert.alert(json.msg);
       }
@@ -71,7 +72,7 @@ function DetailView({ route, navigation }) {
   };
 
   const detailViewInfo = () => {
-    const content = board.content.replace(/<p>/g, "").replace(/<\/p>/g, "\n");
+    const content = board.content.replace(/(?:\r\n|\r|\n)/g, " <br /> ");
 
     return (
       <Post
@@ -89,13 +90,15 @@ function DetailView({ route, navigation }) {
     <KeyboardAwareScrollView>
       <Container>
         <ImageSliderContainer images={images} />
-        <PostContainer
-          getDateOrTime={getDateOrTime}
-          detailViewInfo={detailViewInfo}
+        <>{detailViewInfo()}</>
+        <CommentContainer />
+        <FlatList
+          keyExtractor={(item) => `${item.num}`}
+          data={comments}
+          renderItem={({ item }) => <Item item={item} />}
+          windowSize={3} //렌더링 되는양을 조절
         />
       </Container>
-      {/* <PostContainers getDateOrTime={getDateOrTime} />
-          <CommentContainers getDateOrTime={getDateOrTime} /> */}
     </KeyboardAwareScrollView>
   ) : (
     <AppLoading
