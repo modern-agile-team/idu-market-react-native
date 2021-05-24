@@ -43,7 +43,7 @@ const Content = styled.Text`
   border-color: ${({ theme }) => theme.listBorder};
 `;
 
-const SaleList = () => {
+const SaleList = ({ navigation }) => {
   const [saleList, setSaleList] = useState([]);
   const [isReady, setIsReady] = useState(false);
 
@@ -91,11 +91,18 @@ const SaleList = () => {
       </Container>
     ) : (
       <Container>
-        <Text style={{ fontWeight: "bold" }}> 내가 구매한 목록 </Text>
+        <Text style={{ fontWeight: "bold" }}> 내가 판매한 목록 </Text>
         <FlatList
-          keyExtractor={(item) => `${item.num}`}
+          keyExtractor={(item) => String(item.boardNum)}
           data={saleList}
-          renderItem={({ item }) => <Item item={item} />}
+          renderItem={({ item }) => (
+            <Item
+              item={item}
+              navigation={navigation}
+              category={item.categoryName}
+              boardNum={item.boardNum}
+            />
+          )}
           windowSize={3} // 렌더링 되는양을 조절
         />
       </Container>

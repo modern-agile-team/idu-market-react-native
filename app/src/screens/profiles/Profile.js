@@ -129,7 +129,7 @@ const Profile = ({ navigation }) => {
               <Text style={{ color: "#222" }}> 로그아웃 </Text>
             </LogoutButton>
             <ActionButtonContainer iconSize={30} navigation={navigation} />
-            <Watchlist />
+            <Watchlist navigation={navigation} />
           </Container>
         ) : (
           <Container>

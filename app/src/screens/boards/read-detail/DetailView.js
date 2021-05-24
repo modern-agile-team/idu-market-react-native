@@ -8,7 +8,6 @@ import AppLoading from "expo-app-loading";
 import moment from "moment";
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
 import Post from "../../../components/boards/read-detail/posts/Post";
-import PostContainer from "../../../components/boards/read-detail/PostContainer";
 import Item from "../../../components/boards/read-detail/comments/Item";
 import CommentContainer from "../../../components/boards/read-detail/comments/CommentContainer";
 import { getItemFromAsync } from "../../../utils/AsyncStorage";
@@ -33,6 +32,10 @@ function DetailView({ route, navigation }) {
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
   const [comments, setCommnets] = useState();
+  const [isWatchlist, setIsWatchlist] = useState("");
+
+  const { category } = route.params;
+  const { boardNum } = route.params;
 
   const _loadBoard = async () => {
     try {
@@ -60,7 +63,7 @@ function DetailView({ route, navigation }) {
         setImages([...images, ...json.images]);
         setBoard(json.board);
         setCommnets(json.comments);
-        // console.log(json.comments);
+        setIsWatchlist(json.isWatchList);
       } else {
         Alert.alert(json.msg);
       }
@@ -72,7 +75,7 @@ function DetailView({ route, navigation }) {
   };
 
   const detailViewInfo = () => {
-    const content = board.content.replace(/(?:\r\n|\r|\n)/g, " <br /> ");
+    const content = board.content.replace(/<p>/g, "").replace(/<\/p>/g, "\n");
 
     return (
       <Post
@@ -82,6 +85,9 @@ function DetailView({ route, navigation }) {
         inDate={board.inDate}
         profilePath={board.profilePath}
         studentId={board.studentId}
+        category={category}
+        boardNum={boardNum}
+        isWatchlist={isWatchlist}
       />
     );
   };

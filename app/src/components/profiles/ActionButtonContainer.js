@@ -54,21 +54,21 @@ const ActionButtonContainer = ({ iconSize, navigation }) => {
 
   return (
     <ActionContainer>
-      <SaleList onPress={_handleSaleList}>
-        <AntDesign
-          name="barcode"
-          size={iconSize}
-          color={theme.tabInactiveColor}
-        />
-        <Text style={{ position: "absolute", bottom: 5 }}>판매목록</Text>
-      </SaleList>
-      <PurchaseList onPress={_handlePurchaseList}>
+      <SaleList onPress={_handlePurchaseList}>
         <EvilIcons
           name="cart"
           size={iconSize + 10}
           color={theme.tabInactiveColor}
         />
         <Text style={{ position: "absolute", bottom: 5 }}>구매목록</Text>
+      </SaleList>
+      <PurchaseList onPress={_handleSaleList}>
+        <AntDesign
+          name="barcode"
+          size={iconSize}
+          color={theme.tabInactiveColor}
+        />
+        <Text style={{ position: "absolute", bottom: 5 }}>판매목록</Text>
       </PurchaseList>
       <WritenMe onPress={_handleInquiry}>
         <MaterialCommunityIcons

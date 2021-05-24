@@ -74,7 +74,7 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { spinner } = useContext(ProgressContext);
-  const { isReady, readyDispatch } = useContext(ReadyContext);
+  const { readyDispatch } = useContext(ReadyContext);
 
   const didmountRef = useRef();
 
