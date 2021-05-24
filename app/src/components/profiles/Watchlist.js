@@ -43,15 +43,15 @@ const WatchlistContent = styled.Text`
   border-color: ${({ theme }) => theme.listBorder};
 `;
 
-const Watchlist = () => {
-  const [watchlist, setWatchlist] = useState([]);
+const Watchlist = ({ navigation }) => {
+  const [watchLists, setWatchLists] = useState([]);
   const [isReady, setIsReady] = useState(false);
 
   const { spinner } = useContext(ProgressContext);
 
   const theme = useContext(ThemeContext);
 
-  const _watchlist = async () => {
+  const _watchLists = async () => {
     try {
       spinner.start();
 
@@ -59,17 +59,22 @@ const Watchlist = () => {
         method: "GET",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
       };
 
       const id = await getItemFromAsync("id");
+      console.log(id);
       const response = await fetch(
         `https://idu-market.shop:9800/api/watchlist/${id}`,
         config
       );
+      console.log(response);
       const json = await response.json();
-      json.success ? setWatchlist(json.watchLists) : Alert.alert(json.msg);
+      console.log(json);
+      json.success
+        ? setWatchLists([...watchLists, ...json.watchLists])
+        : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {
@@ -77,8 +82,12 @@ const Watchlist = () => {
     }
   };
 
+  const _handleItemPress = (params) => {
+    navigation.navigate("PostWrite", params);
+  };
+
   if (isReady) {
-    return !watchlist.length ? (
+    return watchLists.length === 0 ? (
       <Container>
         <WachlistItem>
           <WatchlistTitle> 아이두 </WatchlistTitle>
@@ -93,9 +102,16 @@ const Watchlist = () => {
       <Container>
         <Text style={{ fontWeight: "bold" }}> 내가 찜한 목록 </Text>
         <FlatList
-          keyExtractor={(item) => `${item.num}`}
-          data={watchlist}
-          renderItem={({ item }) => <Item item={item} />}
+          data={watchLists}
+          keyExtractor={(item) => String(item.boardNum)}
+          renderItem={({ item }) => (
+            <Item
+              item={item}
+              navigation={navigation}
+              category={item.categoryName}
+              boardNum={item.boardNum}
+            />
+          )}
           windowSize={3} // 렌더링 되는양을 조절
         />
       </Container>
@@ -103,7 +119,7 @@ const Watchlist = () => {
   }
   return (
     <AppLoding
-      startAsync={_watchlist}
+      startAsync={_watchLists}
       onFinish={() => setIsReady(true)}
       onError={console.error}
     />

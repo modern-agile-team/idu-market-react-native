@@ -41,6 +41,7 @@ function Board({ route, navigation }) {
         config
       );
       const json = await response.json();
+      console.log(json.boards);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);
@@ -53,9 +54,6 @@ function Board({ route, navigation }) {
     _loadBoards();
   }, []);
 
-  const _handleItemPress = (params) => {
-    navigation.navigate("PostWrite", params);
-  };
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
   };
@@ -68,9 +66,9 @@ function Board({ route, navigation }) {
         renderItem={({ item }) => (
           <Item
             item={item}
-            onPress={_handleItemPress}
             navigation={navigation}
             category={category}
+            boardNum={item.num}
           />
         )}
         windowSize={3} // 렌더링 되는양을 조절

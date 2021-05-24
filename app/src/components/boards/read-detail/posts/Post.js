@@ -4,7 +4,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 
 import { getItemFromAsync } from "../../../../utils/AsyncStorage";
-import { ProgressContext } from "../../../../contexts";
+import { ProgressContext, ReadyContext } from "../../../../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -44,7 +44,6 @@ const Description = styled.Text`
 `;
 
 const Post = ({
-  getDateOrTime,
   title,
   nickname,
   content,
@@ -58,17 +57,19 @@ const Post = ({
   const [watchlist, setWatchlist] = useState(isWatchlist);
 
   const { spinner } = useContext(ProgressContext);
+  const { readyDispatch } = useContext(ReadyContext);
 
   const theme = useContext(ThemeContext);
 
-  console.log(isWatchlist);
   const _handleUpdateWatchlist = () => {
     setWatchlist(true);
+    readyDispatch.notReady();
     Alert.alert("관심목록에 등록되었습니다.");
   };
 
   const _handleUpdateWatchlistDelete = () => {
     setWatchlist(false);
+    readyDispatch.notReady();
     Alert.alert("관심목록 취소되었습니다.");
   };
 

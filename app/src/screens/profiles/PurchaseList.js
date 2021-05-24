@@ -94,9 +94,16 @@ const PurchaseList = () => {
       <Container>
         <Text style={{ fontWeight: "bold" }}> 내가 구매한 목록 </Text>
         <FlatList
-          keyExtractor={(item) => `${item.num}`}
+          keyExtractor={(item) => String(item.boardNum)}
           data={purchaseList}
-          renderItem={({ item }) => <Item item={item} />}
+          renderItem={({ item }) => (
+            <Item
+              item={item}
+              navigation={navigation}
+              category={item.categoryName}
+              boardNum={item.boardNum}
+            />
+          )}
           windowSize={3} // 렌더링 되는양을 조절
         />
       </Container>
