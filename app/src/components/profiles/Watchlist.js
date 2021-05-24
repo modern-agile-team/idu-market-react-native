@@ -75,15 +75,12 @@ const Watchlist = ({ navigation }) => {
       json.success
         ? setWatchLists([...watchLists, ...json.watchLists])
         : Alert.alert(json.msg);
+      console.log(json);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {
       spinner.stop();
     }
-  };
-
-  const _handleItemPress = (params) => {
-    navigation.navigate("PostWrite", params);
   };
 
   if (isReady) {
@@ -110,6 +107,7 @@ const Watchlist = ({ navigation }) => {
               navigation={navigation}
               category={item.categoryName}
               boardNum={item.boardNum}
+              nickname={item.sellerName}
             />
           )}
           windowSize={3} // 렌더링 되는양을 조절

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
@@ -9,7 +9,7 @@ const Container = styled.View`
 const ItemContainer = styled.TouchableOpacity`
   border-bottom-width: 1px;
   border-color: ${({ theme }) => theme.listBorder};
-  padding: 10px 10px 15px 10px;
+  padding: 5px 10px 15px 10px;
   flex-direction: row;
 `;
 const ItemTextContainer = styled.View`
@@ -18,7 +18,7 @@ const ItemTextContainer = styled.View`
 `;
 const ItemRowContainer = styled.View`
   flex: 1;
-  padding-top: 10px;
+  padding-top: 5px;
   flex-direction: row;
   width: 100%;
 `;
@@ -35,7 +35,6 @@ const ItemComment = styled.Text`
   color: ${({ theme }) => theme.listTime};
 `;
 const ItemStudent = styled.Text`
-  padding-top: 3px;
   padding-left: 3px;
 `;
 const StatusText = styled.Text`
@@ -58,9 +57,10 @@ const ImageContanier = styled.Image`
 
 const Item = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
-  ({ item, navigation, category, boardNum }) => {
+  ({ item, navigation, nickname, category, boardNum }) => {
     const theme = useContext(ThemeContext);
 
+    console.log(nickname);
     const changeStatus = ({ item }) => {
       if (item.status === 0) return "판매중";
       if (item.status === 1) return "예약중";
@@ -85,7 +85,7 @@ const Item = React.memo(
             </ItemRowContainer>
             <ItemRowContainer>
               <MaterialIcons name="person" size={24} color={theme.listIcon} />
-              <ItemStudent>{item.nickname}</ItemStudent>
+              <ItemStudent>{nickname}</ItemStudent>
             </ItemRowContainer>
             <ItemRowContainer>
               <MaterialIcons name="payment" size={25} />
@@ -94,6 +94,7 @@ const Item = React.memo(
             <ItemRowContainer>
               <FontAwesome5 name="comment-dots" size={22} color="black" />
               <ItemComment>{item.commentCount}</ItemComment>
+              <ItemStudent>조회수 {item.hit}</ItemStudent>
               <ItemTime>{item.inDate}</ItemTime>
             </ItemRowContainer>
           </ItemTextContainer>

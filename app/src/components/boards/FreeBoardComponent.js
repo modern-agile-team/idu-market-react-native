@@ -16,7 +16,7 @@ const ItemTextContainer = styled.View`
 `;
 
 const ItemStudent = styled.Text`
-  font-size: 10px;
+  font-size: 12px;
   padding-left: 3px;
 `;
 
@@ -80,6 +80,7 @@ const Item = React.memo(
         <ItemRowContainer>
           <FontAwesome5 name="comment-dots" size={22} color="black" />
           <ItemComment>{item.commentCount}</ItemComment>
+          <ItemStudent>조회수 {item.hit}</ItemStudent>
           <ItemTime>{item.inDate}</ItemTime>
         </ItemRowContainer>
       </ItemContainer>
