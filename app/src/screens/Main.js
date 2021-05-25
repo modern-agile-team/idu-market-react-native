@@ -22,6 +22,10 @@ const Main = ({ navigation }) => {
     readyDispatch.notReady();
   }, []);
 
+  const _handleNoticeBoard = () => {
+    readyDispatch.notReady();
+    navigation.navigate("NoticeBoard");
+  };
   const _handleBookMarket = () => {
     readyDispatch.notReady();
     navigation.navigate("Market", {
@@ -36,6 +40,13 @@ const Main = ({ navigation }) => {
     });
   };
 
+  const _handleClothesMarket = () => {
+    readyDispatch.notReady();
+    navigation.navigate("Market", {
+      category: "clothes",
+    });
+  };
+
   return (
     <Container>
       <ScrollView style={{ flex: 1, width: "100%" }}>
@@ -44,7 +55,7 @@ const Main = ({ navigation }) => {
           topicTitle={"📌 공지"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() => navigation.navigate("Market")}
+          topicOnPress={_handleNoticeBoard}
           itemOnPress={() => navigation.navigate("DetailView")}
         />
         <MarketContainer
@@ -68,11 +79,7 @@ const Main = ({ navigation }) => {
           topicTitle={"🧶 의류"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() =>
-            navigation.navigate("Market", {
-              category: "clothes",
-            })
-          }
+          topicOnPress={_handleClothesMarket}
           itemOnPress={() => navigation.navigate("DetailView")}
         />
       </ScrollView>

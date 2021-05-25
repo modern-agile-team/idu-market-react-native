@@ -51,7 +51,7 @@ const Item = ({
   onPress,
   imgUrl,
   itemTitle,
-  studentId,
+  nickname,
   commentCount,
   hit,
 }) => {
@@ -61,7 +61,7 @@ const Item = ({
       <ItemTitle>{itemTitle}</ItemTitle>
       <ItemContent>
         <MaterialIcons name="person-outline" size={16} color="black" />
-        <ItemContentText>{studentId}</ItemContentText>
+        <ItemContentText>{nickname}</ItemContentText>
       </ItemContent>
       <ItemContent>
         <FontAwesome5 name="comment-dots" size={16} color="black" />
