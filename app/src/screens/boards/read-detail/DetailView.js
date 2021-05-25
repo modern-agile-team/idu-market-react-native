@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled, { ThemeContext } from "styled-components/native";
@@ -11,7 +11,7 @@ import Post from "../../../components/boards/read-detail/posts/Post";
 import Item from "../../../components/boards/read-detail/comments/Item";
 import CommentContainer from "../../../components/boards/read-detail/comments/CommentContainer";
 import { getItemFromAsync } from "../../../utils/AsyncStorage";
-import { ProgressContext } from "../../../contexts";
+import { ProgressContext, ReadyContext } from "../../../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -25,14 +25,15 @@ const getDateOrTime = (ts) => {
 };
 
 function DetailView({ route, navigation }) {
-  const theme = useContext(ThemeContext);
-  const { spinner } = useContext(ProgressContext);
-
   const [isReady, setIsReady] = useState(false);
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
   const [comments, setCommnets] = useState();
   const [isWatchlist, setIsWatchlist] = useState("");
+  const [hit, setHit] = useState(hit);
+
+  const { spinner } = useContext(ProgressContext);
+  const { readyDispatch } = useContext(ReadyContext);
 
   const { category } = route.params;
   const { boardNum } = route.params;
@@ -42,8 +43,6 @@ function DetailView({ route, navigation }) {
       spinner.start();
 
       const id = await getItemFromAsync("id");
-      const { category } = route.params;
-      const { boardNum } = route.params;
 
       const config = {
         method: "GET",
@@ -72,7 +71,60 @@ function DetailView({ route, navigation }) {
     } finally {
       spinner.stop();
     }
+    try {
+      const config = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          hit: hit,
+        }),
+      };
+
+      const response = await fetch(
+        `https://idu-market.shop:9800/api/boards/${category}/${boardNum}`,
+        config
+      );
+
+      const json = await response.json();
+      console.log(json);
+      json.success ? setHit(json.hit) : Alert.alert(json.msg);
+      readyDispatch.notReady();
+    } catch (e) {
+    } finally {
+    }
   };
+
+  // const _hitPatch = async () => {
+
+  // try {
+  //   const config = {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       hit: hit,
+  //     }),
+  //   };
+
+  //   const response = await fetch(
+  //     `https://idu-market.shop:9800/api/boards/${category}/${boardNum}`,
+  //     config
+  //   );
+
+  //   const json = await response.json();
+  //   console.log(json);
+  //   json.success ? setHit(json.hit) : Alert.alert(json.msg);
+  // } catch (e) {
+  // } finally {
+  // }
+  // };
+
+  // useEffect(() => {
+  //   _hitPatch();
+  // }, []);
 
   const detailViewInfo = () => {
     const content = board.content.replace(/<p>/g, "").replace(/<\/p>/g, "\n");

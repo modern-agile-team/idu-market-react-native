@@ -6,7 +6,7 @@ import { Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
 
-import { ProgressContext } from "../../../contexts";
+import { ProgressContext, ReadyContext } from "../../../contexts";
 import Item from "../../../components/boards/FreeBoardComponent";
 
 const Container = styled.SafeAreaView`
@@ -15,10 +15,10 @@ const Container = styled.SafeAreaView`
 `;
 
 function FreeBoard({ navigation }) {
-  const [isReady, setIsReady] = useState(false);
   const [boards, setBoards] = useState([]);
 
   const { spinner } = useContext(ProgressContext);
+  const { isReady, readyDispatch } = useContext(ReadyContext);
 
   const _loadBoards = async () => {
     try {
@@ -38,6 +38,7 @@ function FreeBoard({ navigation }) {
       );
       const json = await response.json();
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
+      readyDispatch.notReady();
       console.log(json.boards);
     } catch (e) {
       Alert.alert("실패", e.message);
@@ -46,12 +47,9 @@ function FreeBoard({ navigation }) {
     }
   };
 
-  const _handleItemPress = () => {
-    navigation.navigate("DetailView", {
-      boardNum: `${boards.num}`,
-      category: "free",
-    });
-  };
+  useEffect(() => {
+    readyDispatch.notReady();
+  }, []);
 
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
@@ -62,13 +60,7 @@ function FreeBoard({ navigation }) {
       <FlatList
         keyExtractor={(item) => `${item.num}`}
         data={boards}
-        renderItem={({ item }) => (
-          <Item
-            item={item}
-            onPress={_handleItemPress}
-            navigation={navigation}
-          />
-        )}
+        renderItem={({ item }) => <Item item={item} navigation={navigation} />}
         windowSize={3} // 렌더링 되는양을 조절
       />
       <FAB
@@ -82,7 +74,7 @@ function FreeBoard({ navigation }) {
   ) : (
     <AppLoding
       startAsync={_loadBoards}
-      onFinish={() => setIsReady(true)}
+      onFinish={() => readyDispatch.ready()}
       onError={console.error}
     />
   );

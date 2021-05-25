@@ -53,6 +53,7 @@ const ItemList = ({ category, hitSlop, onPress }) => {
           itemTitle={board.title}
           studentId={board.studentId}
           commentCount={board.commentCount}
+          hit={board.hit}
         />
       );
     });

@@ -64,18 +64,16 @@ const Watchlist = ({ navigation }) => {
       };
 
       const id = await getItemFromAsync("id");
-      console.log(id);
       const response = await fetch(
         `https://idu-market.shop:9800/api/watchlist/${id}`,
         config
       );
-      console.log(response);
+
       const json = await response.json();
-      console.log(json);
+
       json.success
         ? setWatchLists([...watchLists, ...json.watchLists])
         : Alert.alert(json.msg);
-      console.log(json);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
@@ -58,25 +58,51 @@ const ImageContanier = styled.Image`
 const Item = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
   ({ item, navigation, nickname, category, boardNum }) => {
+    // const [hit, setHit] = useState(hit);
+
     const theme = useContext(ThemeContext);
 
-    console.log(nickname);
+    // const _hitPatch = async () => {
+    //   try {
+    //     const config = {
+    //       method: "PATCH",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         hit: hit,
+    //       }),
+    //     };
+
+    //     const response = await fetch(
+    //       `https://idu-market.shop:9800/api/boards/${category}/${boardNum}`,
+    //       config
+    //     );
+
+    //     const json = await response.json();
+    //     console.log(json);
+    //     json.success ? setHit(json.hit) : Alert.alert(json.msg);
+    //   } catch (e) {
+    //   } finally {
+    //   }
+    // };
+
     const changeStatus = ({ item }) => {
       if (item.status === 0) return "판매중";
       if (item.status === 1) return "예약중";
       if (item.status === 2) return "판매완료";
     };
 
+    const _handleDetailViewPress = () => {
+      navigation.navigate("DetailView", {
+        boardNum: `${boardNum}`,
+        category: `${category}`,
+      });
+    };
+
     return (
       <Container>
-        <ItemContainer
-          onPress={() =>
-            navigation.navigate("DetailView", {
-              boardNum: `${boardNum}`,
-              category: `${category}`,
-            })
-          }
-        >
+        <ItemContainer onPress={_handleDetailViewPress}>
           <ImageContanier source={{ uri: item.thumbnail }} resizeMode="cover" />
           <ItemTextContainer>
             <ItemRowContainer>

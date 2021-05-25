@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
@@ -52,23 +52,55 @@ const ItemTime = styled.Text`
   color: ${({ theme }) => theme.listTime};
   position: absolute;
   right: 0px;
-  padding-top: 20px;
+  padding-top: 40px;
+`;
+
+const ItemHit = styled.Text`
+  position: absolute;
+  right: 0px;
 `;
 
 const Item = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
   ({ item, navigation }) => {
+    // const [hit, setHit] = useState(hit);
     const theme = useContext(ThemeContext);
 
+    // const _hitPatch = async () => {
+    //   try {
+    //     const config = {
+    //       method: "PATCH",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         hit: hit,
+    //       }),
+    //     };
+
+    //     const response = await fetch(
+    //       `https://idu-market.shop:9800/api/boards/${category}/${boardNum}`,
+    //       config
+    //     );
+
+    //     const json = await response.json();
+    //     console.log(json);
+    //     json.success ? setHit(json.hit) : Alert.alert(json.msg);
+    //   } catch (e) {
+    //   } finally {
+    //   }
+    // };
+
+    const _handleDetailViewPress = () => {
+      // _hitPatch();
+      navigation.navigate("DetailView", {
+        boardNum: `${item.num}`,
+        category: `free`,
+      });
+    };
+
     return (
-      <ItemContainer
-        onPress={() =>
-          navigation.navigate("DetailView", {
-            boardNum: `${item.num}`,
-            category: "free",
-          })
-        }
-      >
+      <ItemContainer onPress={_handleDetailViewPress}>
         <ItemTextContainer>
           <ItemTitle>{item.title}</ItemTitle>
           <ItemRowContainer>
@@ -80,8 +112,8 @@ const Item = React.memo(
         <ItemRowContainer>
           <FontAwesome5 name="comment-dots" size={22} color="black" />
           <ItemComment>{item.commentCount}</ItemComment>
-          <ItemStudent>조회수 {item.hit}</ItemStudent>
           <ItemTime>{item.inDate}</ItemTime>
+          <ItemHit>조회수 {item.hit}</ItemHit>
         </ItemRowContainer>
       </ItemContainer>
     );
