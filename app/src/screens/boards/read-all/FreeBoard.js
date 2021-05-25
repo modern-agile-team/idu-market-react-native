@@ -38,8 +38,6 @@ function FreeBoard({ navigation }) {
       );
       const json = await response.json();
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
-      readyDispatch.notReady();
-      console.log(json.boards);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {
