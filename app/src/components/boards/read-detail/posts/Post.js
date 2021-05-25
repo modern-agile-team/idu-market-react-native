@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Alert, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
+import { WebView } from "react-native-webview";
 
 import { getItemFromAsync } from "../../../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../../../contexts";
@@ -40,7 +41,8 @@ const ContentTitle = styled.View`
 const Title = styled.Text``;
 
 const Description = styled.Text`
-  padding: 12px;
+  padding: 10px;
+  line-height: 15px;
 `;
 
 const Post = ({
@@ -105,7 +107,9 @@ const Post = ({
   const _handleWatchlistDelete = async () => {
     try {
       spinner.start();
+
       const ids = await getItemFromAsync("id");
+
       const config = {
         method: "DELETE",
         headers: {

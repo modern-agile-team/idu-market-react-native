@@ -16,7 +16,6 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.background};
   justify-content: flex-start;
   align-items: center;
-  padding: 0px;
 `;
 
 const LoginQuestion = styled.View`
@@ -37,7 +36,7 @@ const LogoutButton = styled.TouchableOpacity`
   border: 1px;
   position: absolute;
   right: 10px;
-  top: 60px;
+  top: 50px;
   margin-top: 10px;
   padding: 5px;
   border-radius: 10px;

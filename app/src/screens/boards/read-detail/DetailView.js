@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styled, { ThemeContext } from "styled-components/native";
 import { FlatList } from "react-native-gesture-handler";
 import AppLoading from "expo-app-loading";
+import { WebView } from "react-native-webview";
 
 import moment from "moment";
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
@@ -17,12 +18,6 @@ const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.background};
 `;
-
-const getDateOrTime = (ts) => {
-  const now = moment().startOf("day");
-  const target = moment(ts).startOf("day");
-  return moment(ts).format(now.diff(target, "days") > 0 ? "MM/DD" : "HH:mm");
-};
 
 function DetailView({ route, navigation }) {
   const [isReady, setIsReady] = useState(false);
@@ -63,6 +58,7 @@ function DetailView({ route, navigation }) {
         setBoard(json.board);
         setCommnets(json.comments);
         setIsWatchlist(json.isWatchList);
+        readyDispatch.notReady();
       } else {
         Alert.alert(json.msg);
       }
@@ -90,45 +86,22 @@ function DetailView({ route, navigation }) {
       const json = await response.json();
       console.log(json);
       json.success ? setHit(json.hit) : Alert.alert(json.msg);
-      readyDispatch.notReady();
     } catch (e) {
     } finally {
     }
   };
 
-  // const _hitPatch = async () => {
-
-  // try {
-  //   const config = {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       hit: hit,
-  //     }),
-  //   };
-
-  //   const response = await fetch(
-  //     `https://idu-market.shop:9800/api/boards/${category}/${boardNum}`,
-  //     config
-  //   );
-
-  //   const json = await response.json();
-  //   console.log(json);
-  //   json.success ? setHit(json.hit) : Alert.alert(json.msg);
-  // } catch (e) {
-  // } finally {
-  // }
-  // };
-
-  // useEffect(() => {
-  //   _hitPatch();
-  // }, []);
-
   const detailViewInfo = () => {
-    const content = board.content.replace(/<p>/g, "").replace(/<\/p>/g, "\n");
-
+    const content = board.content
+      .replace(/<(\/span|span)([^>]*)>/gi, "")
+      .replace(/<(\/strong|strong)([^>]*)>/gi, "")
+      .replace(/<(\/p|p)([^>]*)>/gi, "\n")
+      .replace(/<(\/br|br)([^>]*)>/gi, "\n")
+      .replace(/<(\/em|em)([^>]*)>/gi, "")
+      .replace(/<(\/u|u)([^>]*)>/gi, "")
+      .replace(/<(\/blockquote|blockquote)([^>]*)>/gi, "")
+      .replace(/<(\/s|s)([^>]*)>/gi, "");
+    // replace(/(<([^>]+)>)/ig,"");
     return (
       <Post
         title={board.title}

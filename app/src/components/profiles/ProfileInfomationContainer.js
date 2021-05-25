@@ -1,13 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { Text } from "react-native";
-
-import { ProgressContext } from "../../contexts";
 
 const Container = styled.View`
   align-items: center;
-  margin-top: 20px;
+  margin-top: 10px;
   padding-bottom: 10px;
   width: 100%;
   flex-direction: row;

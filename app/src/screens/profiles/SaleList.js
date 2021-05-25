@@ -91,7 +91,7 @@ const SaleList = ({ navigation }) => {
       </Container>
     ) : (
       <Container>
-        <Text style={{ fontWeight: "bold" }}> 내가 판매한 목록 </Text>
+        <Text style={{ fontWeight: "bold" }}> 내가 판매 등록한 목록 </Text>
         <FlatList
           keyExtractor={(item) => String(item.boardNum)}
           data={saleList}

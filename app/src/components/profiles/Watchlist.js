@@ -10,9 +10,9 @@ import { getItemFromAsync } from "../../utils/AsyncStorage";
 
 const Container = styled.View`
   width: 100%;
-  height: 100%;
+  height: 70%;
   background-color: ${({ theme }) => theme.actionBackgroundColor};
-  padding: 10px 20px 10px 20px;
+  padding: 10px;
 `;
 
 const WachlistItem = styled.View`
@@ -48,8 +48,6 @@ const Watchlist = ({ navigation }) => {
   const [isReady, setIsReady] = useState(false);
 
   const { spinner } = useContext(ProgressContext);
-
-  const theme = useContext(ThemeContext);
 
   const _watchLists = async () => {
     try {
@@ -96,6 +94,7 @@ const Watchlist = ({ navigation }) => {
     ) : (
       <Container>
         <Text style={{ fontWeight: "bold" }}> 내가 찜한 목록 </Text>
+
         <FlatList
           data={watchLists}
           keyExtractor={(item) => String(item.boardNum)}
