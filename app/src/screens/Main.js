@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components/native";
 import { ScrollView } from "react-native";
 
 import { MarketContainer } from "../components";
 import { LinearContainer } from "../components";
+import { ReadyContext } from "../contexts";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -15,6 +16,26 @@ const Container = styled.SafeAreaView`
 `;
 
 const Main = ({ navigation }) => {
+  const { readyDispatch } = useContext(ReadyContext);
+
+  useEffect(() => {
+    readyDispatch.notReady();
+  }, []);
+
+  const _handleBookMarket = () => {
+    readyDispatch.notReady();
+    navigation.navigate("Market", {
+      category: "book",
+    });
+  };
+
+  const _handleDeviceMarket = () => {
+    readyDispatch.notReady();
+    navigation.navigate("Market", {
+      category: "device",
+    });
+  };
+
   return (
     <Container>
       <ScrollView style={{ flex: 1, width: "100%" }}>
@@ -31,11 +52,7 @@ const Main = ({ navigation }) => {
           topicTitle={"📚 교재"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() =>
-            navigation.navigate("Market", {
-              category: "book",
-            })
-          }
+          topicOnPress={_handleBookMarket}
           itemOnPress={() => navigation.navigate("DetailView")}
         />
         <MarketContainer
@@ -43,11 +60,7 @@ const Main = ({ navigation }) => {
           topicTitle={"💻 IT기기"}
           topicFontSize={26}
           hitSlop={10}
-          topicOnPress={() =>
-            navigation.navigate("Market", {
-              category: "device",
-            })
-          }
+          topicOnPress={_handleDeviceMarket}
           itemOnPress={() => navigation.navigate("DetailView")}
         />
         <MarketContainer
