@@ -40,7 +40,7 @@ function Board({ route, navigation }) {
       );
       const json = await response.json();
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
-      console.log(json.boards);
+      console.log("asd");
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {
@@ -51,9 +51,6 @@ function Board({ route, navigation }) {
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
   };
-  useEffect(() => {
-    readyDispatch.notReady();
-  }, []);
 
   return isReady ? (
     <Container>
