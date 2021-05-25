@@ -50,8 +50,6 @@ const Profile = ({ navigation }) => {
   const { isReady, readyDispatch } = useContext(ReadyContext);
   const { spinner } = useContext(ProgressContext);
 
-  const theme = useContext(ThemeContext);
-
   const _profileInfo = async () => {
     try {
       spinner.start();

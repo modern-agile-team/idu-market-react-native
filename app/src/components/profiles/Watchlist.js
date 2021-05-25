@@ -64,14 +64,13 @@ const Watchlist = ({ navigation }) => {
       };
 
       const id = await getItemFromAsync("id");
-      console.log(id);
       const response = await fetch(
         `https://idu-market.shop:9800/api/watchlist/${id}`,
         config
       );
-      console.log(response);
+
       const json = await response.json();
-      console.log(json);
+
       json.success
         ? setWatchLists([...watchLists, ...json.watchLists])
         : Alert.alert(json.msg);
@@ -80,10 +79,6 @@ const Watchlist = ({ navigation }) => {
     } finally {
       spinner.stop();
     }
-  };
-
-  const _handleItemPress = (params) => {
-    navigation.navigate("PostWrite", params);
   };
 
   if (isReady) {
@@ -110,6 +105,7 @@ const Watchlist = ({ navigation }) => {
               navigation={navigation}
               category={item.categoryName}
               boardNum={item.boardNum}
+              nickname={item.sellerName}
             />
           )}
           windowSize={3} // 렌더링 되는양을 조절

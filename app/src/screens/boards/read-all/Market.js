@@ -7,7 +7,7 @@ import { Alert } from "react-native";
 import AppLoding from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { ProgressContext } from "../../../contexts";
+import { ProgressContext, ReadyContext } from "../../../contexts";
 import Item from "../../../components/markets/Item";
 
 const Container = styled.SafeAreaView`
@@ -16,18 +16,16 @@ const Container = styled.SafeAreaView`
 `;
 
 function Board({ route, navigation }) {
-  const [isReady, setIsReady] = useState(false);
   const [boards, setBoards] = useState([]);
 
   const { spinner } = useContext(ProgressContext);
+  const { isReady, readyDispatch } = useContext(ReadyContext);
 
   const { category } = route.params;
 
   const _loadBoards = async () => {
     try {
       spinner.start();
-
-      const { category } = route.params;
 
       const config = {
         method: "GET",
@@ -41,8 +39,8 @@ function Board({ route, navigation }) {
         config
       );
       const json = await response.json();
-      console.log(json.boards);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
+      console.log(json.boards);
     } catch (e) {
       Alert.alert("실패", e.message);
     } finally {
@@ -50,13 +48,12 @@ function Board({ route, navigation }) {
     }
   };
 
-  useEffect(() => {
-    _loadBoards();
-  }, []);
-
   const _handleWritePress = (params) => {
     navigation.navigate("PostWrite", params);
   };
+  useEffect(() => {
+    readyDispatch.notReady();
+  }, []);
 
   return isReady ? (
     <Container>
@@ -69,6 +66,7 @@ function Board({ route, navigation }) {
             navigation={navigation}
             category={category}
             boardNum={item.num}
+            nickname={item.nickname}
           />
         )}
         windowSize={3} // 렌더링 되는양을 조절
@@ -84,7 +82,7 @@ function Board({ route, navigation }) {
   ) : (
     <AppLoding
       startAsync={_loadBoards}
-      onFinish={() => setIsReady(true)}
+      onFinish={() => readyDispatch.ready()}
       onError={console.error}
     />
   );
