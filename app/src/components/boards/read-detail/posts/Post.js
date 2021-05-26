@@ -3,6 +3,7 @@ import { Alert, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 import { WebView } from "react-native-webview";
+import AppLoading from "expo-app-loading";
 
 import { getItemFromAsync } from "../../../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../../../contexts";
@@ -30,6 +31,13 @@ const NameBox = styled.View`
   margin-left: 5px;
 `;
 
+const PostBtn = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.boardsButton};
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+`;
+
 const Subscribe = styled.TouchableOpacity`
   padding: 10px;
 `;
@@ -55,6 +63,7 @@ const Post = ({
   category,
   boardNum,
   isWatchlist,
+  id,
 }) => {
   const [watchlist, setWatchlist] = useState(isWatchlist);
 
@@ -78,7 +87,7 @@ const Post = ({
   const _handleWatchlist = async () => {
     try {
       spinner.start();
-      const id = await getItemFromAsync("id");
+
       const config = {
         method: "POST",
         headers: {
@@ -108,8 +117,6 @@ const Post = ({
     try {
       spinner.start();
 
-      const ids = await getItemFromAsync("id");
-
       const config = {
         method: "DELETE",
         headers: {
@@ -122,7 +129,7 @@ const Post = ({
       };
 
       const response = await fetch(
-        `https://idu-market.shop:9800/api/watchlist/${ids}`,
+        `https://idu-market.shop:9800/api/watchlist/${id}`,
         config
       );
       const json = await response.json();
@@ -149,6 +156,18 @@ const Post = ({
             </Text>
             <Text>{studentId}</Text>
           </NameBox>
+          {studentId === id ? (
+            <>
+              <PostBtn>
+                <Text style={{ color: "#fff" }}>수정</Text>
+              </PostBtn>
+              <PostBtn>
+                <Text style={{ color: "#fff" }}>삭제</Text>
+              </PostBtn>
+            </>
+          ) : (
+            <></>
+          )}
           {watchlist ? (
             <Subscribe onPress={_handleWatchlistDelete}>
               <Feather name="heart" size={32} color="red" />
