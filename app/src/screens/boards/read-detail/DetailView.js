@@ -13,6 +13,7 @@ import Item from "../../../components/boards/read-detail/comments/Item";
 import CommentContainer from "../../../components/boards/read-detail/comments/CommentContainer";
 import { getItemFromAsync } from "../../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../../contexts";
+import { set } from "react-native-reanimated";
 
 const Container = styled.View`
   flex: 1;
@@ -24,6 +25,7 @@ function DetailView({ route, navigation }) {
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
   const [comments, setCommnets] = useState();
+  const [isId, setIsId] = useState("");
   const [isWatchlist, setIsWatchlist] = useState("");
   const [hit, setHit] = useState(hit);
 
@@ -38,6 +40,7 @@ function DetailView({ route, navigation }) {
       spinner.start();
 
       const id = await getItemFromAsync("id");
+      setIsId(id);
 
       const config = {
         method: "GET",
@@ -58,6 +61,7 @@ function DetailView({ route, navigation }) {
         setBoard(json.board);
         setCommnets(json.comments);
         setIsWatchlist(json.isWatchList);
+
         readyDispatch.notReady();
       } else {
         Alert.alert(json.msg);
@@ -84,7 +88,6 @@ function DetailView({ route, navigation }) {
       );
 
       const json = await response.json();
-      console.log(json);
       json.success ? setHit(json.hit) : Alert.alert(json.msg);
     } catch (e) {
     } finally {
@@ -113,6 +116,7 @@ function DetailView({ route, navigation }) {
         category={category}
         boardNum={boardNum}
         isWatchlist={isWatchlist}
+        id={isId}
       />
     );
   };

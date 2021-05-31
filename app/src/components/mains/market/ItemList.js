@@ -35,7 +35,6 @@ const ItemList = ({ category, hitSlop, onPress }) => {
         config
       );
       const json = await response.json();
-      console.log(json);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
@@ -65,7 +64,6 @@ const ItemList = ({ category, hitSlop, onPress }) => {
 
   useEffect(() => {
     _loadBoards();
-    console.log(isReady);
   }, []);
 
   return isReady ? (
