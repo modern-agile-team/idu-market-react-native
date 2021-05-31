@@ -66,7 +66,7 @@ function Signup() {
     if (didmountRef.current) {
       let _errorMessage = "";
       if (!checkStudent(student)) {
-        _errorMessage = "학번을 제대로 입력하세요";
+        _errorMessage = "아이디를 제대로 입력하세요";
       } else if (!checkName(name)) {
         _errorMessage = "공백없이 한글로만 입력해주세요";
       } else if (!checkNickname(nickname)) {
@@ -140,11 +140,11 @@ function Signup() {
       <KeyboardAwareScrollView extraScrollHeight={30}>
         <Container>
           <Input
-            label="학번"
+            label="아이디"
             value={student}
             onChangeText={(text) => setStudent(removeWhitespace(text))}
             onSubmitEditing={() => nameRef.current.focus()}
-            placeholder="학번"
+            placeholder="아이디"
             returnKeyType="next"
           />
           <SelectBox

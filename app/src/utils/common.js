@@ -10,7 +10,7 @@ export const removeWhitespace = (text) => {
 };
 
 export const checkStudent = (student) => {
-  const regex = /^[1-2][0|9][0-9]{7}$/;
+  const regex = /^[a-zA-Z][a-zA-Z0-9]{5,11}$/;
   return regex.test(student);
 };
 

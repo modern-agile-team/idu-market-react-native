@@ -87,7 +87,7 @@ function FindPw() {
     if (didmountRef.current) {
       let _errorMessage = "";
       if (!checkStudent(studentId)) {
-        _errorMessage = "학번 형식을 지켜주세요";
+        _errorMessage = "아이디 형식을 지켜주세요";
       } else if (!validateEmail(email)) {
         _errorMessage = "이메일 형식을 지켜주세요";
       } else {
@@ -106,11 +106,11 @@ function FindPw() {
   return (
     <Container>
       <Input
-        label="학번"
+        label="아이디"
         value={studentId}
         onChangeText={_handleStudentIdChange}
         onSubmitEditing={() => emailRef.current.focus()}
-        placeholder="학번"
+        placeholder="아이디"
         returnKeyType="next"
       />
       <Input

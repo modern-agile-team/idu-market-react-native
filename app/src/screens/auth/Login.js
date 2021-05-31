@@ -52,7 +52,7 @@ function Login({ navigation }) {
     const changedStudent = removeWhitespace(student);
     setStudent(changedStudent);
     setErrorMessage(
-      checkStudent(changedStudent) ? "" : "학번 형식을 지켜주세요"
+      checkStudent(changedStudent) ? "" : "아이디 형식을 지켜주세요"
     );
   };
 
@@ -114,11 +114,11 @@ function Login({ navigation }) {
         {/* 320p */}
         <Image style={{ height: 150, width: 150 }} source={LoginImage} />
         <Input
-          label="학번"
+          label="아이디"
           value={student}
           onChangeText={_handleStudentChange}
           onSubmitEditing={_handleLoginButtonPress}
-          placeholder="학번"
+          placeholder="아이디"
           returnKeyType="next"
         />
         <Input
