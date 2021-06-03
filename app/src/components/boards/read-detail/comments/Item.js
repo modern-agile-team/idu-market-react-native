@@ -75,6 +75,7 @@ const Item = React.memo(({ item }) => {
     .replace(/<br \/>/g, "\n")
     .replace(/<\/p>/g, "\n");
 
+  // console.log(item);
   return (
     <CommentItems>
       <CommentLabel>

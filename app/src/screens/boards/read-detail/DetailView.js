@@ -4,7 +4,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styled, { ThemeContext } from "styled-components/native";
 import { FlatList } from "react-native-gesture-handler";
 import AppLoading from "expo-app-loading";
-import { WebView } from "react-native-webview";
 
 import moment from "moment";
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
@@ -13,14 +12,13 @@ import Item from "../../../components/boards/read-detail/comments/Item";
 import CommentContainer from "../../../components/boards/read-detail/comments/CommentContainer";
 import { getItemFromAsync } from "../../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../../contexts";
-import { set } from "react-native-reanimated";
 
 const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.background};
 `;
 
-function DetailView({ route, navigation }) {
+function DetailView({ route }) {
   const [isReady, setIsReady] = useState(false);
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
@@ -35,7 +33,7 @@ function DetailView({ route, navigation }) {
   const { category } = route.params;
   const { boardNum } = route.params;
 
-  const _loadBoard = async () => {
+  const _loadDetailView = async () => {
     try {
       spinner.start();
 
@@ -126,7 +124,7 @@ function DetailView({ route, navigation }) {
       <Container>
         <ImageSliderContainer images={images} />
         <>{detailViewInfo()}</>
-        <CommentContainer />
+        <CommentContainer id={isId} category={category} boardNum={boardNum} />
         <FlatList
           keyExtractor={(item) => `${item.num}`}
           data={comments}
@@ -137,7 +135,7 @@ function DetailView({ route, navigation }) {
     </KeyboardAwareScrollView>
   ) : (
     <AppLoading
-      startAsync={_loadBoard}
+      startAsync={_loadDetailView}
       onFinish={() => setIsReady(true)}
       onError={console.error}
     />
