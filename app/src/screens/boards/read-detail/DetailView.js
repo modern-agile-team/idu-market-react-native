@@ -128,7 +128,14 @@ function DetailView({ route }) {
         <FlatList
           keyExtractor={(item) => `${item.num}`}
           data={comments}
-          renderItem={({ item }) => <Item item={item} />}
+          renderItem={({ item }) => (
+            <Item
+              item={item}
+              id={isId}
+              category={category}
+              boardNum={boardNum}
+            />
+          )}
           windowSize={3} //렌더링 되는양을 조절
         />
       </Container>
