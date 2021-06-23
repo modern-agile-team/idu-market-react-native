@@ -91,16 +91,7 @@ const InputButton = styled.TouchableOpacity`
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 const Item = React.memo(
-  ({
-    item,
-    id,
-    category,
-    boardNum,
-    setIsModal,
-    setClickComment,
-    setCommentId,
-    setCommentNum,
-  }) => {
+  ({ item, id, category, boardNum, setIsReady, navigation }) => {
     const [reply, setReply] = useState("");
     const [disabled, setDisabled] = useState(true);
 
@@ -116,16 +107,28 @@ const Item = React.memo(
       .replace(/<br \/>/g, "\n")
       .replace(/<\/p>/g, "\n");
 
-    const _handleModalContainer = () => {
-      setIsModal(true);
-      setClickComment(item.content);
-      setCommentId(item.studentId);
-      setCommentNum(item.num);
-    };
+    // const _handleModalContainer = () => {
+    //   setIsModal(true);
+    //   setClickComment(item.content);
+    //   setCommentId(item.studentId);
+    //   setCommentNum(item.num);
+    // };
 
     const _handleSuccessCommentPost = (json) => {
       readyDispatch.notReady();
       Alert.alert("정상적으로 등록 되었습니다.");
+    };
+
+    const _handelDetailComment = () => {
+      setIsReady(false);
+      navigation.navigate("DetailComment", {
+        boardNum: `${boardNum}`,
+        category: `${category}`,
+        commentId: `${item.studentId}`,
+        commentNum: `${item.num}`,
+        clickComment: `${item.content}`,
+        id: `${id}`,
+      });
     };
 
     const _handleReplyPost = async () => {
@@ -169,7 +172,7 @@ const Item = React.memo(
             color="black"
           />
         </ReplyIcon>
-        <CommentItems onLongPress={_handleModalContainer}>
+        <CommentItems onLongPress={_handelDetailComment}>
           <CommentLabel>
             <ProfileImage
               source={{
@@ -187,7 +190,7 @@ const Item = React.memo(
       </ReplyContainer>
     ) : (
       <>
-        <CommentItems onLongPress={_handleModalContainer}>
+        <CommentItems onLongPress={_handelDetailComment}>
           <CommentLabel>
             <ProfileImage
               source={{

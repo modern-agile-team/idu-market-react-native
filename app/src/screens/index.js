@@ -14,6 +14,7 @@ import Market from "./boards/read-all/Market";
 import NoticeBoard from "./boards/read-all/NoticeBoard";
 import FreeBoard from "./boards/read-all/FreeBoard";
 import DetailView from "./boards/read-detail/DetailView";
+import DetailComment from "./boards/read-detail/DetailComment";
 import PostWrite from "./boards/write/PostWrite";
 
 export {
@@ -31,4 +32,5 @@ export {
   SaleList,
   ProfileUpdate,
   Inquiry,
+  DetailComment,
 };

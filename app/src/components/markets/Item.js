@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
+import { ReadyContext } from "../../contexts";
+
 const Container = styled.View`
   margin-vertical: 8;
   background-color: ${({ theme }) => theme.background};
@@ -58,6 +60,8 @@ const ImageContanier = styled.Image`
 const Item = React.memo(
   // 같은내용이 리렌더링되는것을 막아준다.
   ({ item, navigation, nickname, category, boardNum }) => {
+    const { isReady, readyDispatch } = useContext(ReadyContext);
+
     const theme = useContext(ThemeContext);
 
     const changeStatus = ({ item }) => {

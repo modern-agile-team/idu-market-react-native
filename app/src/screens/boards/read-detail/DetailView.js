@@ -29,80 +29,22 @@ const UpdateContainer = styled.TouchableOpacity`
   border-top-width: 1px;
 `;
 
-const ModalClose = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.background};
-  border: 1px;
-  padding: 5px 10px;
-  border-radius: 4px;
-`;
-const ModalInput = styled.View`
-  width: 100%;
-  flex-direction: row;
-`;
-
-const UpdateButtonContainer = styled.View`
-  flex-direction: row;
-  padding-right: 12px;
-`;
-
-const UpdateBtn = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.boardsButton};
-  margin: 5px;
-  padding: 5px;
-  border-radius: 10px;
-`;
-
-const InputComment = styled.TextInput`
-  border-radius: 30px;
-  margin-top: 10px;
-  background-color: ${({ theme }) => theme.commentInput};
-  width: 80%;
-  height: 36px;
-  padding-left: 10px;
-`;
-
-const InputButton = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.boardsButton};
-  justify-content: center;
-  align-items: center;
-  width: 15%;
-  margin-left: 10px;
-  margin-top: 10px;
-  border-radius: 30px;
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-`;
-
-const Content = styled.View`
-  border-radius: 30px;
-  background-color: ${({ theme }) => theme.commentInput};
-  width: 80%;
-  height: 36px;
-  padding-left: 10px;
-  justify-content: center;
-`;
-
-function DetailView({ route }) {
+function DetailView({ route, navigation }) {
   const [isReady, setIsReady] = useState(false);
-  const [disabled, setDisabled] = useState(true);
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
   const [comments, setCommnets] = useState();
   const [isId, setIsId] = useState("");
   const [isWatchlist, setIsWatchlist] = useState("");
   const [hit, setHit] = useState(hit);
-  const [isModal, setIsModal] = useState(false);
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [content, setContent] = useState("");
-  const [isUpdate, setIsUpdate] = useState(false);
-  const [clickComment, setClickComment] = useState("");
-  const [commentId, setCommentId] = useState("");
-  const [commentNum, setCommentNum] = useState("");
 
   const { spinner } = useContext(ProgressContext);
   const { readyDispatch } = useContext(ReadyContext);
 
   const { category } = route.params;
   const { boardNum } = route.params;
+
+  console.log(isReady);
 
   const _loadDetailView = async () => {
     try {
@@ -164,46 +106,6 @@ function DetailView({ route }) {
     }
   };
 
-  const _handleContentChange = (content) => {
-    setContent(content);
-  };
-
-  const _handleSuccessUpdate = (json) => {
-    readyDispatch.notReady();
-    Alert.alert("정상적으로 수정 되었습니다.");
-  };
-
-  const _handleContentUpdate = async () => {
-    try {
-      spinner.start();
-
-      const config = {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          studentId: isId,
-          content: content,
-        }),
-      };
-
-      let response = await fetch(
-        `https://idu-market.shop:9800/api/boards/${category}/${boardNum}/${commentNum}`,
-        config
-      );
-      console.log(json);
-      let json = await response.json();
-      json.success ? _handleSuccessUpdate(json) : Alert.alert(json.msg);
-    } catch (e) {
-      Alert.alert("답글 수정 실패", e.message);
-    } finally {
-      setIsUpdate(false);
-      spinner.stop();
-    }
-  };
-
   const detailViewInfo = () => {
     const content = board.content
       .replace(/<(\/span|span)([^>]*)>/gi, "")
@@ -231,20 +133,6 @@ function DetailView({ route }) {
     );
   };
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-    setIsModal(!isModal);
-    setIsUpdate(false);
-  };
-
-  const _handelUpdateBtn = () => {
-    setIsUpdate(true);
-  };
-
-  useEffect(() => {
-    setDisabled(!content);
-  }, [content]);
-
   return isReady ? (
     <KeyboardAwareScrollView>
       <Container>
@@ -261,72 +149,13 @@ function DetailView({ route }) {
               id={isId}
               category={category}
               boardNum={boardNum}
-              setIsModal={setIsModal}
-              setClickComment={setClickComment}
-              setCommentId={setCommentId}
-              setCommentNum={setCommentNum}
+              navigation={navigation}
+              setIsReady={setIsReady}
             />
           )}
           windowSize={3} //렌더링 되는양을 조절
         />
       </Container>
-      {isModal ? (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          isVisible={isModalVisible}
-          onRequestClose={() => {}}
-        >
-          <UpdateContainer>
-            <ModalClose onPress={toggleModal}>
-              <Text style={{ color: "#222" }}>X</Text>
-            </ModalClose>
-            <ModalInput>
-              {isUpdate ? (
-                <>
-                  <InputComment
-                    onChangeText={_handleContentChange}
-                    placeholder="수정 내용을 입력해주세요"
-                    returnKeyType="done"
-                  />
-
-                  <InputButton
-                    disabled={disabled}
-                    onPress={_handleContentUpdate}
-                  >
-                    <MaterialIcons name="send" size={13} color={"#fff"} />
-                  </InputButton>
-                </>
-              ) : (
-                <>
-                  {commentId === isId ? (
-                    <>
-                      <Content>
-                        <Text> {clickComment}</Text>
-                      </Content>
-                      <UpdateButtonContainer>
-                        <UpdateBtn onPress={_handelUpdateBtn}>
-                          <Text style={{ color: "#fff" }}>수정</Text>
-                        </UpdateBtn>
-
-                        <UpdateBtn>
-                          <Text style={{ color: "#fff" }}>삭제</Text>
-                        </UpdateBtn>
-                      </UpdateButtonContainer>
-                    </>
-                  ) : (
-                    <Content>
-                      <Text> {clickComment}</Text>
-                    </Content>
-                  )}
-                </>
-              )}
-            </ModalInput>
-          </UpdateContainer>
-        </Modal>
-      ) : (
-        <></>
-      )}
     </KeyboardAwareScrollView>
   ) : (
     <AppLoading
