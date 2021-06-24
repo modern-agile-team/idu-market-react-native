@@ -80,6 +80,8 @@ function DetailComment({ route, navigation }) {
   const { commentNum } = route.params;
   const { clickComment } = route.params;
   const { id } = route.params;
+  const { depth } = route.params;
+  console.log(depth);
 
   const _handleContentChange = (content) => {
     setContent(content);
@@ -87,6 +89,15 @@ function DetailComment({ route, navigation }) {
 
   const _handleSuccessUpdate = (json) => {
     Alert.alert("정상적으로 수정 되었습니다.");
+    // navigation.navigate("DetailView", {
+    //   boardNum: `${boardNum}`,
+    //   category: `${category}`,
+    // });
+    navigation.navigate("Market");
+  };
+
+  const _handleSuccessDelete = (json) => {
+    Alert.alert("정상적으로 삭제 되었습니다.");
     // navigation.navigate("DetailView", {
     //   boardNum: `${boardNum}`,
     //   category: `${category}`,
@@ -125,6 +136,37 @@ function DetailComment({ route, navigation }) {
     }
   };
 
+  const _handleContentDelete = async () => {
+    try {
+      spinner.start();
+
+      const config = {
+        method: "Delete",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentId: id,
+          depth: depth,
+        }),
+      };
+
+      let response = await fetch(
+        `https://idu-market.shop:9800/api/boards/${category}/${boardNum}/${commentNum}`,
+        config
+      );
+      console.log(json);
+      let json = await response.json();
+      json.success ? _handleSuccessDelete(json) : Alert.alert(json.msg);
+    } catch (e) {
+      Alert.alert("답글 삭제 실패", e.message);
+    } finally {
+      setIsUpdate(false);
+      spinner.stop();
+    }
+  };
+
   const _handelUpdateBtn = () => {
     setIsUpdate(false);
   };
@@ -150,7 +192,7 @@ function DetailComment({ route, navigation }) {
                         <Text style={{ color: "#fff" }}>수정</Text>
                       </UpdateBtn>
 
-                      <UpdateBtn>
+                      <UpdateBtn onPress={_handleContentDelete}>
                         <Text style={{ color: "#fff" }}>삭제</Text>
                       </UpdateBtn>
                     </UpdateButtonContainer>

@@ -126,6 +126,7 @@ const Item = React.memo(({ item, id, category, boardNum, navigation }) => {
       commentNum: `${item.num}`,
       clickComment: `${item.content}`,
       id: `${id}`,
+      depth: `${item.depth}`,
     });
   };
 
