@@ -67,7 +67,6 @@ const Content = styled.View`
 `;
 
 function DetailComment({ route, navigation }) {
-  // const [isReady, setIsReady] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [content, setContent] = useState("");
   const [isUpdate, setIsUpdate] = useState(true);
@@ -82,53 +81,17 @@ function DetailComment({ route, navigation }) {
   const { clickComment } = route.params;
   const { id } = route.params;
 
-  // const _loadDetailView = async () => {
-  //   try {
-  //     spinner.start();
-
-  //     const id = await getItemFromAsync("id");
-  //     setIsId(id);
-
-  //     const config = {
-  //       method: "GET",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //     };
-
-  //     const response = await fetch(
-  //       `https://idu-market.shop:9800/api/boards/${category}/${boardNum}/${id}`,
-  //       config
-  //     );
-
-  //     const json = await response.json();
-
-  //     if (json.success) {
-  //       // setImages([...images, ...json.images]);
-  //       setCommnets(json.comments);
-  //       readyDispatch.notReady();
-  //     } else {
-  //       Alert.alert(json.msg);
-  //     }
-  //   } catch (e) {
-  //     Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
-  //   } finally {
-  //     spinner.stop();
-  //   }
-  // };
-
   const _handleContentChange = (content) => {
     setContent(content);
   };
 
   const _handleSuccessUpdate = (json) => {
-    readyDispatch.notReady();
     Alert.alert("정상적으로 수정 되었습니다.");
-    navigation.navigate("DetailView", {
-      boardNum: `${boardNum}`,
-      category: `${category}`,
-    });
+    // navigation.navigate("DetailView", {
+    //   boardNum: `${boardNum}`,
+    //   category: `${category}`,
+    // });
+    navigation.navigate("Market");
   };
 
   const _handleContentUpdate = async () => {
@@ -169,7 +132,7 @@ function DetailComment({ route, navigation }) {
   useEffect(() => {
     setDisabled(!content);
   }, [content]);
-  //isReady ?
+
   return (
     <KeyboardAwareScrollView>
       <>
@@ -215,13 +178,6 @@ function DetailComment({ route, navigation }) {
         </UpdateContainer>
       </>
     </KeyboardAwareScrollView>
-    // ) : (
-    //   <AppLoading
-    //     startAsync={_loadDetailView}
-    //     onFinish={() => setIsReady(true)}
-    //     onError={console.error}
-    //   />
-    // );
   );
 }
 

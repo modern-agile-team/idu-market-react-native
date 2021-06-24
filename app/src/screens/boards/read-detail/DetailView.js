@@ -116,7 +116,7 @@ function DetailView({ route, navigation }) {
       .replace(/<(\/u|u)([^>]*)>/gi, "")
       .replace(/<(\/blockquote|blockquote)([^>]*)>/gi, "")
       .replace(/<(\/s|s)([^>]*)>/gi, "");
-    // replace(/(<([^>]+)>)/ig,"");
+
     return (
       <Post
         title={board.title}
@@ -150,7 +150,6 @@ function DetailView({ route, navigation }) {
               category={category}
               boardNum={boardNum}
               navigation={navigation}
-              setIsReady={setIsReady}
             />
           )}
           windowSize={3} //렌더링 되는양을 조절

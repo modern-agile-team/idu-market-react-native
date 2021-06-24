@@ -90,149 +90,142 @@ const InputButton = styled.TouchableOpacity`
   border-radius: 30px;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
-const Item = React.memo(
-  ({ item, id, category, boardNum, setIsReady, navigation }) => {
-    const [reply, setReply] = useState("");
-    const [disabled, setDisabled] = useState(true);
+const Item = React.memo(({ item, id, category, boardNum, navigation }) => {
+  const [reply, setReply] = useState("");
+  const [disabled, setDisabled] = useState(true);
 
-    const { readyDispatch } = useContext(ReadyContext);
-    const { spinner } = useContext(ProgressContext);
+  const { readyDispatch } = useContext(ReadyContext);
+  const { spinner } = useContext(ProgressContext);
 
-    const _handleReplyChange = (reply) => {
-      setReply(reply);
-    };
+  const _handleReplyChange = (reply) => {
+    setReply(reply);
+  };
 
-    const content = item.content
-      .replace(/<p>/g, "")
-      .replace(/<br \/>/g, "\n")
-      .replace(/<\/p>/g, "\n");
+  const content = item.content
+    .replace(/<p>/g, "")
+    .replace(/<br \/>/g, "\n")
+    .replace(/<\/p>/g, "\n");
 
-    // const _handleModalContainer = () => {
-    //   setIsModal(true);
-    //   setClickComment(item.content);
-    //   setCommentId(item.studentId);
-    //   setCommentNum(item.num);
-    // };
+  // const _handleModalContainer = () => {
+  //   setIsModal(true);
+  //   setClickComment(item.content);
+  //   setCommentId(item.studentId);
+  //   setCommentNum(item.num);
+  // };
 
-    const _handleSuccessCommentPost = (json) => {
-      readyDispatch.notReady();
-      Alert.alert("정상적으로 등록 되었습니다.");
-    };
+  const _handleSuccessCommentPost = (json) => {
+    readyDispatch.notReady();
+    Alert.alert("정상적으로 등록 되었습니다.");
+  };
 
-    const _handelDetailComment = () => {
-      setIsReady(false);
-      navigation.navigate("DetailComment", {
-        boardNum: `${boardNum}`,
-        category: `${category}`,
-        commentId: `${item.studentId}`,
-        commentNum: `${item.num}`,
-        clickComment: `${item.content}`,
-        id: `${id}`,
-      });
-    };
+  const _handelDetailComment = () => {
+    navigation.navigate("DetailComment", {
+      boardNum: `${boardNum}`,
+      category: `${category}`,
+      commentId: `${item.studentId}`,
+      commentNum: `${item.num}`,
+      clickComment: `${item.content}`,
+      id: `${id}`,
+    });
+  };
 
-    const _handleReplyPost = async () => {
-      try {
-        spinner.start();
-        const config = {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            studentId: id,
-            content: reply,
-          }),
-        };
-        let response = await fetch(
-          `https://idu-market.shop:9800/api/boards/${category}/${boardNum}/${item.groupNum}`,
-          config
-        );
+  const _handleReplyPost = async () => {
+    try {
+      spinner.start();
+      const config = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentId: id,
+          content: reply,
+        }),
+      };
+      let response = await fetch(
+        `https://idu-market.shop:9800/api/boards/${category}/${boardNum}/${item.groupNum}`,
+        config
+      );
 
-        let json = await response.json();
-        json.success ? _handleSuccessCommentPost(json) : Alert.alert(json.msg);
-      } catch (e) {
-        Alert.alert("답글 등록 실패", e.message);
-      } finally {
-        spinner.stop();
-      }
-    };
+      let json = await response.json();
+      json.success ? _handleSuccessCommentPost(json) : Alert.alert(json.msg);
+    } catch (e) {
+      Alert.alert("답글 등록 실패", e.message);
+    } finally {
+      spinner.stop();
+    }
+  };
 
-    useEffect(() => {
-      setDisabled(!reply);
-    }, [reply]);
+  useEffect(() => {
+    setDisabled(!reply);
+  }, [reply]);
 
-    return item.depth === 1 ? (
-      <ReplyContainer>
-        <ReplyIcon>
-          <Ionicons
-            name="return-down-forward-outline"
-            size={24}
-            color="black"
+  return item.depth === 1 ? (
+    <ReplyContainer>
+      <ReplyIcon>
+        <Ionicons name="return-down-forward-outline" size={24} color="black" />
+      </ReplyIcon>
+      <CommentItems onLongPress={_handelDetailComment}>
+        <CommentLabel>
+          <ProfileImage
+            source={{
+              uri: "https://wooahan-agile.s3.ap-northeast-2.amazonaws.com/profile/1.png",
+            }}
           />
-        </ReplyIcon>
-        <CommentItems onLongPress={_handelDetailComment}>
-          <CommentLabel>
-            <ProfileImage
-              source={{
-                uri: "https://wooahan-agile.s3.ap-northeast-2.amazonaws.com/profile/1.png",
-              }}
-            />
-            <CommentId>{item.nickname}</CommentId>
-          </CommentLabel>
+          <CommentId>{item.nickname}</CommentId>
+        </CommentLabel>
 
-          <CommentDescription>{content}</CommentDescription>
-          <TimeBox>
-            <Time>{item.inDate}</Time>
-          </TimeBox>
-        </CommentItems>
-      </ReplyContainer>
-    ) : (
-      <>
-        <CommentItems onLongPress={_handelDetailComment}>
-          <CommentLabel>
-            <ProfileImage
-              source={{
-                uri: "https://wooahan-agile.s3.ap-northeast-2.amazonaws.com/profile/1.png",
-              }}
-            />
-            <CommentId>{item.nickname}</CommentId>
-          </CommentLabel>
-          <CommentDescription>{content}</CommentDescription>
-          <TimeBox>
-            <Time>{item.inDate}</Time>
-          </TimeBox>
-        </CommentItems>
+        <CommentDescription>{content}</CommentDescription>
+        <TimeBox>
+          <Time>{item.inDate}</Time>
+        </TimeBox>
+      </CommentItems>
+    </ReplyContainer>
+  ) : (
+    <>
+      <CommentItems onLongPress={_handelDetailComment}>
+        <CommentLabel>
+          <ProfileImage
+            source={{
+              uri: "https://wooahan-agile.s3.ap-northeast-2.amazonaws.com/profile/1.png",
+            }}
+          />
+          <CommentId>{item.nickname}</CommentId>
+        </CommentLabel>
+        <CommentDescription>{content}</CommentDescription>
+        <TimeBox>
+          <Time>{item.inDate}</Time>
+        </TimeBox>
+      </CommentItems>
 
-        {id ? (
-          <>
-            <ReplyInput>
-              <InputComment
-                onChangeText={_handleReplyChange}
-                placeholder="답글을 입력해주세요"
-                returnKeyType="done"
-              />
-              <InputButton onPress={_handleReplyPost} disabled={disabled}>
-                <MaterialIcons name="send" size={13} color={"#fff"} />
-              </InputButton>
-            </ReplyInput>
-          </>
-        ) : (
-          <>
-            <ReplyInput>
-              <InputComment
-                placeholder="로그인 후 답글 등록 가능합니다."
-                returnKeyType="done"
-              />
-              <InputButton disabled={disabled}>
-                <MaterialIcons name="send" size={13} color={"#fff"} />
-              </InputButton>
-            </ReplyInput>
-          </>
-        )}
-      </>
-    );
-  }
-);
+      {id ? (
+        <>
+          <ReplyInput>
+            <InputComment
+              onChangeText={_handleReplyChange}
+              placeholder="답글을 입력해주세요"
+              returnKeyType="done"
+            />
+            <InputButton onPress={_handleReplyPost} disabled={disabled}>
+              <MaterialIcons name="send" size={13} color={"#fff"} />
+            </InputButton>
+          </ReplyInput>
+        </>
+      ) : (
+        <>
+          <ReplyInput>
+            <InputComment
+              placeholder="로그인 후 답글 등록 가능합니다."
+              returnKeyType="done"
+            />
+            <InputButton disabled={disabled}>
+              <MaterialIcons name="send" size={13} color={"#fff"} />
+            </InputButton>
+          </ReplyInput>
+        </>
+      )}
+    </>
+  );
+});
 export default Item;
