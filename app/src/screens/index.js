@@ -16,6 +16,7 @@ import FreeBoard from "./boards/read-all/FreeBoard";
 import DetailView from "./boards/read-detail/DetailView";
 import DetailComment from "./boards/read-detail/DetailComment";
 import PostWrite from "./boards/write/PostWrite";
+import PostUpdate from "./boards/write/PostUpdate";
 
 export {
   Login,
@@ -33,4 +34,5 @@ export {
   ProfileUpdate,
   Inquiry,
   DetailComment,
+  PostUpdate,
 };

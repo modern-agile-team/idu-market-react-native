@@ -21,6 +21,7 @@ import {
   ProfileUpdate,
   Inquiry,
   DetailComment,
+  PostUpdate,
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -90,9 +91,11 @@ const MainStack = () => {
       <Stack.Screen name="NoticeBoard" component={NoticeBoard} />
       <Stack.Screen name="PurchaseList" component={PurchaseList} />
       <Stack.Screen name="SaleList" component={SaleList} />
+      <Stack.Screen name="PostUpdate" component={PostUpdate} />
       <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />
       <Stack.Screen name="Inquiry" component={Inquiry} />
       <Stack.Screen name="DetailComment" component={DetailComment} />
+
       <Stack.Screen
         name="Login"
         component={Login}

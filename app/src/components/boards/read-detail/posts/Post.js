@@ -60,6 +60,8 @@ const Post = ({
   inDate,
   profilePath,
   studentId,
+  price,
+  images,
   category,
   boardNum,
   isWatchlist,
@@ -89,6 +91,42 @@ const Post = ({
     readyDispatch.notReady();
     navigation.navigate("Market");
     Alert.alert("게시글이 정상적으로 삭제되었습니다.");
+  };
+
+  const _handlePostUpdate = () => {
+    console.log(1);
+    navigation.navigate("PostUpdate", {
+      boardNum: `${boardNum}`,
+      category: `${category}`,
+      title: `${title}`,
+      price: `${price}`,
+      content: `${content}`,
+      isImages: `${images}`,
+      id: `${id}`,
+    });
+  };
+
+  const _handlePostUpdateBtnPress = (params) => {
+    Alert.alert(
+      "", // 제목
+      "수정 하시겠습니까?", // 부제목
+      [
+        // 버튼 배열
+        {
+          text: "예",
+          onPress: _handlePostUpdate,
+          style: "cancel",
+        },
+        {
+          text: "아니요",
+          onPress: () => Alert.alert("취소 되었습니다"),
+          style: "cancel",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
   };
 
   const _handleWatchlist = async () => {
@@ -191,7 +229,7 @@ const Post = ({
           </NameBox>
           {studentId === id ? (
             <>
-              <PostBtn>
+              <PostBtn onPress={_handlePostUpdateBtnPress}>
                 <Text style={{ color: "#fff" }}>수정</Text>
               </PostBtn>
               <PostBtn onPress={_handlePostDelete}>

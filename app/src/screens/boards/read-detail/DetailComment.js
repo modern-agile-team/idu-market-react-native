@@ -81,7 +81,6 @@ function DetailComment({ route, navigation }) {
   const { clickComment } = route.params;
   const { id } = route.params;
   const { depth } = route.params;
-  console.log(depth);
 
   const _handleContentChange = (content) => {
     setContent(content);

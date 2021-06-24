@@ -69,7 +69,7 @@ function DetailView({ route, navigation }) {
         setBoard(json.board);
         setCommnets(json.comments);
         setIsWatchlist(json.isWatchList);
-
+        console.log(json.images);
         readyDispatch.notReady();
       } else {
         Alert.alert(json.msg);
@@ -122,6 +122,8 @@ function DetailView({ route, navigation }) {
         inDate={board.inDate}
         profilePath={board.profilePath}
         studentId={board.studentId}
+        price={board.price}
+        images={images}
         category={category}
         boardNum={boardNum}
         isWatchlist={isWatchlist}
