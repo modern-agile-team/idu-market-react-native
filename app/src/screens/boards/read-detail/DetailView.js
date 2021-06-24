@@ -44,12 +44,9 @@ function DetailView({ route, navigation }) {
   const { category } = route.params;
   const { boardNum } = route.params;
 
-  console.log(isReady);
-
   const _loadDetailView = async () => {
     try {
       spinner.start();
-
       const id = await getItemFromAsync("id");
       setIsId(id);
 
@@ -129,6 +126,7 @@ function DetailView({ route, navigation }) {
         boardNum={boardNum}
         isWatchlist={isWatchlist}
         id={isId}
+        navigation={navigation}
       />
     );
   };

@@ -64,6 +64,7 @@ const Post = ({
   boardNum,
   isWatchlist,
   id,
+  navigation,
 }) => {
   const [watchlist, setWatchlist] = useState(isWatchlist);
 
@@ -72,16 +73,22 @@ const Post = ({
 
   const theme = useContext(ThemeContext);
 
-  const _handleUpdateWatchlist = () => {
+  const _handleUpdateWatchlistSucess = () => {
     setWatchlist(true);
     readyDispatch.notReady();
     Alert.alert("관심목록에 등록되었습니다.");
   };
 
-  const _handleUpdateWatchlistDelete = () => {
+  const _handleWatchlistDeleteSucess = () => {
     setWatchlist(false);
     readyDispatch.notReady();
     Alert.alert("관심목록 취소되었습니다.");
+  };
+
+  const _handlePostDeleteSucess = () => {
+    readyDispatch.notReady();
+    navigation.navigate("Market");
+    Alert.alert("게시글이 정상적으로 삭제되었습니다.");
   };
 
   const _handleWatchlist = async () => {
@@ -105,7 +112,7 @@ const Post = ({
         config
       );
       const json = await response.json();
-      json.success ? _handleUpdateWatchlist(json) : Alert.alert(json.msg);
+      json.success ? _handleUpdateWatchlistSucess(json) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
     } finally {
@@ -133,7 +140,7 @@ const Post = ({
         config
       );
       const json = await response.json();
-      json.success ? _handleUpdateWatchlistDelete(json) : Alert.alert(json.msg);
+      json.success ? _handleWatchlistDeleteSucess(json) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
     } finally {
@@ -141,33 +148,31 @@ const Post = ({
     }
   };
 
-  // const _handlePostDelete = async () => {
-  //   try {
-  //     spinner.start();
+  const _handlePostDelete = async () => {
+    try {
+      spinner.start();
 
-  //     const config = {
-  //       method: "DELETE",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         boardNum: boardNum,
-  //       }),
-  //     };
+      const config = {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      };
 
-  //     const response = await fetch(
-  //       `https://idu-market.shop:9800/api/watchlist/${id}`,
-  //       config
-  //     );
-  //     const json = await response.json();
-  //     json.success ? _handleUpdateWatchlistDelete(json) : Alert.alert(json.msg);
-  //   } catch (e) {
-  //     Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
-  //   } finally {
-  //     spinner.stop();
-  //   }
-  // };
+      const response = await fetch(
+        `https://idu-market.shop:9800/api/boards/${category}/${boardNum}`,
+        config
+      );
+      const json = await response.json();
+      console.log(json);
+      json.success ? _handlePostDeleteSucess(json) : Alert.alert(json.msg);
+    } catch (e) {
+      Alert.alert("삭제 실패하였습니다.", e.message);
+    } finally {
+      spinner.stop();
+    }
+  };
 
   return (
     <Container>
@@ -189,7 +194,7 @@ const Post = ({
               <PostBtn>
                 <Text style={{ color: "#fff" }}>수정</Text>
               </PostBtn>
-              <PostBtn>
+              <PostBtn onPress={_handlePostDelete}>
                 <Text style={{ color: "#fff" }}>삭제</Text>
               </PostBtn>
             </>
