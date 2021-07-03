@@ -63,10 +63,9 @@ function Login({ navigation }) {
   const _handleSuccessLogin = async (json) => {
     setItemToAsync("id", json.id);
     const id = await getItemFromAsync("id");
-
     dispatch({ id });
+
     readyDispatch.notReady();
-    navigation.navigate("Main");
     Alert.alert("로그인에 성공하셨습니다.");
   };
 

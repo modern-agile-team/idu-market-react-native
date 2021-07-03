@@ -69,7 +69,6 @@ function DetailView({ route, navigation }) {
         setBoard(json.board);
         setCommnets(json.comments);
         setIsWatchlist(json.isWatchList);
-        console.log(json.images);
         readyDispatch.notReady();
       } else {
         Alert.alert(json.msg);

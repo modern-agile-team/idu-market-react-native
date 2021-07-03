@@ -2,10 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Alert, Text } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
-import { WebView } from "react-native-webview";
-import AppLoading from "expo-app-loading";
 
-import { getItemFromAsync } from "../../../../utils/AsyncStorage";
 import { ProgressContext, ReadyContext } from "../../../../contexts";
 
 const Container = styled.View`
@@ -94,16 +91,38 @@ const Post = ({
   };
 
   const _handlePostUpdate = () => {
-    console.log(1);
     navigation.navigate("PostUpdate", {
       boardNum: `${boardNum}`,
       category: `${category}`,
       title: `${title}`,
       price: `${price}`,
       content: `${content}`,
-      isImages: `${images}`,
+      image: `${images}`,
       id: `${id}`,
     });
+  };
+
+  const _handlePostDeleteBtnPress = (params) => {
+    Alert.alert(
+      "", // 제목
+      "게시글을 삭제 하시겠습니까?", // 부제목
+      [
+        // 버튼 배열
+        {
+          text: "예",
+          onPress: _handlePostDelete,
+          style: "cancel",
+        },
+        {
+          text: "아니요",
+          onPress: () => Alert.alert("취소 되었습니다"),
+          style: "cancel",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
   };
 
   const _handlePostUpdateBtnPress = (params) => {
@@ -232,7 +251,7 @@ const Post = ({
               <PostBtn onPress={_handlePostUpdateBtnPress}>
                 <Text style={{ color: "#fff" }}>수정</Text>
               </PostBtn>
-              <PostBtn onPress={_handlePostDelete}>
+              <PostBtn onPress={_handlePostDeleteBtnPress}>
                 <Text style={{ color: "#fff" }}>삭제</Text>
               </PostBtn>
             </>
@@ -253,11 +272,23 @@ const Post = ({
 
       <ContentTitle>
         <Title
-          style={{ fontSize: 25, fontFamily: "sans-serif", fontWeight: "bold" }}
+          style={{ fontSize: 21, fontFamily: "sans-serif", fontWeight: "bold" }}
         >
           {title}
         </Title>
-        <Text style={{ fontSize: 12, color: "gray" }}>{inDate}</Text>
+        <Text style={{ fontSize: 20, paddingTop: 10 }}>{price} 원</Text>
+        <Text
+          style={{
+            fontSize: 12,
+            color: "gray",
+            paddingTop: 10,
+            position: "absolute",
+            bottom: 10,
+            right: 10,
+          }}
+        >
+          {inDate}
+        </Text>
       </ContentTitle>
 
       <Description>{content}</Description>
