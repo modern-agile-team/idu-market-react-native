@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Alert } from "react-native";
+import { Alert, Text, Modal } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled, { ThemeContext } from "styled-components/native";
 import { FlatList } from "react-native-gesture-handler";
 import AppLoading from "expo-app-loading";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import moment from "moment";
 import ImageSliderContainer from "../../../components/boards/read-detail/ImageSliderContainer";
@@ -18,7 +19,17 @@ const Container = styled.View`
   background-color: ${({ theme }) => theme.background};
 `;
 
-function DetailView({ route }) {
+const UpdateContainer = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.background};
+  align-items: flex-end;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 10px;
+  border-top-width: 1px;
+`;
+
+function DetailView({ route, navigation }) {
   const [isReady, setIsReady] = useState(false);
   const [board, setBoard] = useState("");
   const [images, setImages] = useState([]);
@@ -32,6 +43,8 @@ function DetailView({ route }) {
 
   const { category } = route.params;
   const { boardNum } = route.params;
+
+  console.log(isReady);
 
   const _loadDetailView = async () => {
     try {
@@ -69,6 +82,7 @@ function DetailView({ route }) {
     } finally {
       spinner.stop();
     }
+
     try {
       const config = {
         method: "PATCH",
@@ -102,7 +116,7 @@ function DetailView({ route }) {
       .replace(/<(\/u|u)([^>]*)>/gi, "")
       .replace(/<(\/blockquote|blockquote)([^>]*)>/gi, "")
       .replace(/<(\/s|s)([^>]*)>/gi, "");
-    // replace(/(<([^>]+)>)/ig,"");
+
     return (
       <Post
         title={board.title}
@@ -124,6 +138,7 @@ function DetailView({ route }) {
       <Container>
         <ImageSliderContainer images={images} />
         <>{detailViewInfo()}</>
+
         <CommentContainer id={isId} category={category} boardNum={boardNum} />
         <FlatList
           keyExtractor={(item) => `${item.num}`}
@@ -134,6 +149,7 @@ function DetailView({ route }) {
               id={isId}
               category={category}
               boardNum={boardNum}
+              navigation={navigation}
             />
           )}
           windowSize={3} //렌더링 되는양을 조절

@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
-import { Alert } from "react-native";
+import { Alert, Text } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import { ProgressContext, ReadyContext } from "../../../../contexts";
-
 const ReplyContainer = styled.View`
   padding-left: 25px;
   background-color: ${({ theme }) => theme.inputDisabledBackground};
@@ -14,14 +13,12 @@ const ReplyIcon = styled.View`
   top: 20px;
   left: 5px;
 `;
-
-const CommentItems = styled.View`
+const CommentItems = styled.TouchableOpacity`
   padding: 10px 10px;
   border-bottom-width: 1px;
   width: 100%;
   border-bottom-color: ${({ theme }) => theme.greyBottomLine};
 `;
-
 const ProfileImage = styled.Image.attrs((props) => ({
   source: props.source,
   resizeMode: "cover",
@@ -33,7 +30,6 @@ const ProfileImage = styled.Image.attrs((props) => ({
   border-width: 1px;
   border-color: ${({ theme }) => theme.boardsButton};
 `;
-
 const CommentLabel = styled.View`
   padding-top: 5px;
   flex: 1;
@@ -41,27 +37,22 @@ const CommentLabel = styled.View`
   align-items: center;
   width: 100%;
 `;
-
 const CommentDescription = styled.Text`
   width: 100%;
   padding: 3px;
 `;
-
 const CommentId = styled.Text`
   color: ${({ theme }) => theme.commentIdColor};
 `;
 
 const TimeBox = styled.View`
-  flex: 1;
-  align-items: flex-end;
-  width: 100%;
+  align-items: flex-start;
   padding-right: 12px;
 `;
 
 const Time = styled.Text`
   color: ${({ theme }) => theme.commentIdColor};
 `;
-
 // const ReplyButton = styled.Pressable.attrs({
 //   hitSlop: 10,
 // })`
@@ -74,17 +65,14 @@ const Time = styled.Text`
 //   background-color: ${({ theme }) => theme.boardsButton};
 //   border-radius: 12px;
 // `;
-
 // const ReplyText = styled.Text`
 //   color: ${({ theme }) => theme.background};
 //   padding: 3px;
 // `;
-
 const ReplyInput = styled.View`
   flex-direction: row;
   padding: 10px 0px;
 `;
-
 const InputComment = styled.TextInput`
   border-radius: 30px;
   background-color: ${({ theme }) => theme.commentInput};
@@ -93,7 +81,6 @@ const InputComment = styled.TextInput`
   margin-left: 5px;
   padding-left: 10px;
 `;
-
 const InputButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.boardsButton};
   justify-content: center;
@@ -103,8 +90,7 @@ const InputButton = styled.TouchableOpacity`
   border-radius: 30px;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
-
-const Item = React.memo(({ item, id, category, boardNum }) => {
+const Item = React.memo(({ item, id, category, boardNum, navigation }) => {
   const [reply, setReply] = useState("");
   const [disabled, setDisabled] = useState(true);
 
@@ -114,20 +100,39 @@ const Item = React.memo(({ item, id, category, boardNum }) => {
   const _handleReplyChange = (reply) => {
     setReply(reply);
   };
+
   const content = item.content
     .replace(/<p>/g, "")
     .replace(/<br \/>/g, "\n")
     .replace(/<\/p>/g, "\n");
 
+  // const _handleModalContainer = () => {
+  //   setIsModal(true);
+  //   setClickComment(item.content);
+  //   setCommentId(item.studentId);
+  //   setCommentNum(item.num);
+  // };
+
   const _handleSuccessCommentPost = (json) => {
     readyDispatch.notReady();
-    Alert.alert("댓글이 등록되었습니다.");
+    Alert.alert("정상적으로 등록 되었습니다.");
+  };
+
+  const _handelDetailComment = () => {
+    navigation.navigate("DetailComment", {
+      boardNum: `${boardNum}`,
+      category: `${category}`,
+      commentId: `${item.studentId}`,
+      commentNum: `${item.num}`,
+      clickComment: `${item.content}`,
+      id: `${id}`,
+      depth: `${item.depth}`,
+    });
   };
 
   const _handleReplyPost = async () => {
     try {
       spinner.start();
-
       const config = {
         method: "POST",
         headers: {
@@ -139,7 +144,6 @@ const Item = React.memo(({ item, id, category, boardNum }) => {
           content: reply,
         }),
       };
-
       let response = await fetch(
         `https://idu-market.shop:9800/api/boards/${category}/${boardNum}/${item.groupNum}`,
         config
@@ -163,7 +167,7 @@ const Item = React.memo(({ item, id, category, boardNum }) => {
       <ReplyIcon>
         <Ionicons name="return-down-forward-outline" size={24} color="black" />
       </ReplyIcon>
-      <CommentItems>
+      <CommentItems onLongPress={_handelDetailComment}>
         <CommentLabel>
           <ProfileImage
             source={{
@@ -171,17 +175,17 @@ const Item = React.memo(({ item, id, category, boardNum }) => {
             }}
           />
           <CommentId>{item.nickname}</CommentId>
-          <TimeBox>
-            <Time>{item.inDate}</Time>
-          </TimeBox>
         </CommentLabel>
 
         <CommentDescription>{content}</CommentDescription>
+        <TimeBox>
+          <Time>{item.inDate}</Time>
+        </TimeBox>
       </CommentItems>
     </ReplyContainer>
   ) : (
     <>
-      <CommentItems>
+      <CommentItems onLongPress={_handelDetailComment}>
         <CommentLabel>
           <ProfileImage
             source={{
@@ -189,12 +193,13 @@ const Item = React.memo(({ item, id, category, boardNum }) => {
             }}
           />
           <CommentId>{item.nickname}</CommentId>
-          <TimeBox>
-            <Time>{item.inDate}</Time>
-          </TimeBox>
         </CommentLabel>
         <CommentDescription>{content}</CommentDescription>
+        <TimeBox>
+          <Time>{item.inDate}</Time>
+        </TimeBox>
       </CommentItems>
+
       {id ? (
         <>
           <ReplyInput>
@@ -224,5 +229,4 @@ const Item = React.memo(({ item, id, category, boardNum }) => {
     </>
   );
 });
-
 export default Item;

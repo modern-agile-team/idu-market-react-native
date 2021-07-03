@@ -141,6 +141,34 @@ const Post = ({
     }
   };
 
+  // const _handlePostDelete = async () => {
+  //   try {
+  //     spinner.start();
+
+  //     const config = {
+  //       method: "DELETE",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         boardNum: boardNum,
+  //       }),
+  //     };
+
+  //     const response = await fetch(
+  //       `https://idu-market.shop:9800/api/watchlist/${id}`,
+  //       config
+  //     );
+  //     const json = await response.json();
+  //     json.success ? _handleUpdateWatchlistDelete(json) : Alert.alert(json.msg);
+  //   } catch (e) {
+  //     Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);
+  //   } finally {
+  //     spinner.stop();
+  //   }
+  // };
+
   return (
     <Container>
       <LabelBox>
