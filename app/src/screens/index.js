@@ -18,12 +18,15 @@ import DetailComment from "./boards/read-detail/DetailComment";
 import PostWrite from "./boards/write/PostWrite";
 import PostUpdate from "./boards/write/PostUpdate";
 
+import AlertPage from "./alerts/AlertPage";
+
 export {
   Login,
   Signup,
   Main,
   NoticeBoard,
   FreeBoard,
+  AlertPage,
   Profile,
   Find,
   Market,

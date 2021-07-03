@@ -104,7 +104,6 @@ const Watchlist = ({ navigation }) => {
               navigation={navigation}
               category={item.categoryName}
               boardNum={item.boardNum}
-              nickname={item.sellerName}
             />
           )}
           windowSize={3} // 렌더링 되는양을 조절

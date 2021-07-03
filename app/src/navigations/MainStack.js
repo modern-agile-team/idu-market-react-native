@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
-import { ThemeContext } from "styled-components/native";
+import { Alert, Text } from "react-native";
+import styled, { ThemeContext } from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
@@ -26,8 +26,19 @@ import {
 
 const Stack = createStackNavigator();
 
+const AlertContainer = styled.TouchableOpacity`
+  width: 60px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 2px;
+  border-color: ${({ theme }) => theme.headerIconColor};
+  border-radius: 30px;
+`;
+
 const MainStack = () => {
   const [isFontReady, setIsFontReady] = useState(false);
+
   const theme = useContext(ThemeContext);
 
   async function _loadFonts() {
@@ -49,17 +60,9 @@ const MainStack = () => {
         headerStyle: {
           height: 80,
           borderBottomWidth: 1,
-          borderBottomColor: theme.headerBottomColor,
+          borderBottomColor: theme.boardsButton,
         },
-        headerRight: ({ tintColor }) => (
-          <MaterialIcons
-            name="notifications-none"
-            size={30}
-            style={{ marginRight: 11 }}
-            color={theme.headerIconColor}
-            onPress={() => alert("준비중인 서비스입니다.")}
-          />
-        ),
+
         cardStyle: { backgroundColor: theme.backgroundColor },
       }}
     >
