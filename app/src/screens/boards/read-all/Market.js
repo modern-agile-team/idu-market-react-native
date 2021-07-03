@@ -39,7 +39,6 @@ function Board({ route, navigation }) {
         config
       );
       const json = await response.json();
-      console.log(isReady);
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("실패", e.message);

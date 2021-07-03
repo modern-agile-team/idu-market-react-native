@@ -106,13 +106,6 @@ const Item = React.memo(({ item, id, category, boardNum, navigation }) => {
     .replace(/<br \/>/g, "\n")
     .replace(/<\/p>/g, "\n");
 
-  // const _handleModalContainer = () => {
-  //   setIsModal(true);
-  //   setClickComment(item.content);
-  //   setCommentId(item.studentId);
-  //   setCommentNum(item.num);
-  // };
-
   const _handleSuccessCommentPost = (json) => {
     readyDispatch.notReady();
     Alert.alert("정상적으로 등록 되었습니다.");

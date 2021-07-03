@@ -44,12 +44,9 @@ function DetailView({ route, navigation }) {
   const { category } = route.params;
   const { boardNum } = route.params;
 
-  console.log(isReady);
-
   const _loadDetailView = async () => {
     try {
       spinner.start();
-
       const id = await getItemFromAsync("id");
       setIsId(id);
 
@@ -72,7 +69,6 @@ function DetailView({ route, navigation }) {
         setBoard(json.board);
         setCommnets(json.comments);
         setIsWatchlist(json.isWatchList);
-
         readyDispatch.notReady();
       } else {
         Alert.alert(json.msg);
@@ -125,10 +121,13 @@ function DetailView({ route, navigation }) {
         inDate={board.inDate}
         profilePath={board.profilePath}
         studentId={board.studentId}
+        price={board.price}
+        images={images}
         category={category}
         boardNum={boardNum}
         isWatchlist={isWatchlist}
         id={isId}
+        navigation={navigation}
       />
     );
   };

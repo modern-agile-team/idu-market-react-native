@@ -13,8 +13,8 @@ const Container = styled.View`
 `;
 const StyledImage = styled.Image`
   background-color: ${({ theme }) => theme.background};
-  width: 120px;
-  height: 120px;
+  width: 50px;
+  height: 50px;
   margin-bottom: 50px;
 `;
 const ButtonContainer = styled.TouchableOpacity`
