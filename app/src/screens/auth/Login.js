@@ -95,6 +95,9 @@ function Login({ navigation }) {
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
     } finally {
+      setTimeout(() => {
+        navigation.navigate("Main");
+      }, 2000);
       spinner.stop();
     }
   };
