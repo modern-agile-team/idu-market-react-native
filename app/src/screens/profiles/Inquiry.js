@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { Alert, Text } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components/native";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext } from "../../contexts";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
@@ -73,6 +74,7 @@ function Inquery({ navigation }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           studentId: id,

@@ -3,6 +3,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import AppLoding from "expo-app-loading";
 import { FlatList } from "react-native-gesture-handler";
 import { Alert, Text } from "react-native";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import Item from "../markets/Item";
 import { ProgressContext } from "../../contexts";
@@ -58,6 +59,7 @@ const Watchlist = ({ navigation }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json; charset=utf-8",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
 
@@ -104,7 +106,6 @@ const Watchlist = ({ navigation }) => {
               navigation={navigation}
               category={item.categoryName}
               boardNum={item.boardNum}
-              nickname={item.sellerName}
             />
           )}
           windowSize={3} // 렌더링 되는양을 조절

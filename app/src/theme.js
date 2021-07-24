@@ -53,7 +53,7 @@ export const theme = {
   // 헤더
   headerBottomColor: colors.idu,
   headerTintColor: colors.black,
-  headerIconColor: colors.black,
+  headerIconColor: colors.idu7,
 
   /* 헤더 타이틀 */
   // 메인 타이틀

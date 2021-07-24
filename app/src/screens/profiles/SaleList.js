@@ -7,6 +7,7 @@ import AppLoading from "expo-app-loading";
 import { ProgressContext } from "../../contexts";
 import Item from "../../components/markets/Item";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 const Container = styled.View`
   width: 100%;
@@ -60,6 +61,7 @@ const SaleList = ({ navigation }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
 

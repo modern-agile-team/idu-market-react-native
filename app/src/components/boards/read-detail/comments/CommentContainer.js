@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext, ReadyContext } from "../../../../contexts";
 
@@ -66,6 +67,7 @@ const CommentContainer = ({ id, category, boardNum }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           studentId: id,

@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AppLoading from "expo-app-loading";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext } from "../../contexts";
 import { getItemFromAsync } from "../../utils/AsyncStorage";
@@ -32,6 +33,7 @@ function ProfileUpdate({ navigation }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
       const id = await getItemFromAsync("id");

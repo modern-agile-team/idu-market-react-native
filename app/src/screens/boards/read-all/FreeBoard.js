@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import { Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoding from "expo-app-loading";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext, ReadyContext } from "../../../contexts";
 import Item from "../../../components/boards/FreeBoardComponent";
@@ -29,6 +30,7 @@ function FreeBoard({ navigation }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
 

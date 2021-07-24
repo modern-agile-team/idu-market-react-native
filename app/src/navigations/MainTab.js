@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import styled, { ThemeContext } from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Profile, Main, FreeBoard } from "../screens";
+import { Profile, Main, FreeBoard, AlertPage } from "../screens";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
-import { ThemeContext } from "styled-components";
 
 const Tab = createBottomTabNavigator();
 
@@ -70,6 +70,17 @@ const MainTab = () => {
             TabBarIconMaterialIcons({
               focused,
               name: "forum",
+            }),
+        }}
+      />
+      <Tab.Screen
+        name="알림"
+        component={AlertPage}
+        options={{
+          tabBarIcon: ({ focused }) =>
+            TabBarIconMaterialIcons({
+              focused,
+              name: "notifications-none",
             }),
         }}
       />

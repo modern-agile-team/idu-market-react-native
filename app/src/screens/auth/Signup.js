@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import SelectBox from "react-native-multi-selectbox";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components/native";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext, StudentContext } from "../../contexts";
 import { Button, Input } from "../../components";
@@ -102,6 +103,7 @@ function Signup() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           id: student,

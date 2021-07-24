@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Alert } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { Input, Button } from "../index";
 import { ProgressContext } from "../../contexts";
@@ -58,6 +59,7 @@ function FindId() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           name: name,

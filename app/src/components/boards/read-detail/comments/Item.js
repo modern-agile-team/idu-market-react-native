@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import { Alert, Text } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext, ReadyContext } from "../../../../contexts";
 const ReplyContainer = styled.View`
@@ -131,6 +132,7 @@ const Item = React.memo(({ item, id, category, boardNum, navigation }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           studentId: id,
