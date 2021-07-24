@@ -2,6 +2,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import React, { useContext, useState, useEffect } from "react";
 import { Alert, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import AppLoading from "expo-app-loading";
 
@@ -44,7 +45,7 @@ const Content = styled.Text`
   border-color: ${({ theme }) => theme.listBorder};
 `;
 
-const PurchaseList = () => {
+const PurchaseList = ({ navigation }) => {
   const [purchaseList, setPurchaseList] = useState([]);
   const [isReady, setIsReady] = useState(false);
 
@@ -61,6 +62,7 @@ const PurchaseList = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
 

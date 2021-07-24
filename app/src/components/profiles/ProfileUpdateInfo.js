@@ -3,6 +3,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import { Alert, Text } from "react-native";
 import { FontAwesome5, AntDesign } from "@expo/vector-icons";
 import SelectBox from "react-native-multi-selectbox";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import {
   validateEmail,
@@ -113,6 +114,7 @@ const ProfileUpdateInfo = ({ isNickname, isEmail, major, navigation }) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify(profileUpdateInfo),
       };

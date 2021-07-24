@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import styled from "styled-components/native";
 import AppLoading from "expo-app-loading";
 import { ProgressContext, ReadyContext } from "../../../contexts";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import Item from "./Item";
 
@@ -27,14 +28,16 @@ const ItemList = ({ category, hitSlop, onPress }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
-
       const response = await fetch(
         `https://idu-market.shop:9800/api/boards/${category}?lastNum=0`,
         config
       );
+
       const json = await response.json();
+
       json.success ? setBoards(json.boards) : Alert.alert(json.msg);
     } catch (e) {
       Alert.alert("게시글 정보를 불러오지 못했습니다.", e.message);

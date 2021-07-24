@@ -3,6 +3,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import { Alert, Text } from "react-native";
 import AppLoading from "expo-app-loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext, ReadyContext } from "../../contexts";
 import ProfileInfo from "../../components/profiles/ProfileInfo";
@@ -57,6 +58,7 @@ const Profile = ({ navigation }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
       const id = await getItemFromAsync("id");

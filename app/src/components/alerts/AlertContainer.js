@@ -3,6 +3,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import AppLoding from "expo-app-loading";
 import { FlatList } from "react-native-gesture-handler";
 import { Alert, Text } from "react-native";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import Item from "./Item";
 import { ProgressContext } from "../../contexts";
@@ -27,6 +28,7 @@ const Watchlist = ({ navigation }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
       const id = await getItemFromAsync("id");

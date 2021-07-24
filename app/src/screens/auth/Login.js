@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { Alert, Text, Image } from "react-native";
 import styled from "styled-components/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext, StudentContext, ReadyContext } from "../../contexts";
 import { Button, Input, FindButton } from "../../components";
@@ -78,6 +79,7 @@ function Login({ navigation }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           id: student,

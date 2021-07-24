@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styled, { ThemeContext } from "styled-components/native";
 import AppLoading from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import { ProgressContext, ReadyContext } from "../../../contexts";
 
@@ -113,6 +114,7 @@ function DetailComment({ route, navigation }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           studentId: id,
@@ -144,6 +146,7 @@ function DetailComment({ route, navigation }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
         body: JSON.stringify({
           studentId: id,

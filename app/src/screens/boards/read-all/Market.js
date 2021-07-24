@@ -3,6 +3,7 @@ import FAB from "react-native-fab";
 import { FlatList } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import { Alert } from "react-native";
+import { REACT_NATIVE_API_KEY } from "@env";
 
 import AppLoding from "expo-app-loading";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -32,6 +33,7 @@ function Board({ route, navigation }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "api-key": REACT_NATIVE_API_KEY,
         },
       };
       const response = await fetch(
