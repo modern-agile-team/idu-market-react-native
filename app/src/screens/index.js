@@ -18,6 +18,8 @@ import DetailComment from "./boards/read-detail/DetailComment";
 import PostWrite from "./boards/write/PostWrite";
 import PostUpdate from "./boards/write/PostUpdate";
 
+import Chat from "./chat/Chat";
+
 import AlertPage from "./alerts/AlertPage";
 
 export {
@@ -38,4 +40,5 @@ export {
   Inquiry,
   DetailComment,
   PostUpdate,
+  Chat,
 };

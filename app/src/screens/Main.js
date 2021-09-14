@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components/native";
-import { ScrollView } from "react-native";
+import { ScrollView, Text } from "react-native";
 
 import { MarketContainer } from "../components";
 import { LinearContainer } from "../components";
@@ -13,6 +13,12 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.background};
   margin: 0;
   padding: 0;
+`;
+const GoLoginScreenButton = styled.Pressable`
+  background-color: ${({ theme }) => theme.boardsButton};
+  margin-top: 40px;
+  padding: 10px;
+  border-radius: 10px;
 `;
 
 const Main = ({ navigation }) => {
@@ -46,6 +52,9 @@ const Main = ({ navigation }) => {
       category: "clothes",
     });
   };
+  const _handleChat = () => {
+    navigation.navigate("Chat");
+  };
 
   return (
     <Container>
@@ -58,6 +67,14 @@ const Main = ({ navigation }) => {
           topicOnPress={_handleNoticeBoard}
           itemOnPress={() => navigation.navigate("DetailView")}
         />
+        <GoLoginScreenButton>
+          <Text
+            style={{ color: "#fff", fontWeight: "bold" }}
+            onPress={_handleChat}
+          >
+            챗 하러가기
+          </Text>
+        </GoLoginScreenButton>
         <MarketContainer
           category={"book"}
           topicTitle={"📚 교재"}

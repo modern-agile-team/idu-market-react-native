@@ -94,6 +94,7 @@ function Login({ navigation }) {
       let json = await response.json();
 
       json.success ? _handleSuccessLogin(json) : Alert.alert(json.msg);
+      console.log(json);
     } catch (e) {
       Alert.alert("로그인 실패", e.message);
     } finally {
