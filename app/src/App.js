@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StatusBar, Image } from "react-native";
 import AppLoading from "expo-app-loading";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { ThemeProvider } from "styled-components/native";
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
+
 import { theme } from "./theme";
 import Navigation from "./navigations";
 import { ProgressProvider, ReadyProvider, StudentProvider } from "./contexts";
@@ -35,6 +38,31 @@ const App = () => {
 
     await Promise.all([...imageAssets, ...fontAssets]);
   };
+
+  useEffect(() => {
+    registerForPushNotification().then((token) => console.log(token));
+    // notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+    //   console.log(notification);
+    // });
+    // responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    //   console.log(response);
+    // });
+    // return () => {
+    //   cleanup
+    // }
+  }, []);
+
+  async function registerForPushNotification() {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (status !== "granted") {
+      alert(
+        "Hey! You might want to enable notifications for my app, they are good."
+      );
+    }
+
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    return token;
+  }
 
   return isReady ? (
     <ThemeProvider theme={theme}>
