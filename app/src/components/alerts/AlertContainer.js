@@ -15,7 +15,7 @@ const Container = styled.View`
   padding: 0px;
 `;
 
-const AlertContainer = async ({ navigation }) => {
+const AlertContainer = ({ navigation }) => {
   const [isReady, setIsReady] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const { spinner } = useContext(ProgressContext);

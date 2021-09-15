@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import styled from "styled-components/native";
 import { ScrollView, Text } from "react-native";
 
+import Schedule from "./alerts/schedulePushNotification";
 import { MarketContainer } from "../components";
 import { LinearContainer } from "../components";
 import { ReadyContext } from "../contexts";
@@ -65,7 +66,9 @@ const Main = ({ navigation }) => {
           topicFontSize={26}
           hitSlop={10}
           topicOnPress={_handleNoticeBoard}
-          itemOnPress={() => navigation.navigate("DetailView")}
+          itemOnPress={() => {
+            navigation.navigate("DetailView"), Schedule.pushNotification();
+          }}
         />
         <GoLoginScreenButton>
           <Text
