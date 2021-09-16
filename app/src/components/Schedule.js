@@ -11,8 +11,8 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
-  // 알림 페이지 구현해야됨 아래는 알림기능 코드임
+function Schedule({ title }) {
+  // 알람토큰
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -62,7 +62,7 @@ export default function App() {
         </Text> */}
       </View>
       <Button
-        title="ad"
+        title={title}
         onPress={async () => {
           await pushNotification();
         }}
@@ -111,3 +111,5 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+
+export default Schedule;

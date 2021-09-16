@@ -3,6 +3,7 @@ import Button from "./buttons/Button";
 import Spinner from "./Spinner";
 import FindButton from "./buttons/FindButton";
 import Image from "./Image";
+import Schedule from "./Schedule";
 
 // mains
 import MarketContainer from "./mains/market/MarketContainer";
@@ -16,4 +17,5 @@ export {
   Image,
   MarketContainer,
   LinearContainer,
+  Schedule,
 };

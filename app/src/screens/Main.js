@@ -2,9 +2,7 @@ import React, { useContext, useEffect } from "react";
 import styled from "styled-components/native";
 import { ScrollView, Text } from "react-native";
 
-import Schedule from "./alerts/schedulePushNotification";
-import { MarketContainer } from "../components";
-import { LinearContainer } from "../components";
+import { MarketContainer, LinearContainer, Schedule } from "../components";
 import { ReadyContext } from "../contexts";
 
 const Container = styled.SafeAreaView`
@@ -78,6 +76,7 @@ const Main = ({ navigation }) => {
             챗 하러가기
           </Text>
         </GoLoginScreenButton>
+        <Schedule title="알림" />
         <MarketContainer
           category={"book"}
           topicTitle={"📚 교재"}
