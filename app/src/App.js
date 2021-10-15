@@ -1,23 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { StatusBar, Image, Platform } from "react-native";
+import React, { useState } from "react";
+import { StatusBar, Image } from "react-native";
 import AppLoading from "expo-app-loading";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { ThemeProvider } from "styled-components/native";
-import * as Notifications from "expo-notifications";
 
 import { theme } from "./theme";
 import Navigation from "./navigations";
 import { ProgressProvider, ReadyProvider, StudentProvider } from "./contexts";
 //authstack 받아온다
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
 
 //앱 아이콘 로딩화면
 const cacheImages = (images) => {

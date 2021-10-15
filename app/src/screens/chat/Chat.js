@@ -1,62 +1,74 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { GiftedChat } from "react-native-gifted-chat";
+import React, { useState, useEffect } from "react";
+import { GiftedChat } from "../../react-native-gifted-chat";
+import initialMessages from "./message";
+import {
+  renderInputToolbar,
+  renderActions,
+  renderComposer,
+  renderSend,
+} from "./InputToolbar";
+import {
+  renderAvatar,
+  renderBubble,
+  renderSystemMessage,
+  renderMessage,
+  renderMessageText,
+  renderCustomView,
+} from "./MessageContainer";
 
-const Chat = ({ navigation }) => {
+const Chats = () => {
+  const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "",
-        },
-      },
-      {
-        _id: 2,
-        text: "Hello developeaaaar",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-      {
-        _id: 3,
-        text: "elopeaaaar",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
+    setMessages(initialMessages.reverse());
   }, []);
 
-  //위에 안에 정보는 모두 상대방 내용이다 아래 리턴에 있는게 내정보이다.
-  const onSend = useCallback((messages = []) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
-    );
-  }, []);
+  const onSend = (newMessages = []) => {
+    setMessages((prevMessages) => GiftedChat.append(prevMessages, newMessages));
+  };
 
   return (
     <GiftedChat
       messages={messages}
-      onSend={(messages) => onSend(messages)}
+      text={text}
+      onInputTextChanged={setText}
+      onSend={onSend}
       user={{
         _id: 1,
-        nickname: "",
-        avatar: "",
+        name: "Aaron",
+        avatar: "https://placeimg.com/150/150/any",
       }}
+      alignTop
+      alwaysShowSend
+      scrollToBottom
+      // showUserAvatar
+      renderAvatarOnTop
+      renderUsernameOnMessage
+      // bottomOffset={26}
+      onPressAvatar={console.log}
+      renderInputToolbar={renderInputToolbar}
+      renderActions={renderActions}
+      renderComposer={renderComposer}
+      renderSend={renderSend}
+      renderAvatar={renderAvatar}
+      renderBubble={renderBubble}
+      // renderSystemMessage={renderSystemMessage}
+      renderMessage={renderMessage}
+      renderMessageText={renderMessageText}
+      // renderMessageImage
+      // renderCustomView={renderCustomView}
+      isCustomViewBottom
+      messagesContainerStyle={{ backgroundColor: "#f5f5f5" }}
+      parsePatterns={(linkStyle) => [
+        {
+          pattern: /#(\w+)/,
+          style: linkStyle,
+          onPress: (tag) => console.log(`Pressed on hashtag: ${tag}`),
+        },
+      ]}
     />
   );
 };
 
-export default Chat;
+export default Chats;

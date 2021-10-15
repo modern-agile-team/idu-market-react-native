@@ -90,7 +90,6 @@ const Profile = ({ navigation }) => {
       spinner.start();
       await logout();
     } catch (e) {
-      console.log("[Profile] logout: ", e.message);
     } finally {
       spinner.stop();
     }

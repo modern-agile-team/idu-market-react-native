@@ -194,6 +194,7 @@ function Signup() {
             returnKeyType="next"
             isPassword
           />
+
           <Input
             ref={passwordConfirmRef}
             label="비밀번호확인"

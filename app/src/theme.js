@@ -1,5 +1,3 @@
-import { color } from "react-native-reanimated";
-
 const colors = {
   white: "#ffffff",
   black: "#000000",

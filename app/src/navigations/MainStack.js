@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Alert, Text } from "react-native";
+import { Alert, Text, Button } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppLoading from "expo-app-loading";
@@ -27,17 +27,7 @@ import {
 
 const Stack = createStackNavigator();
 
-const AlertContainer = styled.TouchableOpacity`
-  width: 60px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border: 2px;
-  border-color: ${({ theme }) => theme.headerIconColor};
-  border-radius: 30px;
-`;
-
-const MainStack = () => {
+const MainStack = ({ navigation }) => {
   const [isFontReady, setIsFontReady] = useState(false);
 
   const theme = useContext(ThemeContext);
@@ -79,6 +69,9 @@ const MainStack = () => {
             fontFamily: "BM_HANNA_PRO",
           },
           headerTitleAlign: "left",
+          headerRight: () => (
+            <Button title="info" onPress={() => alert("info!")} />
+          ),
         }}
       />
       <Stack.Screen
